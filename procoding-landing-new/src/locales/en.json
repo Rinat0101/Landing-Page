@@ -1,0 +1,18 @@
+{
+    "navbar": {
+      "home": "Home",
+      "about": "About",
+      "instructors": "Instructors",
+      "guarantee": "Guarantee",
+      "program": "Program",
+      "jobs": "Jobs",
+      "reviews": "Reviews",
+      "plans": "Plans",
+      "telegram": "Telegram",
+      "switchLanguage": "Switch language"
+    },
+    "hero": {
+      "title": "Become a Developer",
+      "subtitle": "Join our bootcamp"
+    }
+  }
