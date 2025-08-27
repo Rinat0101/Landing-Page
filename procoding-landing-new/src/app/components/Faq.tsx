@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 const faqData = [
   { question: "Do I need programming experience to start learning?" },
@@ -14,18 +15,28 @@ const faqData = [
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const toggleIndex = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="w-full flex justify-center py-16 px-4">
+    <section
+      className={`w-full flex justify-center py-16 px-4 transition-colors duration-300 ${
+        isDark ? "bg-black text-white" : "bg-white text-black"
+      }`}
+    >
       <div className="w-full max-w-3xl">
-        <h2 className="text-center text-white text-3xl md:text-4xl font-bold mb-4">
+        <h2 className="text-center text-3xl md:text-4xl font-bold mb-4">
           Frequently Asked Questions
         </h2>
-        <p className="text-center text-white/80 max-w-2xl mx-auto mb-10 text-sm md:text-base">
+        <p
+          className={`text-center max-w-2xl mx-auto mb-10 text-sm md:text-base ${
+            isDark ? "text-white/80" : "text-black/70"
+          }`}
+        >
           We’ve gathered answers to the most common questions our students ask
           before starting. If you can’t find the info you need — just message
           us, we’re here to help.
@@ -38,7 +49,11 @@ export default function FAQSection() {
             return (
               <div
                 key={i}
-                className="bg-[#0f0f0f] rounded-2xl overflow-hidden transition-all"
+                className={`rounded-2xl overflow-hidden transition-all duration-300 ${
+                  isDark
+                    ? "bg-[#0f0f0f]"
+                    : "bg-[#f3f2ff] border border-black/10"
+                }`}
               >
                 <button
                   onClick={() => toggleIndex(i)}
@@ -50,14 +65,13 @@ export default function FAQSection() {
                       alt="?"
                       width={30}
                       height={30}
-                      className={isOpen ? "text-purple-500" : "text-orange-500"}
                       style={{
                         filter: isOpen
                           ? "brightness(1.1) saturate(2) hue-rotate(280deg)"
-                          : "brightness(1.1) saturate(1.2) hue-rotate(0deg)",
+                          : "brightness(1.1) saturate(1.2)",
                       }}
                     />
-                    <h3 className="text-white font-semibold text-base md:text-lg">
+                    <h3 className="font-semibold text-base md:text-lg">
                       {item.question}
                     </h3>
                   </div>
@@ -69,6 +83,11 @@ export default function FAQSection() {
                     className={`transition-transform duration-300 ${
                       isOpen ? "rotate-45" : ""
                     }`}
+                    style={{
+                      filter: isDark
+                        ? "invert(100%)"
+                        : "invert(0%) brightness(0%)",
+                    }}
                   />
                 </button>
 
@@ -79,7 +98,11 @@ export default function FAQSection() {
                       : "max-h-0 opacity-0"
                   }`}
                 >
-                  <p className="text-white/80 text-sm md:text-base leading-relaxed">
+                  <p
+                    className={`text-sm md:text-base leading-relaxed ${
+                      isDark ? "text-white/80" : "text-black/80"
+                    }`}
+                  >
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     non risus. Suspendisse lectus tortor, dignissim sit amet,
                     adipiscing nec, ultricies sed, dolor. Cras elementum

@@ -1,16 +1,25 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useState } from 'react';
+import Image from "next/image";
+import { useState } from "react";
+import { useTheme } from "next-themes";
 
 export default function ContactForm() {
-  const [preferredMethod, setPreferredMethod] = useState<'telegram' | 'email'>('email');
+  const [preferredMethod, setPreferredMethod] = useState<"telegram" | "email">("email");
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
-    <section className="relative py-20 px-4 flex justify-center bg-transparent">
-      <div className="relative w-full max-w-3xl bg-black border border-black rounded-3xl px-8 py-10">
-        {/* Dragon positioned absolutely */}
-        <div className="absolute -right-20 bottom-0 hidden md:block">
+    <section className="relative py-20 px-4 flex justify-center transition-colors duration-300">
+      <div
+        className={`relative w-full max-w-3xl rounded-3xl px-8 py-10 border transition-colors duration-300 ${
+          isDark
+            ? "bg-black border-white/10 text-white"
+            : "bg-white border-black/10 text-black"
+        }`}
+      >
+        {/* Dragon */}
+        <div className="absolute -right-20 bottom-0 hidden lg:block">
           <Image
             src="/images/dragon_pointing.svg"
             alt="ProCoding Dragon"
@@ -20,35 +29,42 @@ export default function ContactForm() {
           />
         </div>
 
-        {/* Form content */}
-        <h2 className="text-white text-3xl md:text-4xl font-bold mb-4 leading-tight">
+        {/* Header */}
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
           Contact Us
         </h2>
-        <p className="text-white/80 mb-8">
+        <p className={`${isDark ? "text-white/80" : "text-black/70"} mb-8`}>
           Fill out the form and we’ll reach out to help with questions, choosing a course,
           and explaining how the program works.
         </p>
 
+        {/* Form */}
         <form className="space-y-5">
           {/* Name */}
           <input
             type="text"
             placeholder="Name"
-            className="w-full bg-[#0f0f0f] border border-white/20 text-white px-4 py-3 rounded-xl placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className={`w-full px-4 py-3 rounded-xl placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors duration-300 ${
+              isDark
+                ? "bg-[#0f0f0f] border border-white/20 text-white placeholder-white/50"
+                : "bg-[#f3f2ff] border border-black/10 text-black placeholder-black/40"
+            }`}
           />
 
           {/* Contact Method */}
           <div>
-            <p className="text-white mb-2">Preferred contact method</p>
+            <p className="mb-2 text-sm font-medium">Preferred contact method</p>
             <div className="flex gap-4">
               {/* Telegram Button */}
               <button
                 type="button"
-                onClick={() => setPreferredMethod('telegram')}
+                onClick={() => setPreferredMethod("telegram")}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full border transition ${
-                  preferredMethod === 'telegram'
-                    ? 'bg-white text-black'
-                    : 'bg-[#0f0f0f] border-white/20 text-white'
+                  preferredMethod === "telegram"
+                    ? "bg-[#5A189A] text-white border-transparent"
+                    : isDark
+                    ? "bg-[#0f0f0f] text-white border-white/20"
+                    : "bg-[#f3f2ff] text-black border-black/10"
                 }`}
               >
                 <Image
@@ -57,7 +73,12 @@ export default function ContactForm() {
                   width={20}
                   height={20}
                   style={{
-                    filter: preferredMethod === 'telegram' ? 'invert(1)' : 'invert(0)',
+                    filter:
+                      preferredMethod === "telegram"
+                        ? "invert(0)"
+                        : isDark
+                        ? "invert(0)"
+                        : "invert(1)",
                   }}
                 />
                 Telegram
@@ -66,11 +87,13 @@ export default function ContactForm() {
               {/* Email Button */}
               <button
                 type="button"
-                onClick={() => setPreferredMethod('email')}
+                onClick={() => setPreferredMethod("email")}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full border transition ${
-                  preferredMethod === 'email'
-                    ? 'bg-white text-black'
-                    : 'bg-[#0f0f0f] border-white/20 text-white'
+                  preferredMethod === "email"
+                    ? "bg-[#5A189A] text-white border-transparent"
+                    : isDark
+                    ? "bg-[#0f0f0f] text-white border-black/20"
+                    : "bg-[#f3f2ff] text-black border-white/10"
                 }`}
               >
                 <Image
@@ -79,7 +102,12 @@ export default function ContactForm() {
                   width={20}
                   height={20}
                   style={{
-                    filter: preferredMethod === 'email' ? 'invert(0)' : 'invert(1)',
+                    filter:
+                      preferredMethod === "email"
+                        ? "invert(0)"
+                        : isDark
+                        ? "invert(0)"
+                        : "invert(1)",
                   }}
                 />
                 Email
@@ -89,16 +117,24 @@ export default function ContactForm() {
 
           {/* Dynamic Contact Field */}
           <input
-            type={preferredMethod === 'email' ? 'email' : 'text'}
-            placeholder={preferredMethod === 'email' ? 'Email' : 'Telegram username'}
-            className="w-full bg-[#0f0f0f] border border-white/20 text-white px-4 py-3 rounded-xl placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            type={preferredMethod === "email" ? "email" : "text"}
+            placeholder={preferredMethod === "email" ? "Email" : "Telegram username"}
+            className={`w-full px-4 py-3 rounded-xl placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors duration-300 ${
+              isDark
+                ? "bg-[#0f0f0f] border border-white/20 text-white placeholder-white/50"
+                : "bg-[#f3f2ff] border border-black/10 text-black placeholder-black/40"
+            }`}
           />
 
           {/* Question Field */}
           <textarea
             placeholder="Your question"
-            className="w-full bg-[#0f0f0f] border border-white/20 text-white px-4 py-3 rounded-xl placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
             rows={4}
+            className={`w-full px-4 py-3 rounded-xl placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors duration-300 ${
+              isDark
+                ? "bg-[#0f0f0f] border border-white/20 text-white placeholder-white/50"
+                : "bg-[#f3f2ff] border border-black/10 text-black placeholder-black/40"
+            }`}
           />
 
           {/* Submit */}

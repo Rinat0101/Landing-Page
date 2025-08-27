@@ -1,14 +1,27 @@
-import Image from "next/image";
-import AboutCard from "./AboutCard";
+'use client';
+
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
+import AboutCard from './AboutCard';
+import SectionTitle from '../components/shared/SectionTitle';
 
 export default function AboutSection() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
+
   return (
-    <section className="bg-black py-20 px-6">
+    <section
+      className={`py-20 px-6 transition-colors duration-300 ${
+        isLight ? 'bg-white' : 'bg-black'
+      }`}
+    >
       <div className="max-w-screen-xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">About Our School</h2>
-        <p className="text-white/70 max-w-2xl mx-auto">
-          Education that works. We don’t just give you knowledge — we help you build a career. The whole program is built around real-world tasks and market demands. You learn by doing, not just listening.
-        </p>
+        {/* Section Title */}
+        <SectionTitle
+          title="About Our School"
+          subtitle="Education that works. We don’t just give you knowledge — we help you build a career. The whole program is built around real-world tasks and market demands. You learn by doing, not just listening."
+          className={isLight ? 'text-black' : 'text-white'}
+        />
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
@@ -26,15 +39,13 @@ export default function AboutSection() {
             icon="about_people.svg"
             title="Student Support"
             description="Mentors and teachers help solve problems and keep you motivated."
-            dark
           />
           <AboutCard
             icon="about_bulb.svg"
             title="Cognitive Learning"
             description="Instructors explain not just the 'how' but also the 'why' for deeper understanding."
-            dark
           />
-          {/* Image card */}
+          {/* Image Card */}
           <div className="rounded-2xl overflow-hidden h-full w-full">
             <Image
               src="/images/about_view.svg"

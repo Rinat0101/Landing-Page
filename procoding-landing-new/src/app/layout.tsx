@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import { ThemeProvider } from 'next-themes';
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -19,12 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${openSans.variable} antialiased bg-black text-white font-sans`}
+        className={`${openSans.variable} antialiased transition-colors duration-300 font-sans bg-white text-black dark:bg-black dark:text-white`}
       >
-        <Navbar />
-        <main className="pt-16">{children}</main>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
+          <main className="pt-16">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );
