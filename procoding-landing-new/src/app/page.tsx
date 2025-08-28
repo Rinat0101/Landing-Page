@@ -1,6 +1,7 @@
 'use client';
 
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import Hero from './components/Hero';
 import Guarantee from './components/Guarantee';
 import About from './components/About';
@@ -13,8 +14,16 @@ import Footer from './components/Footer';
 import ReadyToWork from './components/ReadyToWork';
 
 export default function Home() {
-  const { theme } = useTheme();
-  const isLight = theme === 'light';
+  const { resolvedTheme } = useTheme(); // ✅ Use resolvedTheme instead of theme
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true); // ✅ Hydration guard
+  }, []);
+
+  if (!mounted) return null; // ✅ Prevent hydration mismatch on SSR
+
+  const isLight = resolvedTheme === 'light';
 
   return (
     <main className={`${isLight ? 'bg-white' : 'bg-black'} transition-colors duration-300`}>

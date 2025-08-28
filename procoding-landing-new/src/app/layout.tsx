@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import Navbar from "./components/Navbar";
-import { ThemeProvider } from 'next-themes';
+import InitTheme from "./components/InitTheme";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({
         className={`${openSans.variable} antialiased transition-colors duration-300 font-sans bg-white text-black dark:bg-black dark:text-white`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <InitTheme />
           <Navbar />
           <main className="pt-16">{children}</main>
         </ThemeProvider>

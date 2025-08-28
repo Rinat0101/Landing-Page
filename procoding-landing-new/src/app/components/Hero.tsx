@@ -4,10 +4,19 @@ import Image from "next/image";
 import SectionTitle from "../components/shared/SectionTitle";
 import Button from "../components/shared/Button";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
-  const { theme } = useTheme();
-  const isLight = theme === "light";
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null; // Prevent hydration mismatch
+
+  const isLight = resolvedTheme === "light";
 
   return (
     <section

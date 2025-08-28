@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
@@ -19,19 +19,20 @@ const desktopNavItems = [
 const mobileNavItems = [
   { label: "Home", href: "#home", icon: "/images/home_icon.svg" },
   { label: "About", href: "#about", icon: "/images/about_cup_icon.svg" },
-  {
-    label: "Instructors",
-    href: "#instructors",
-    icon: "/images/about_people.svg",
-  },
+  { label: "Instructors", href: "#instructors", icon: "/images/about_people.svg" },
   { label: "Program", href: "#program", icon: "/images/programm_icon.svg" },
   { label: "Pricing", href: "#plans", icon: "/images/pricing_bag_icon.svg" },
   { label: "Contact Us", href: "#contact", icon: "/images/contact_icon.svg" },
 ];
 
 export default function Navbar() {
-  const { theme, setTheme } = useTheme();
-  const isDark = theme === "dark";
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Hydration guard
+  useEffect(() => setMounted(true), []);
+
+  const isDark = resolvedTheme === "dark";
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -56,8 +57,7 @@ export default function Navbar() {
       [...desktopNavItems, ...mobileNavItems].forEach(({ href }) => {
         const section = document.querySelector(href);
         if (section) {
-          const offsetTop =
-            section.getBoundingClientRect().top + window.scrollY;
+          const offsetTop = section.getBoundingClientRect().top + window.scrollY;
           if (scrollY >= offsetTop - 100) {
             current = href;
           }
@@ -77,6 +77,9 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Don’t render until client hydration is done
+  if (!mounted) return null;
 
   const themeIcon = isDark
     ? "/images/theme_btn_dark.svg"
@@ -103,9 +106,7 @@ export default function Navbar() {
             priority
           />
           <span
-            className={`font-bold text-lg ${
-              isDark ? "text-white" : "text-black"
-            }`}
+            className={`font-bold text-lg ${isDark ? "text-white" : "text-black"}`}
           >
             ProCoding
           </span>
@@ -240,7 +241,6 @@ export default function Navbar() {
             ))}
 
             {/* Telegram mobile */}
-            {/* Telegram button (mobile) */}
             <a
               href="https://t.me/procoding"
               target="_blank"
@@ -260,7 +260,6 @@ export default function Navbar() {
         </>
       )}
 
-      {/* Global smooth scroll */}
       <style jsx global>{`
         html {
           scroll-behavior: smooth;
