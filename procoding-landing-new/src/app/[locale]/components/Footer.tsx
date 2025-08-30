@@ -2,20 +2,14 @@
 
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import { useTranslation } from "@/lib/TranslationContext";
 
 export default function Footer() {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const isDark = theme === "dark";
 
   const iconClass = `w-5 h-5 transition duration-300 ${isDark ? "" : "invert"}`;
-  const socialIconBox = `
-    w-10 h-10
-    bg-white
-    rounded-xl
-    flex items-center justify-center
-    transition hover:scale-105
-    shadow-sm
-  `;
 
   return (
     <footer
@@ -26,68 +20,70 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col gap-10 md:grid md:grid-cols-3 lg:grid-cols-5">
         {/* Logo & Social */}
         <div>
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Image
-                src="/images/logo.svg"
-                alt="ProCoding logo"
-                width={24}
-                height={24}
-                priority
-              />
-              <span className="font-semibold text-lg">ProCoding</span>
-            </div>
-            <p
-              className={`mb-4 text-sm ${
-                isDark ? "text-white/80" : "text-black/70"
-              }`}
-            >
-              Our social media
-            </p>
-            <div className="flex gap-3">
-              {[
-                { src: "/images/fb_icon.svg", alt: "Facebook" },
-                { src: "/images/twitter_icon.svg", alt: "Twitter" },
-                { src: "/images/linkedin_icon.svg", alt: "LinkedIn" },
-                { src: "/images/instagram_icon.svg", alt: "Instagram" },
-              ].map(({ src, alt }) => (
-                <a
-                  key={alt}
-                  href="#"
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center transition hover:scale-105 shadow-sm ${
-                    isDark ? "bg-[#0A0A0A]" : "bg-white"
-                  }`}
-                >
-                  <Image src={src} alt={alt} width={16} height={16} />
-                </a>
-              ))}
-            </div>
+          <div className="flex items-center gap-2 mb-4">
+            <Image
+              src="/images/logo.svg"
+              alt="ProCoding logo"
+              width={24}
+              height={24}
+              priority
+            />
+            <span className="font-semibold text-lg">ProCoding</span>
+          </div>
+          <p
+            className={`mb-4 text-sm ${
+              isDark ? "text-white/80" : "text-black/70"
+            }`}
+          >
+            {t("footer.social")}
+          </p>
+          <div className="flex gap-3">
+            {[
+              { src: "/images/fb_icon.svg", alt: "Facebook" },
+              { src: "/images/twitter_icon.svg", alt: "Twitter" },
+              { src: "/images/linkedin_icon.svg", alt: "LinkedIn" },
+              { src: "/images/instagram_icon.svg", alt: "Instagram" },
+            ].map(({ src, alt }) => (
+              <a
+                key={alt}
+                href="#"
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition hover:scale-105 shadow-sm ${
+                  isDark ? "bg-[#0A0A0A]" : "bg-white"
+                }`}
+              >
+                <Image src={src} alt={alt} width={16} height={16} />
+              </a>
+            ))}
           </div>
         </div>
 
         {/* Documents */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">Documents</h3>
+          <h3 className="font-semibold mb-2 text-base">
+            {t("footer.documents.title")}
+          </h3>
           <ul
             className={`space-y-1 text-sm ${
               isDark ? "text-white/70" : "text-black/70"
             }`}
           >
             <li>
-              <a href="#">User Agreement</a>
+              <a href="#">{t("footer.documents.userAgreement")}</a>
             </li>
             <li>
-              <a href="#">Privacy Policy</a>
+              <a href="#">{t("footer.documents.privacyPolicy")}</a>
             </li>
             <li>
-              <a href="#">Cookies Policy</a>
+              <a href="#">{t("footer.documents.cookiesPolicy")}</a>
             </li>
           </ul>
         </div>
 
         {/* Address */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">Our Address</h3>
+          <h3 className="font-semibold mb-2 text-base">
+            {t("footer.address.title")}
+          </h3>
           <div
             className={`flex items-start gap-2 text-sm ${
               isDark ? "text-white/70" : "text-black/70"
@@ -110,7 +106,9 @@ export default function Footer() {
 
         {/* Contact */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">Contact</h3>
+          <h3 className="font-semibold mb-2 text-base">
+            {t("footer.contact.title")}
+          </h3>
           <div
             className={`flex items-center gap-2 text-sm mb-2 ${
               isDark ? "text-white/70" : "text-black/70"
@@ -143,10 +141,12 @@ export default function Footer() {
 
         {/* Newsletter */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">Newsletter</h3>
+          <h3 className="font-semibold mb-2 text-base">
+            {t("footer.newsletter.title")}
+          </h3>
           <input
             type="email"
-            placeholder="Your email"
+            placeholder={t("footer.newsletter.emailPlaceholder")}
             className={`w-full px-4 py-2 rounded-xl text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-purple-500 transition ${
               isDark
                 ? "bg-[#0a0a0a] text-white/70 border border-white/20 placeholder-white/50"
@@ -157,7 +157,7 @@ export default function Footer() {
             type="submit"
             className="w-full bg-[#a855f7] hover:bg-[#9333ea] text-white font-semibold py-2 rounded-full transition duration-200 text-sm"
           >
-            Submit Request
+            {t("footer.newsletter.submit")}
           </button>
         </div>
       </div>
@@ -168,7 +168,7 @@ export default function Footer() {
           isDark ? "text-white/50" : "text-black/50"
         }`}
       >
-        © Coost 2025 | All rights reserved
+        {t("footer.copyright")}
       </div>
     </footer>
   );

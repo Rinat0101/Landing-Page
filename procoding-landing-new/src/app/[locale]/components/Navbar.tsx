@@ -1,45 +1,47 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import { useTranslation } from "@/lib/TranslationContext";
+import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 
 const desktopNavItems = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Instructors", href: "#instructors" },
-  { label: "Guarantees", href: "#guarantee" },
-  { label: "Program", href: "#program" },
-  { label: "Jobs", href: "#jobs" },
-  { label: "Pricing", href: "#plans" },
-  { label: "Faq", href: "#reviews" },
-  { label: "Contact Us", href: "#contact" },
+  { key: "nav.home", href: "#home" },
+  { key: "nav.about", href: "#about" },
+  { key: "nav.instructors", href: "#instructors" },
+  { key: "nav.guarantees", href: "#guarantee" },
+  { key: "nav.program", href: "#program" },
+  { key: "nav.jobs", href: "#jobs" },
+  { key: "nav.pricing", href: "#plans" },
+  { key: "nav.faq", href: "#reviews" },
+  { key: "nav.contact", href: "#contact" },
 ];
 
 const mobileNavItems = [
-  { label: "Home", href: "#home", icon: "/images/home_icon.svg" },
-  { label: "About", href: "#about", icon: "/images/about_cup_icon.svg" },
-  { label: "Instructors", href: "#instructors", icon: "/images/about_people.svg" },
-  { label: "Program", href: "#program", icon: "/images/programm_icon.svg" },
-  { label: "Pricing", href: "#plans", icon: "/images/pricing_bag_icon.svg" },
-  { label: "Contact Us", href: "#contact", icon: "/images/contact_icon.svg" },
+  { key: "nav.home", href: "#home", icon: "/images/home_icon.svg" },
+  { key: "nav.about", href: "#about", icon: "/images/about_cup_icon.svg" },
+  {
+    key: "nav.instructors",
+    href: "#instructors",
+    icon: "/images/about_people.svg",
+  },
+  { key: "nav.program", href: "#program", icon: "/images/programm_icon.svg" },
+  { key: "nav.pricing", href: "#plans", icon: "/images/pricing_bag_icon.svg" },
+  { key: "nav.contact", href: "#contact", icon: "/images/contact_icon.svg" },
 ];
 
 export default function Navbar() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
-  // Hydration guard
-  useEffect(() => setMounted(true), []);
-
-  const isDark = resolvedTheme === "dark";
-
   const [menuOpen, setMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+  const { t, locale } = useTranslation();
 
-  // Animate mobile menu
+  useEffect(() => setMounted(true), []);
+
   useEffect(() => {
     if (menuOpen) {
       setIsVisible(true);
@@ -49,7 +51,6 @@ export default function Navbar() {
     }
   }, [menuOpen]);
 
-  // Scrollspy
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -57,7 +58,8 @@ export default function Navbar() {
       [...desktopNavItems, ...mobileNavItems].forEach(({ href }) => {
         const section = document.querySelector(href);
         if (section) {
-          const offsetTop = section.getBoundingClientRect().top + window.scrollY;
+          const offsetTop =
+            section.getBoundingClientRect().top + window.scrollY;
           if (scrollY >= offsetTop - 100) {
             current = href;
           }
@@ -71,19 +73,24 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Change background on scroll
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Don’t render until client hydration is done
   if (!mounted) return null;
 
+  const isDark = resolvedTheme === "dark";
   const themeIcon = isDark
     ? "/images/theme_btn_dark.svg"
     : "/images/theme_btn_light.svg";
+
+  const handleLanguageChange = (newLocale: string) => {
+    const currentPath = window.location.pathname;
+    const newPath = currentPath.replace(`/${locale}`, `/${newLocale}`);
+    window.location.assign(newPath);
+  };
 
   return (
     <header
@@ -106,15 +113,17 @@ export default function Navbar() {
             priority
           />
           <span
-            className={`font-bold text-lg ${isDark ? "text-white" : "text-black"}`}
+            className={`font-bold text-lg ${
+              isDark ? "text-white" : "text-black"
+            }`}
           >
             ProCoding
           </span>
         </a>
 
         {/* Desktop nav */}
-        <ul className="hidden lg:flex gap-6 text-base font-medium">
-          {desktopNavItems.map(({ label, href }) => (
+        <ul className="hidden custom-md:flex gap-6 text-sm font-medium">
+          {desktopNavItems.map(({ key, href }) => (
             <li key={href}>
               <a
                 href={href}
@@ -126,41 +135,51 @@ export default function Navbar() {
                     : "text-black hover:text-[#D726B3]"
                 }`}
               >
-                {label}
+                {t(key)}
               </a>
             </li>
           ))}
         </ul>
 
-        {/* Right actions */}
+        {/* Right actions (Theme + Lang + Telegram) */}
         <div className="flex items-center gap-4 z-50">
           {/* Theme toggle */}
           <button
             onClick={() => setTheme(isDark ? "light" : "dark")}
             aria-label="Toggle theme"
-            className="p-2"
           >
-            <Image src={themeIcon} alt="Theme Toggle" width={50} height={50} />
+            <Image src={themeIcon} alt="Theme Toggle" width={70} height={60} />
           </button>
 
-          {/* Desktop Telegram */}
-          <a
-            href="https://t.me/procoding"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden lg:flex bg-[#a855f7] text-white px-4 py-2 rounded-full text-sm font-medium hover:opacity-90 transition items-center gap-2"
-          >
-            <Image
-              src="/images/telegram_white.svg"
-              alt="Telegram"
-              width={20}
-              height={20}
-            />
-            Telegram
-          </a>
+          {/* Language & Telegram (Only on custom-md+) */}
+          <div className="hidden custom-md:flex items-center gap-4 z-50 h-12">
+            <div className="h-12 flex items-center">
+              <LanguageSwitcher
+                locale={locale}
+                handleLanguageChange={handleLanguageChange}
+                isDark={isDark}
+              />
+            </div>
 
-          {/* Mobile menu button */}
-          <button onClick={() => setMenuOpen(true)} className="lg:hidden">
+            <a
+              href="https://t.me/procoding"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-10 px-4 rounded-full bg-[#a855f7] text-white text-sm font-medium hover:opacity-90 transition items-center gap-2 flex"
+            >
+              <Image
+                src="/images/telegram_white.svg"
+                alt="Telegram"
+                width={20}
+                height={20}
+                className="w-5 h-5"
+              />
+              Telegram
+            </a>
+          </div>
+
+          {/* Mobile menu toggle */}
+          <button onClick={() => setMenuOpen(true)} className="custom-md:hidden">
             <Image
               src="/images/menu_icon.svg"
               alt="Menu"
@@ -187,7 +206,6 @@ export default function Navbar() {
               menuOpen ? "translate-x-0" : "translate-x-full"
             } ${isDark ? "bg-black text-white" : "bg-white text-black"}`}
           >
-            {/* Close button */}
             <button
               onClick={() => setMenuOpen(false)}
               className="absolute top-6 right-6"
@@ -205,8 +223,7 @@ export default function Navbar() {
               />
             </button>
 
-            {/* Mobile nav links */}
-            {mobileNavItems.map(({ label, href, icon }) => (
+            {mobileNavItems.map(({ key, href, icon }) => (
               <a
                 key={href}
                 href={href}
@@ -221,26 +238,25 @@ export default function Navbar() {
               >
                 <Image
                   src={icon}
-                  alt={`${label} icon`}
+                  alt={`${key} icon`}
                   width={24}
                   height={24}
-                  style={
-                    icon.includes("home_icon")
-                      ? {
-                          filter: isDark ? "invert(1)" : "invert(0)",
-                          transition: "filter 0.3s ease",
-                        }
-                      : {
-                          filter: isDark ? "invert(0)" : "invert(1)",
-                          transition: "filter 0.3s ease",
-                        }
-                  }
+                  style={{
+                    filter: icon.includes("home_icon")
+                      ? isDark
+                        ? "invert(1)"
+                        : "invert(0)"
+                      : isDark
+                      ? "invert(0)"
+                      : "invert(1)",
+                    transition: "filter 0.3s ease",
+                  }}
                 />
-                {label}
+                {t(key)}
               </a>
             ))}
 
-            {/* Telegram mobile */}
+            {/* Telegram button */}
             <a
               href="https://t.me/procoding"
               target="_blank"
@@ -256,15 +272,18 @@ export default function Navbar() {
               />
               Telegram
             </a>
+
+            {/* LanguageSwitcher under Telegram */}
+            <div className="mt-6">
+              <LanguageSwitcher
+                locale={locale}
+                handleLanguageChange={handleLanguageChange}
+                isDark={isDark}
+              />
+            </div>
           </div>
         </>
       )}
-
-      <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
-      `}</style>
     </header>
   );
 }

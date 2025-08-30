@@ -3,20 +3,40 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { useTranslation } from "@/lib/TranslationContext";
 
 const faqData = [
-  { question: "Do I need programming experience to start learning?" },
-  { question: "How much time should I dedicate weekly?" },
-  { question: "What technologies will I learn?" },
-  { question: "What happens at the end of the course?" },
-  { question: "Do you help with job placement?" },
-  { question: "Is there a money-back guarantee?" },
+  {
+    questionKey: "faq.q1",
+    answerKey: "faq.a1",
+  },
+  {
+    questionKey: "faq.q2",
+    answerKey: "faq.a2",
+  },
+  {
+    questionKey: "faq.q3",
+    answerKey: "faq.a3",
+  },
+  {
+    questionKey: "faq.q4",
+    answerKey: "faq.a4",
+  },
+  {
+    questionKey: "faq.q5",
+    answerKey: "faq.a5",
+  },
+  {
+    questionKey: "faq.q6",
+    answerKey: "faq.a6",
+  },
 ];
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const { t } = useTranslation();
 
   const toggleIndex = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -30,16 +50,14 @@ export default function FAQSection() {
     >
       <div className="w-full max-w-3xl">
         <h2 className="text-center text-3xl md:text-4xl font-bold mb-4">
-          Frequently Asked Questions
+          {t("faq.title")}
         </h2>
         <p
           className={`text-center max-w-2xl mx-auto mb-10 text-sm md:text-base ${
             isDark ? "text-white/80" : "text-black/70"
           }`}
         >
-          We’ve gathered answers to the most common questions our students ask
-          before starting. If you can’t find the info you need — just message
-          us, we’re here to help.
+          {t("faq.subtitle")}
         </p>
 
         <div className="space-y-4">
@@ -72,7 +90,7 @@ export default function FAQSection() {
                       }}
                     />
                     <h3 className="font-semibold text-base md:text-lg">
-                      {item.question}
+                      {t(item.questionKey)}
                     </h3>
                   </div>
                   <Image
@@ -103,10 +121,7 @@ export default function FAQSection() {
                       isDark ? "text-white/80" : "text-black/80"
                     }`}
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    non risus. Suspendisse lectus tortor, dignissim sit amet,
-                    adipiscing nec, ultricies sed, dolor. Cras elementum
-                    ultrices diam.
+                    {t(item.answerKey)}
                   </p>
                 </div>
               </div>

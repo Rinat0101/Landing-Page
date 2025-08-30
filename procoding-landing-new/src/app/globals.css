@@ -52,3 +52,31 @@ body {
 .swiper-pagination-bullet-active {
   background-color: #F28237 !important; 
 }
+
+/* Custom Tailwind-style breakpoint for 1225px */
+@media (min-width: 1245px) {
+  .custom-md\:flex {
+    display: flex !important;
+  }
+
+  .custom-md\:hidden {
+    display: none !important;
+  }
+
+  .custom-md\:block {
+    display: block !important;
+  }
+
+  .custom-md\:inline-block {
+    display: inline-block !important;
+  }
+
+  .custom-md\:px-12 {
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+  }
+
+  .custom-md\:text-base {
+    font-size: 1rem !important;
+  }
+}

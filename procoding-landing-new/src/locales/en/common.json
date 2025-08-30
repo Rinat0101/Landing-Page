@@ -1,0 +1,136 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "instructors": "Instructors",
+    "guarantees": "Guarantees",
+    "program": "Program",
+    "jobs": "Jobs",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "telegram": "Telegram",
+  "hero": {
+    "title1": "IT Bootcamp,",
+    "title2": "Redefined for Success:",
+    "title3": "Land a Tech Job in the USA",
+    "description": "A 6-month intensive for aspiring or junior devs. With structure, real projects, mentorship, and career support — we guide you from zero to job-ready.",
+    "contact": "Contact us",
+    "consultation": "Free Consultation",
+    "projects": "Real-world projects • Resume-ready results"
+  },
+  "steps": {
+    "title": "How the Learning Works",
+    "description": "At ProCoding, everything is clear and practical! Our entire course is written by real developers and educators working in the US — they know what will be in demand tomorrow. Our mentors designed the program to make programming easy for you: week by week, without chaos.",
+    "list": [
+      {
+        "title": "1. Intro Stage",
+        "description": "Getting to know the platform, installing software, and basics."
+      },
+      {
+        "title": "2. Theory",
+        "description": "HTML, CSS, JS, algorithms, Git, core tech."
+      },
+      {
+        "title": "3. Portfolio",
+        "description": "Real projects, teamwork, hands-on tasks."
+      },
+      {
+        "title": "4. Job Prep",
+        "description": "Soft skills, LinkedIn, CV, mock interviews."
+      }
+    ]
+  },
+  "guarantee": {
+    "title": "Learn without risks — we’ll give your money back",
+    "description": "If within the first 14 days you realize the course isn’t for you — we’ll refund the full amount, no questions asked. Your confidence in the choice is our priority."
+  },
+  "readyWork": {
+    "title": "Ready for IT Work After the Course",
+    "description": "By the end of the course, you’ll have a full portfolio, polished resume, and skills employers truly value. Our graduates land Junior Web Developer jobs even before or right after graduation — especially in the U.S. job market.",
+    "steps": [
+      {
+        "title": "Ready Junior Web Dev",
+        "description": "Mentors do a final code review and give improvement advice. You get honest feedback on your progress and readiness for real work."
+      },
+      {
+        "title": "Portfolio",
+        "description": "You’ll build 2–3 projects for your portfolio: responsive websites, web apps, interfaces. The kind of work employers want to see."
+      },
+      {
+        "title": "Resume",
+        "description": "We help you polish your resume, LinkedIn, and GitHub. You get complete profiles to apply for jobs in the U.S. and worldwide."
+      }
+    ]
+  },
+  "instructors": {
+    "title": "Our Team",
+    "description": "Our mentors are experienced developers and experts with backgrounds in top tech companies. They don't just teach — they share real-world experience and help students master in-demand skills.",
+    "kate": "Instructors explain not just the \"how\" but also the \"why\" to foster deeper understanding and critical thinking.",
+    "anastasia": "Instructors explain not just the \"how\" but also the \"why\" to foster deeper understanding and critical thinking.",
+    "konstantin": "Instructors explain not just the \"how\" but also the \"why\" to foster deeper understanding and critical thinking."
+  },
+  "about": {
+    "title": "About Our School",
+    "subtitle": "Education that works. We don’t just give you knowledge — we help you build a career. The whole program is built around real-world tasks and market demands. You learn by doing, not just listening.",
+    "cards": [
+      {
+        "title": "Practical Learning",
+        "description": "Hands-on sessions to build skills and identify knowledge gaps."
+      },
+      {
+        "title": "Constructive Learning",
+        "description": "Individual support and extra resources for ambitious students."
+      },
+      {
+        "title": "Student Support",
+        "description": "Mentors and teachers help solve problems and keep you motivated."
+      },
+      {
+        "title": "Cognitive Learning",
+        "description": "Instructors explain not just the 'how' but also the 'why' for deeper understanding."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "We’ve gathered answers to the most common questions our students ask before starting. If you can’t find the info you need — just message us, we’re here to help.",
+    "q1": "Do I need programming experience to start learning?",
+    "a1": "No! Our course starts from scratch and walks you through every concept step-by-step, even if you're a complete beginner.",
+    "q2": "How much time should I dedicate weekly?",
+    "a2": "Around 10–15 hours per week is ideal. The more time you can invest, the faster your progress.",
+    "q3": "What technologies will I learn?",
+    "a3": "We teach JavaScript, React, Node.js, MongoDB, Git, and more — everything needed to land a modern web developer job.",
+    "q4": "What happens at the end of the course?",
+    "a4": "You'll build a portfolio, get help with your resume and LinkedIn, and be guided through the job search process.",
+    "q5": "Do you help with job placement?",
+    "a5": "Yes — we offer HR support, mock interviews, and a job search strategy tailored to your needs.",
+    "q6": "Is there a money-back guarantee?",
+    "a6": "Yes! If you complete the course but don't feel satisfied or ready, we offer a money-back guarantee."
+  },
+
+  "footer": {
+    "social": "Our social media",
+    "documents": {
+      "title": "Documents",
+      "userAgreement": "User Agreement",
+      "privacyPolicy": "Privacy Policy",
+      "cookiesPolicy": "Cookies Policy"
+    },
+    "address": {
+      "title": "Our Address"
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "Email",
+      "telegram": "Telegram"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "emailPlaceholder": "Your email",
+      "submit": "Submit Request"
+    },
+    "copyright": "© Coost 2025 | All rights reserved"
+  }
+}
