@@ -53,7 +53,7 @@ export default function LanguageSwitcher({
         className={`flex items-center gap-2 px-4 py-1 w-[113px] h-[40px] rounded-full border transition-all ${
           isDark
             ? "bg-[#0A0A0A] border-[#333333] text-white"
-            : "bg-white border-[#333333] text-black"
+            : "bg-white/40 border-[#767676] text-black"
         }`}
       >
         <div className="w-5 h-5 relative">

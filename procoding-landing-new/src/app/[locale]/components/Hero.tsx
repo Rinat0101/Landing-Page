@@ -63,7 +63,7 @@ export default function Hero() {
             variant="outline"
             size="md"
             href="#consultation"
-            className={`w-4/5 sm:w-4/5 lg:w-auto mx-auto sm:mx-0 border-2 ${
+            className={`w-4/5 sm:w-4/5 lg:w-auto mx-auto sm:mx-0 border-1 ${
               isLight
                 ? "border-black text-black hover:bg-black hover:text-white"
                 : "border-white text-white hover:bg-white hover:text-black"

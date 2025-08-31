@@ -14,21 +14,17 @@ export default function AboutCard({ icon, title, description, dark = false }: Ab
   const { theme } = useTheme();
   const isLight = theme === "light";
 
-  // Background color logic
-  const bgColor = isLight
-    ? dark
-      ? "bg-[#F3E8FF]" // lighter purple for dark-type cards
-      : "bg-[#F9F4FF]" // soft background for normal cards
-    : dark
-    ? "bg-[#1A001E]"
-    : "bg-[#0C0C0C]";
+  const bgClass = isLight
+  ? "bg-gradient-to-br from-[#fff8f0] via-[#f9f0ff] to-[#f3e8ff]"
+  : dark
+  ? "bg-[#1A001E]"
+  : "bg-[#0C0C0C]";
 
-  // Text color logic
   const headingColor = isLight ? "text-[#1A1A1A]" : "text-white";
   const descColor = isLight ? "text-[#555]" : "text-white/80";
 
   return (
-    <div className={`rounded-2xl p-6 ${bgColor} flex flex-col gap-4 transition-colors duration-300`}>
+    <div className={`rounded-2xl p-6 ${bgClass} flex flex-col gap-4 transition-colors duration-300`}>
       <Image
         src={`/images/${icon}`}
         alt={title}

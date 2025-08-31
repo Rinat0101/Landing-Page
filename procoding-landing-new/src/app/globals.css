@@ -80,3 +80,20 @@ body {
     font-size: 1rem !important;
   }
 }
+
+@keyframes animated-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-border {
+  background-size: 200% 200%;
+  animation: animated-border 4s linear infinite;
+}

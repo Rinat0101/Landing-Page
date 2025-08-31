@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { TranslationProvider } from '@/lib/TranslationContext';
 import InitTheme from '../components/InitTheme';
 import Navbar from './components/Navbar';
+import ScrollToTopButton from "../components/ScrollToTopButton";
 
 export default function Providers({
   children,
@@ -27,6 +28,7 @@ export default function Providers({
       <TranslationProvider dictionary={dictionary} locale={locale}>
         <Navbar />
         <main className="pt-16">{children}</main>
+        <ScrollToTopButton />
       </TranslationProvider>
     </ThemeProvider>
   );
