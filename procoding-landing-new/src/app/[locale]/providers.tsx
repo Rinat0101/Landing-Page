@@ -1,26 +1,20 @@
-'use client';
-
-import { ThemeProvider } from 'next-themes';
-import { useEffect, useState } from 'react';
-import { TranslationProvider } from '@/lib/TranslationContext';
-import InitTheme from '../components/InitTheme';
-import Navbar from './components/Navbar';
+// app/[locale]/providers.tsx (remove "use client")
+import { ReactNode } from "react";
+import { getDictionary } from "@/lib/i118n";
+import { TranslationProvider } from "@/lib/TranslationContext";
+import { ThemeProvider } from "next-themes";
+import InitTheme from "../components/InitTheme";
+import Navbar from "./components/Navbar";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 
-export default function Providers({
+export default async function Providers({
   children,
-  dictionary,
   locale,
 }: {
-  children: React.ReactNode;
-  dictionary: Record<string, any>;
-  locale: string;
+  children: ReactNode;
+  locale: "en" | "ru";
 }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted) return null;
+  const dictionary = await getDictionary(locale);
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -28,7 +22,6 @@ export default function Providers({
       <TranslationProvider dictionary={dictionary} locale={locale}>
         <Navbar />
         <main className="pt-16">{children}</main>
-     
       </TranslationProvider>
     </ThemeProvider>
   );
