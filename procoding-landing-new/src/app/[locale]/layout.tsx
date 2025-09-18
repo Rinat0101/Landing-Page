@@ -14,13 +14,14 @@ export const metadata: Metadata = {
   description: "The official ProCoding bootcamp landing page",
 };
 
-export default function LocaleLayout({
-  children,
-  params,
-}: {
+type LocaleLayoutProps = {
   children: React.ReactNode;
-  params: { locale: "en" | "ru" };
-}) {
+  params: {
+    locale: "en" | "ru"; // ✅ Add more if you support more locales
+  };
+};
+
+export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
   return (
     <html lang={params.locale} suppressHydrationWarning>
       <body
