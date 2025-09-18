@@ -3,7 +3,7 @@
 import React, { createContext, useContext } from 'react';
 
 type TranslationContextType = {
-  dictionary: Record<string, string>;
+  dictionary: Record<string, unknown>;
   locale: string;
 };
 
@@ -15,7 +15,7 @@ export const TranslationProvider = ({
   locale,
 }: {
   children: React.ReactNode;
-  dictionary: Record<string, string>;
+  dictionary: Record<string, unknown>;
   locale: string;
 }) => {
   return (
@@ -26,26 +26,29 @@ export const TranslationProvider = ({
 };
 
 export const useTranslation = () => {
-    const context = useContext(TranslationContext);
-  
-    if (!context) {
-      throw new Error("useTranslation must be used within a TranslationProvider");
-    }
-  
-    const t = (key: string): string => {
-      const keys = key.split(".");
-      let result: any = context.dictionary;
-  
-      for (const k of keys) {
-        result = result?.[k];
-        if (result === undefined) return key; // fallback if not found
+  const context = useContext(TranslationContext);
+
+  if (!context) {
+    throw new Error("useTranslation must be used within a TranslationProvider");
+  }
+
+  const t = (key: string): string => {
+    const keys = key.split(".");
+    let result: unknown = context.dictionary;
+
+    for (const k of keys) {
+      if (typeof result === "object" && result !== null && k in result) {
+        result = (result as Record<string, unknown>)[k];
+      } else {
+        return key; // fallback if not found
       }
-  
-      return typeof result === "string" ? result : key;
-    };
-  
-    return {
-      t,
-      locale: context.locale,
-    };
+    }
+
+    return typeof result === "string" ? result : key;
   };
+
+  return {
+    t,
+    locale: context.locale,
+  };
+};
