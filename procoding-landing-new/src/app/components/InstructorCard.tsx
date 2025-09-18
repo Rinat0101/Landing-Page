@@ -21,14 +21,14 @@ export default function InstructorCard({
 
   return (
     <div
-      className={`relative rounded-2xl transition-all duration-300 shadow-lg ${
+      className={`relative rounded-2xl transition-all duration-300 shadow-lg h-full ${
         isLight
           ? "p-[2px] bg-gradient-to-br from-[#F28237] via-[#F4EBFF] to-[#D726B3] shadow-[#F28237]/30 animated-gradient-border"
           : "p-[2px] bg-gradient-to-br from-[#F28237] via-[#111111] to-[#D726B3] animated-gradient-border"
       }`}
     >
       <div
-        className={`rounded-[14px] p-6 flex flex-col items-center text-center ${
+        className={`rounded-[14px] p-6 flex flex-col items-center text-center h-full ${
           isLight ? "bg-white text-black" : "bg-[#111111] text-white"
         }`}
       >
@@ -50,15 +50,17 @@ export default function InstructorCard({
         >
           {description}
         </p>
-        <button
-          className={`rounded-full px-4 py-2 text-sm transition border font-semibold ${
-            isLight
-              ? "border-[#D726B3] text-[#D726B3] hover:bg-[#D726B3] hover:text-white"
-              : "border-white text-white hover:bg-white hover:text-black"
-          }`}
-        >
-          Join
-        </button>
+        <div className="mt-auto">
+          <button
+            className={`rounded-full px-4 py-2 text-sm transition border font-semibold ${
+              isLight
+                ? "border-[#D726B3] text-[#D726B3] hover:bg-[#D726B3] hover:text-white"
+                : "border-white text-white hover:bg-white hover:text-black"
+            }`}
+          >
+            Join
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 {
   "nav": {
-    "home": "Home",
+    "apply": "Apply",
     "about": "About",
+    "curriculum": "Curriculum",
     "instructors": "Instructors",
     "guarantees": "Guarantees",
     "program": "Program",
@@ -10,12 +11,27 @@
     "faq": "FAQ",
     "contact": "Contact"
   },
+  "perfectFor": {
+    "heading": "Who is Our Bootcamp for",
+    "beginners": {
+      "title": "Complete beginners",
+      "description": "Never touched code in your life? No worries! We’re here to help you succeed, even if you have zero experience or understanding of how programming works."
+    },
+    "careerChangers": {
+      "title": "Career changers",
+      "description": "Always wanted to try yourself in tech but never had the chance? This is the perfect opportunity to land your dream job with guidance from industry experts."
+    },
+    "graduates": {
+      "title": "Recent graduates",
+      "description": "Feel like your degree only gave you the basics? We’ll equip you with the most in-demand skills to help you grow into a true industry professional."
+    }
+  },
   "telegram": "Telegram",
   "hero": {
-    "title1": "IT Bootcamp,",
-    "title2": "Redefined for Success:",
-    "title3": "Land a Tech Job in the USA",
-    "description": "A 6-month intensive for aspiring or junior devs. With structure, real projects, mentorship, and career support — we guide you from zero to job-ready.",
+    "title1": "Web Development Bootcamp",
+    "title2": "That Gets You",
+    "title3": "Hired",
+    "description": "Hands-on projects, expert mentorship, and full support at every step - everything you need to make your transition into IT confident and stress-free.",
     "contact": "Contact us",
     "consultation": "Free Consultation",
     "projects": "Real-world projects • Resume-ready results"
@@ -43,71 +59,195 @@
     ]
   },
   "guarantee": {
-    "title": "Learn without risks — we’ll give your money back",
-    "description": "If within the first 14 days you realize the course isn’t for you — we’ll refund the full amount, no questions asked. Your confidence in the choice is our priority."
+    "title": "Transparent Terms & Money-Back Guarantee",
+    "description": "If the format doesn’t work for you — we’ll refund your payment within 30 days. Join and try out our program to make sure it’s truly the right fit for you."
   },
   "readyWork": {
-    "title": "Ready for IT Work After the Course",
-    "description": "By the end of the course, you’ll have a full portfolio, polished resume, and skills employers truly value. Our graduates land Junior Web Developer jobs even before or right after graduation — especially in the U.S. job market.",
+    "title": "Your Outcome After Graduation",
+    "description": "By the time you graduate, you'll have a strong portfolio packed with real-world personal and team projects — a powerful tool to impress future employers. You'll feel confident using the technologies and workflows you've mastered throughout the bootcamp. Plus, our career coaches and HR specialists will support you every step of the way — from crafting a standout resume and LinkedIn profile to preparing for interviews and navigating your job search.",
     "steps": [
       {
-        "title": "Ready Junior Web Dev",
-        "description": "Mentors do a final code review and give improvement advice. You get honest feedback on your progress and readiness for real work."
+        "title": "Web Developer Junior+",
+        "description": "That will be your title after completing the program. You’ll also receive a certificate from us."
       },
       {
         "title": "Portfolio",
-        "description": "You’ll build 2–3 projects for your portfolio: responsive websites, web apps, interfaces. The kind of work employers want to see."
+        "description": "By the end of the course, you’ll have 3 solid projects in your portfolio — personal and team-based — to showcase your skills to future employers."
       },
       {
-        "title": "Resume",
-        "description": "We help you polish your resume, LinkedIn, and GitHub. You get complete profiles to apply for jobs in the U.S. and worldwide."
+        "title": "CV & LinkedIn",
+        "description": "We’ll help you craft a market-ready CV, optimize your LinkedIn profile, and prepare all the tools you need to stand out to potential employers."
+      },
+      {
+        "title": "Interview Preparation",
+        "description": "In every class, your instructors will highlight what’s important for technical interviews. You’ll also go through a dedicated module focused entirely on preparing you for real-world interviews."
       }
     ]
   },
   "instructors": {
-    "title": "Our Team",
-    "description": "Our mentors are experienced developers and experts with backgrounds in top tech companies. They don't just teach — they share real-world experience and help students master in-demand skills.",
-    "kate": "Instructors explain not just the \"how\" but also the \"why\" to foster deeper understanding and critical thinking.",
-    "anastasia": "Instructors explain not just the \"how\" but also the \"why\" to foster deeper understanding and critical thinking.",
-    "konstantin": "Instructors explain not just the \"how\" but also the \"why\" to foster deeper understanding and critical thinking."
+    "title": "Meet Our Team",
+    "description": "Throughout your learning journey, you’ll receive professional support from experienced industry experts. In every class, our instructors will guide you through the material, help you understand key concepts, and support you with your lab work if you run into any difficulties. Once your labs are submitted, our technical assistants will review them and provide valuable feedback.",
+    "kate": "6 years in IT education. She built this course to include only what truly matters — practical knowledge that delivers real results.",
+    "anastasia": "Switched from being a medical doctor to software development in just one year. Three years later, she became a team lead — now she helps others follow the same path.",
+    "konstantin": "Instructors explain not just the \"how\" but also the \"why\" to foster deeper understanding and critical thinking.",
+    "angelina": "Always there to keep you updated and supported behind the scenes — she makes sure everything runs smoothly."
   },
   "about": {
-    "title": "About Our School",
-    "subtitle": "Education that works. We don’t just give you knowledge — we help you build a career. The whole program is built around real-world tasks and market demands. You learn by doing, not just listening.",
+    "title": "About Us",
     "cards": [
       {
-        "title": "Practical Learning",
-        "description": "Hands-on sessions to build skills and identify knowledge gaps."
+        "title": "On-Demand Tech Stack",
+        "description": "Learn exactly what employers are looking for today — nothing extra, only practical, job-ready skills."
       },
       {
-        "title": "Constructive Learning",
-        "description": "Individual support and extra resources for ambitious students."
+        "title": "Real-World Experience",
+        "description": "Our industry experts teach you how things work in practice, not just in theory or textbooks."
       },
       {
-        "title": "Student Support",
-        "description": "Mentors and teachers help solve problems and keep you motivated."
+        "title": "Practice-Driven Learning",
+        "description": "Every module includes hands-on labs and mini-projects. By the end, you’ll build and present a capstone project for your portfolio."
       },
       {
-        "title": "Cognitive Learning",
-        "description": "Instructors explain not just the 'how' but also the 'why' for deeper understanding."
+        "title": "Career Support",
+        "description": "We don’t just teach programming — we guide you through job search strategies, best practices, and support you every step of the way."
+      },
+      {
+        "title": "Convenient Format",
+        "description": "Evening classes and a fully remote format make it easy to combine learning with your job, family, or other responsibilities."
+      },
+      {
+        "title": "Supportive Community",
+        "description": "You’re not alone. Our team of mentors, tech assistants, and fellow students will support you both technically and emotionally — to stay motivated, focused, and inspired."
       }
     ]
   },
+  "curriculum": {
+    "title": "Curriculum Overview",
+    "subtitle": "We’ve designed this bootcamp to be intensive, yet perfectly paced for beginners. Every week, you’ll receive theoretical lessons on the platform, get clear explanations from experts during live classes, and join live coding and code-along sessions. You will also put your knowledge into action during pair programming labs — because we believe the best way to learn is by doing.",
+    "subtitleShort": "We’ve designed this bootcamp to be intensive, yet perfectly paced for beginners.",
+    "tabs": {
+      "intro": {
+        "label": "Intro",
+        "title": "Introductory Module",
+        "content": "Set up your work environment and install necessary programs for a smooth start to learning. Familiarize yourself with basics of key technologies and core concepts to make understanding the main material easier and more effective."
+      },
+      "module1": {
+        "label": "Module 1",
+        "title": "Module 1: HTML, CSS, JS",
+        "content": "Get familiar with the fundamental building blocks of websites. Begin your programming journey by learning key concepts and principles. Create your first web pages with proper styling and interactive user experiences."
+      },
+      "module2": {
+        "label": "Module 2",
+        "title": "Module 2: Backend",
+        "content": "Learn how to build fully functional web applications that can work with and store data. Create apps that save user information, deliver personalized features, and efficiently handle requests — essential skills for working with any data-driven system."
+      },
+      "module3": {
+        "label": "Module 3",
+        "title": "Module 3: React",
+        "content": "Begin working with cutting-edge technologies and best practices in React development, mastering tools and approaches in demand in the industry. Learn to write clean, elegant code that follows principles of clarity and efficiency. You’ll be writing code that not only works but is also readable, maintainable, and meets quality standards."
+      },
+      "module4": {
+        "label": "Module 4",
+        "title": "Additional technologies and Technical interview preparation",
+        "content": "Familiarize yourself with technologies often required in the industry, making it easier to adapt during onboarding at a new job. Learn how to handle technical interviews and discover the most common questions asked."
+      }
+    },
+    "technologies": "Technologies"
+  },
+  "pricing": {
+    "title": "Choose the format that works best for you",
+    "description": "We offer flexible financial plans so you can choose the one that fits you best. No matter which option you choose, you’ll gain all the skills needed to become a web development specialist and be fully prepared for the job market.",
+    "getStarted": "Apply",
+    "basic": {
+      "name": "Standard Plan",
+      "price": "$1,390 / month",
+      "oldPrice": "$8,340 / full course",
+      "benefits": [
+        "Full access to all learning materials and the platform",
+        "Complete 6-month program (Frontend + Backend)",
+        "3 live classes a week with the teacher",
+        "Hands-on assignments, projects, and code reviews",
+        "Homework and labs with expert feedback",
+        "Community chat and mentor support",
+        "Final portfolio project",
+        "Resume and LinkedIn review (basic package)"
+      ],
+      "spotsLeft": "Limited spots available"
+    },
+    "premium": {
+      "name": "Premium Plan",
+      "price": "$1,990 / month",
+      "oldPrice": "$11,940 / full course",
+      "badge": "Popular Choice",
+      "promo": "Most Value",
+      "benefits": [
+        "Full access to all learning materials and the platform",
+        "Complete 6-month program (Frontend + Backend)",
+        "3 live classes a week with the teacher",
+        "Hands-on assignments, projects, and code reviews",
+        "Homework and labs with expert feedback",
+        "Community chat and mentor support",
+        "Final portfolio project",
+        "Resume and LinkedIn review (basic package)",
+        "1:1 calls with a teacher or mentor — up to 4 times per month",
+        "Access to additional modules (extra technologies, technical interview prep, algorithms, onboarding at your first job)",
+        "Interview preparation with roleplay sessions (mock interviews)",
+        "Individual career consultations — 1 session per month",
+        "Career support for 3 months after graduation",
+        "Private Premium group chat (strong networking environment & quick expert support)",
+        "Consultation with a technical expert after receiving a job offer + help preparing for your new role"
+      ],
+      "spotsLeft": "Only a few Premium seats left!"
+    }
+  },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "We’ve gathered answers to the most common questions our students ask before starting. If you can’t find the info you need — just message us, we’re here to help.",
-    "q1": "Do I need programming experience to start learning?",
-    "a1": "No! Our course starts from scratch and walks you through every concept step-by-step, even if you're a complete beginner.",
-    "q2": "How much time should I dedicate weekly?",
-    "a2": "Around 10–15 hours per week is ideal. The more time you can invest, the faster your progress.",
+    "subtitle": "We’ve gathered answers to the most common questions our students ask before starting. Can’t find what you’re looking for? Just message us — we’re here to help.",
+
+    "q1": "How long is the course?",
+    "a1": "The course lasts 6 months. Classes take place two evenings a week and on Saturdays from 9:00 AM to 5:00 PM, all online. This flexible format makes it easy to combine learning with your job and personal life.",
+
+    "q2": "Who is this bootcamp for?",
+    "a2": "It’s designed for beginners, career changers, self-taught learners who need structure, and recent graduates looking to get job-ready skills.",
+
     "q3": "What technologies will I learn?",
-    "a3": "We teach JavaScript, React, Node.js, MongoDB, Git, and more — everything needed to land a modern web developer job.",
-    "q4": "What happens at the end of the course?",
-    "a4": "You'll build a portfolio, get help with your resume and LinkedIn, and be guided through the job search process.",
-    "q5": "Do you help with job placement?",
-    "a5": "Yes — we offer HR support, mock interviews, and a job search strategy tailored to your needs.",
-    "q6": "Is there a money-back guarantee?",
-    "a6": "Yes! If you complete the course but don't feel satisfied or ready, we offer a money-back guarantee."
+    "a3": "You’ll master HTML, CSS, JavaScript, React, Node.js, and more — along with modern tools and workflows. You'll also learn agile methodologies like Agile, Scrum, and Kanban.",
+
+    "q4": "Is it all theory, or will there be hands-on practice?",
+    "a4": "There’s a lot of practice! After every module, you’ll complete lab assignments and mini-projects. At the end of the course, you’ll build a team project for your portfolio.",
+
+    "q5": "What will I have by the end of the course?",
+    "a5": "A professional portfolio with 2–3 projects, Junior+ level web development skills, a polished resume and LinkedIn profile, interview readiness, and a bootcamp graduation certificate.",
+
+    "q6": "Do you help with job search?",
+    "a6": "Yes! Our career team helps you every step of the way — from writing your resume and preparing for interviews to connecting you with partner employers.",
+
+    "q7": "Is there support during the course?",
+    "a7": "Absolutely. You’ll be guided by mentors, instructors, and technical assistants. You can always ask questions and get help with any topic or technical issue.",
+
+    "q8": "What if the format doesn’t work for me?",
+    "a8": "We offer a 30-day money-back guarantee. If you realize the course isn’t the right fit within the first month, we’ll refund your payment.",
+
+    "q9": "What is the class format like?",
+    "a9": "Classes are fully online and use interactive formats — live coding, code-alongs, challenges, discussions, and stand-ups. No boring screen shares — only engaging, hands-on learning."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Fill out the form and we’ll reach out to help with questions, choosing a course, and explaining how the program works.",
+    "namePlaceholder": "Name",
+    "email": "Email",
+    "emailPlaceholder": "Your email address",
+    "contactMethodLabel": "Preferred contact method",
+    "questionPlaceholder": "Your question",
+    "submit": "Submit Request",
+    "phonePlaceholder": "Your phone number",
+    "errors": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email format",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Invalid phone number",
+      "messageTooLong": "Message exceeds the 1000 character limit."
+    }
   },
 
   "footer": {

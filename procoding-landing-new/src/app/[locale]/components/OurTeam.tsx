@@ -13,19 +13,19 @@ const instructors = [
     name: "Kate",
     role: "Methodologist",
     descriptionKey: "instructors.kate",
-    image: "/images/teacher_1.svg",
+    image: "/images/Mask group (5).png",
   },
   {
     name: "Anastasia",
     role: "Course Expert",
     descriptionKey: "instructors.anastasia",
-    image: "/images/teacher_2.svg",
+    image: "/images/Mask group (6).png",
   },
   {
-    name: "Konstantin",
-    role: "AQA Teacher",
-    descriptionKey: "instructors.konstantin",
-    image: "/images/teacher_3.svg",
+    name: "Angelina",
+    role: "Administrator",
+    descriptionKey: "instructors.angelina",
+    image: "/images/Mask group (4).png",
   },
 ];
 
@@ -51,7 +51,7 @@ export default function OurTeam() {
         </p>
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {instructors.map((instructor, index) => (
             <InstructorCard
               key={index}
@@ -64,7 +64,7 @@ export default function OurTeam() {
         </div>
 
         {/* Mobile Swiper */}
-        <div className="block md:hidden relative">
+        <div className="block lg:hidden relative">
           <Swiper
             modules={[Pagination]}
             slidesPerView={1}
@@ -78,12 +78,14 @@ export default function OurTeam() {
           >
             {instructors.map((instructor, index) => (
               <SwiperSlide key={index}>
-                <InstructorCard
-                  name={instructor.name}
-                  role={instructor.role}
-                  description={t(instructor.descriptionKey)}
-                  image={instructor.image}
-                />
+                <div className="w-[90%] sm:w-[80%] md:w-[60%] mx-auto">
+                  <InstructorCard
+                    name={instructor.name}
+                    role={instructor.role}
+                    description={t(instructor.descriptionKey)}
+                    image={instructor.image}
+                  />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>

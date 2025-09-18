@@ -12,21 +12,35 @@ export default function ReadyToWorkSection() {
 
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  const steps = [
+    {
+      id: '01',
+      title: t('readyWork.steps.0.title'),
+      description: t('readyWork.steps.0.description'),
+      icon: '/images/ready_to_work_icon_3.svg',
+    },
+    {
+      id: '02',
+      title: t('readyWork.steps.1.title'),
+      description: t('readyWork.steps.1.description'),
+      icon: '/images/icons/portfolio.svg',
+    },
+    {
+      id: '03',
+      title: t('readyWork.steps.2.title'),
+      description: t('readyWork.steps.2.description'),
+      icon: '/images/icons/cv.svg',
+    },
+    {
+      id: '04',
+      title: t('readyWork.steps.3.title'),
+      description: t('readyWork.steps.3.description'),
+      icon: '/images/ready_to_work_icon_1.svg',
+    },
+  ];
 
   useEffect(() => {
-    const updateScreen = () => {
-      setIsSmallScreen(window.innerWidth < 768);
-    };
-
-    updateScreen();
-    window.addEventListener('resize', updateScreen);
-    return () => window.removeEventListener('resize', updateScreen);
-  }, []);
-
-  useEffect(() => {
-    if (!isSmallScreen) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -48,36 +62,23 @@ export default function ReadyToWorkSection() {
         if (ref) observer.unobserve(ref);
       });
     };
-  }, [isSmallScreen]);
-
-  const steps = [
-    {
-      id: '01',
-      title: t('readyWork.steps.0.title'),
-      description: t('readyWork.steps.0.description'),
-      icon: '/images/ready_to_work_icon_1.svg',
-    },
-    {
-      id: '02',
-      title: t('readyWork.steps.1.title'),
-      description: t('readyWork.steps.1.description'),
-      icon: '/images/ready_to_work_icon_2.svg',
-    },
-    {
-      id: '03',
-      title: t('readyWork.steps.2.title'),
-      description: t('readyWork.steps.2.description'),
-      icon: '/images/ready_to_work_icon_3.svg',
-    },
-  ];
+  }, []);
 
   return (
-    <section className={`py-20 transition-colors duration-300 ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
+    <section
+      className={`py-20 transition-colors duration-300 ${
+        isDark ? 'bg-black text-white' : 'bg-white text-black'
+      }`}
+    >
       <div className="max-w-4xl mx-auto px-4 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold mb-4">
           {t('readyWork.title')}
         </h2>
-        <p className={`text-sm sm:text-base max-w-2xl mx-auto ${isDark ? 'text-white/70' : 'text-black/80'}`}>
+        <p
+          className={`text-sm sm:text-base max-w-2xl mx-auto ${
+            isDark ? 'text-white/70' : 'text-black/80'
+          }`}
+        >
           {t('readyWork.description')}
         </p>
         <Image
@@ -91,23 +92,27 @@ export default function ReadyToWorkSection() {
 
       <div className="max-w-4xl mx-auto mt-10 px-4 flex flex-col gap-3">
         {steps.map((step, index) => {
-          const isActive = isSmallScreen ? activeIndex === index : index === 0;
+          const isActive = activeIndex === index;
 
           const cardBg = isActive
             ? 'bg-[#F28237]'
             : isDark
-              ? 'bg-[#1C1C1C]'
-              : 'bg-[#F4F1FB]';
+            ? 'bg-[#1C1C1C]'
+            : 'bg-[#F4F1FB]';
 
           const textColor = isActive
             ? isDark
               ? 'text-black'
               : 'text-white'
             : isDark
-              ? 'text-white/80'
-              : 'text-black/70';
+            ? 'text-white/80'
+            : 'text-black/70';
 
-          const iconColor = isActive ? '#ffffff' : (isDark ? '#ffffff' : '#F28237');
+          const iconColor = isActive
+            ? '#ffffff'
+            : isDark
+            ? '#ffffff'
+            : '#F28237';
 
           return (
             <div
@@ -117,13 +122,17 @@ export default function ReadyToWorkSection() {
               className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 p-6 sm:p-8 rounded-xl transition-all duration-300 ${cardBg}`}
             >
               <div className="flex-shrink-0">
-                <span className={`text-3xl font-bold w-[40px] block text-left ${textColor}`}>
+                <span
+                  className={`text-3xl font-bold w-[40px] block text-left ${textColor}`}
+                >
                   {step.id}
                 </span>
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 flex-1">
-                <h3 className={`font-bold text-base sm:text-lg min-w-[140px] sm:min-w-[180px] sm:max-w-[180px] ${textColor}`}>
+                <h3
+                  className={`font-bold text-base sm:text-lg min-w-[140px] sm:min-w-[180px] sm:max-w-[180px] ${textColor}`}
+                >
                   {step.title}
                 </h3>
                 <p className={`text-sm sm:text-base flex-1 ${textColor}`}>
@@ -138,7 +147,12 @@ export default function ReadyToWorkSection() {
                   width={48}
                   height={48}
                   className="w-full h-full"
-                  style={{ filter: iconColor === '#ffffff' ? 'brightness(0) invert(1)' : 'none' }}
+                  style={{
+                    filter:
+                      iconColor === '#ffffff'
+                        ? 'brightness(0) invert(1)'
+                        : 'none',
+                  }}
                 />
               </div>
             </div>

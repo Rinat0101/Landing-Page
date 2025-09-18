@@ -28,7 +28,7 @@ export default function Providers({
       <TranslationProvider dictionary={dictionary} locale={locale}>
         <Navbar />
         <main className="pt-16">{children}</main>
-        <ScrollToTopButton />
+     
       </TranslationProvider>
     </ThemeProvider>
   );

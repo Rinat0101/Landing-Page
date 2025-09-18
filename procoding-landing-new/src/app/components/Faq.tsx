@@ -93,20 +93,13 @@ export default function FAQSection() {
                       {t(item.questionKey)}
                     </h3>
                   </div>
-                  <Image
-                    src="/images/plus_icon.svg"
-                    alt="toggle"
-                    width={28}
-                    height={28}
-                    className={`transition-transform duration-300 ${
+                  <span
+                    className={`text-2xl font-bold transition-transform duration-300 ${
                       isOpen ? "rotate-45" : ""
-                    }`}
-                    style={{
-                      filter: isDark
-                        ? "invert(100%)"
-                        : "invert(0%) brightness(0%)",
-                    }}
-                  />
+                    } ${isDark ? "text-white" : "text-black"}`}
+                  >
+                    +
+                  </span>
                 </button>
 
                 <div

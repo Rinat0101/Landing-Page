@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import SectionTitle from "../../components/shared/SectionTitle";
 import Button from "../../components/shared/Button";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -21,85 +20,87 @@ export default function Hero() {
   const isLight = resolvedTheme === "light";
 
   return (
-    <section
-      className={`flex flex-col lg:flex-row items-center justify-between px-6 py-16 max-w-screen-xl mx-auto lg:gap-10 transition-colors duration-300 ${
-        isLight ? "bg-white" : "bg-black"
-      }`}
-    >
-      {/* LEFT SIDE */}
-      <div className="w-full lg:w-1/2 order-2 lg:order-1 mb-10 lg:mb-0 flex flex-col items-center lg:items-start text-center lg:text-left">
-        <h1
-          className={`text-4xl sm:text-5xl md:text-6xl font-bold leading-tight ${
-            isLight ? "text-black" : "text-white"
-          }`}
-        >
-          {t("hero.title1")} <br />
-          {t("hero.title2")} <br />
-          {t("hero.title3")}
-        </h1>
-
-        <p
-          className={`text-lg mt-6 max-w-lg ${
-            isLight ? "text-black/80" : "text-white/80"
-          }`}
-        >
-          {t("hero.description")}
-        </p>
-
-        <div className="flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4 mt-8 w-full">
-          <Button
-            variant="secondary"
-            size="md"
-            href="#contact"
-            className={`w-4/5 sm:w-4/5 lg:w-auto mx-auto sm:mx-0 ${
-              isLight
-                ? "bg-[#a855f7] text-white hover:bg-[#9333ea]"
-                : "bg-[#9333ea] text-white hover:bg-[#a855f7]"
-            } transition-colors duration-300`}
-          >
-            {t("hero.contact")}
-          </Button>
-          <Button
-            variant="outline"
-            size="md"
-            href="#consultation"
-            className={`w-4/5 sm:w-4/5 lg:w-auto mx-auto sm:mx-0 border-1 ${
-              isLight
-                ? "border-black text-black hover:bg-black hover:text-white"
-                : "border-white text-white hover:bg-white hover:text-black"
-            } transition-colors duration-300`}
-          >
-            {t("hero.consultation")}
-          </Button>
-        </div>
-
-        <div className="flex items-center gap-4 mt-6">
-          <img
-            src="/images/project_icon_1.svg"
-            alt="Portfolio Icons"
-            className={`w-[140px] h-auto transition`}
-          />
-          <p
-            className={`text-sm sm:text-base leading-tight ${
-              isLight ? "text-black/70" : "text-white/70"
+    <>
+      <section
+        className={`relative overflow-hidden flex flex-col lg:flex-row items-center justify-between px-6 pt-16 pb-10 max-w-screen-xl mx-auto lg:gap-10 transition-colors duration-300 ${
+          isLight ? "bg-white" : "bg-black"
+        }`}
+      >
+        {/* LEFT SIDE: Text + Button */}
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left z-10">
+          <h1
+            className={`text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-6xl font-bold leading-tight ${
+              isLight ? "text-black" : "text-white"
             }`}
           >
-            {t("hero.projects")}
+            {t("hero.title1")} <br />
+            {t("hero.title2")} <br />
+            {t("hero.title3")}
+          </h1>
+
+          <p
+            className={`text-lg mt-6 max-w-lg ${
+              isLight ? "text-black/80" : "text-white/80"
+            }`}
+          >
+            {t("hero.description")}
           </p>
+
+          <div className="flex justify-center lg:justify-start mt-8 w-full">
+            <Button
+              variant="outline"
+              size="md"
+              href="#contact"
+              className={`w-4/5 sm:w-4/5 lg:w-auto mx-auto sm:mx-0 border 
+      ${
+        isLight
+          ? "border-black text-black hover:text-white"
+          : "border-white text-white"
+      } 
+      hover:border-transparent hover:bg-[#9333ea]`}
+            >
+              {t("hero.consultation")}
+            </Button>
+          </div>
+
+          {/* IMAGE FOR MOBILE */}
+          <div className="block lg:hidden w-full max-w-[440px] mx-auto mt-8 mb-[-2.5rem]">
+            <Image
+              src="/images/Group 19 (1).png"
+              alt="Hero Image"
+              width={600}
+              height={600}
+              className="w-full h-auto object-contain pointer-events-none select-none"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* IMAGE FOR DESKTOP */}
+        <div className="hidden lg:block w-full h-full absolute bottom-0 right-0 z-0">
+          <Image
+            src="/images/Group 19 (1).png"
+            alt="Hero Image"
+            width={800}
+            height={900}
+            className="absolute bottom-[-4rem] xl:bottom-0 right-[-6rem] object-contain scale-[1.25] xl:scale-[1.1] 2xl:scale-[1.2] lg:scale-[0.8] pointer-events-none select-none"
+            priority
+          />
+        </div>
+      </section>
+
+      {/* DIVIDER WITH CENTERED TEXT */}
+      <div className="relative w-full max-w-screen-xl mx-auto px-6 mt-[-0.5rem] z-20">
+        <div className="w-full rounded-full bg-gradient-to-r from-[#009FD9] via-[#380E8C] to-[#B923AE] py-3 px-6">
+          <div className="flex justify-center items-center text-white text-sm sm:text-base font-medium text-center gap-4 sm:gap-6">
+            <span>24 weeks</span>
+            <span className="text-white/70">|</span>
+            <span>288+ hours of practice</span>
+            <span className="text-white/70">|</span>
+            <span>3 projects in portfolio</span>
+          </div>
         </div>
       </div>
-
-      {/* RIGHT SIDE */}
-      <div className="w-full hidden lg:block lg:w-1/2 order-1 lg:order-2 flex justify-center">
-        <Image
-          src="/images/main_img.svg"
-          alt="Hero Image"
-          width={600}
-          height={600}
-          className="w-full h-auto max-h-[50vh] lg:max-h-full object-contain"
-          priority
-        />
-      </div>
-    </section>
+    </>
   );
 }

@@ -1,34 +1,28 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
-import Image from "next/image";
-import { useTranslation } from "@/lib/TranslationContext";
-import LanguageSwitcher from "@/app/components/LanguageSwitcher";
+import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
+import { useTranslation } from '@/lib/TranslationContext';
+import LanguageSwitcher from '@/app/components/LanguageSwitcher';
 
 const desktopNavItems = [
-  { key: "nav.home", href: "#home" },
-  { key: "nav.about", href: "#about" },
-  { key: "nav.instructors", href: "#instructors" },
-  { key: "nav.guarantees", href: "#guarantee" },
-  { key: "nav.program", href: "#program" },
-  { key: "nav.jobs", href: "#jobs" },
-  { key: "nav.pricing", href: "#plans" },
-  { key: "nav.faq", href: "#reviews" },
-  { key: "nav.contact", href: "#contact" },
+  { key: 'nav.about', href: '#about' },
+  { key: 'nav.curriculum', href: '#curriculum' },
+  { key: 'nav.instructors', href: '#instructors' },
+  { key: 'nav.guarantees', href: '#guarantee' },
+  { key: 'nav.jobs', href: '#jobs' },
+  { key: 'nav.pricing', href: '#plans' },
+  { key: 'nav.faq', href: '#reviews' },
+  { key: 'nav.contact', href: '#contact' },
 ];
 
 const mobileNavItems = [
-  { key: "nav.home", href: "#home", icon: "/images/home_icon.svg" },
-  { key: "nav.about", href: "#about", icon: "/images/about_cup_icon.svg" },
-  {
-    key: "nav.instructors",
-    href: "#instructors",
-    icon: "/images/about_people.svg",
-  },
-  { key: "nav.program", href: "#program", icon: "/images/programm_icon.svg" },
-  { key: "nav.pricing", href: "#plans", icon: "/images/pricing_bag_icon.svg" },
-  { key: "nav.contact", href: "#contact", icon: "/images/contact_icon.svg" },
+  { key: 'nav.about', href: '#about', icon: '/images/about_cup_icon.svg' },
+  { key: 'nav.curriculum', href: '#curriculum', icon: '/images/icons/curriculum.svg' },
+  { key: 'nav.instructors', href: '#instructors', icon: '/images/icons/menu_people.svg' },
+  { key: 'nav.pricing', href: '#plans', icon: '/images/icons/pricing.svg' },
+  { key: 'nav.contact', href: '#contact', icon: '/images/contact_icon.svg' },
 ];
 
 export default function Navbar() {
@@ -36,16 +30,14 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, locale } = useTranslation();
 
   useEffect(() => setMounted(true), []);
-
   useEffect(() => {
-    if (menuOpen) {
-      setIsVisible(true);
-    } else {
+    if (menuOpen) setIsVisible(true);
+    else {
       const timeout = setTimeout(() => setIsVisible(false), 300);
       return () => clearTimeout(timeout);
     }
@@ -54,37 +46,32 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      let current = "";
+      let current = '';
       [...desktopNavItems, ...mobileNavItems].forEach(({ href }) => {
         const section = document.querySelector(href);
         if (section) {
-          const offsetTop =
-            section.getBoundingClientRect().top + window.scrollY;
-          if (scrollY >= offsetTop - 100) {
-            current = href;
-          }
+          const offsetTop = section.getBoundingClientRect().top + window.scrollY;
+          if (scrollY >= offsetTop - 100) current = href;
         }
       });
       setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   if (!mounted) return null;
 
-  const isDark = resolvedTheme === "dark";
-  const themeIcon = isDark
-    ? "/images/theme_btn_dark.svg"
-    : "/images/theme_btn_light.svg";
+  const isDark = resolvedTheme === 'dark';
+  const themeIcon = isDark ? '/images/theme_btn_dark.svg' : '/images/theme_btn_light.svg';
 
   const handleLanguageChange = (newLocale: string) => {
     const currentPath = window.location.pathname;
@@ -96,43 +83,31 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
         isDark
-          ? "bg-black"
+          ? 'bg-black'
           : isScrolled
-          ? "bg-white/70 backdrop-blur-md"
-          : "bg-white"
+          ? 'bg-white/70 backdrop-blur-md'
+          : 'bg-white'
       }`}
     >
       <nav className="flex w-full justify-between items-center px-6 py-4 max-w-screen-xl mx-auto">
         {/* Logo */}
         <a href="#home" className="flex items-center gap-2 z-50">
-          <Image
-            src="/images/logo.svg"
-            alt="ProCoding Logo"
-            width={36}
-            height={36}
-            priority
-          />
-          <span
-            className={`font-bold text-lg ${
-              isDark ? "text-white" : "text-black"
-            }`}
-          >
-            ProCoding
-          </span>
+          <Image src="/images/logo.svg" alt="ProCoding Logo" width={36} height={36} priority />
+          <span className={`font-bold text-lg ${isDark ? 'text-white' : 'text-black'}`}>ProCoding</span>
         </a>
 
         {/* Desktop nav */}
-        <ul className="hidden custom-md:flex gap-6 text-sm font-medium">
+        <ul className="hidden custom-md:flex gap-6 text-sm font-medium items-center">
           {desktopNavItems.map(({ key, href }) => (
             <li key={href}>
               <a
                 href={href}
                 className={`transition-colors underline-offset-4 ${
                   activeSection === href
-                    ? "text-[#D726B3]"
+                    ? 'text-[#D726B3]'
                     : isDark
-                    ? "text-white hover:text-[#D726B3]"
-                    : "text-black hover:text-[#D726B3]"
+                    ? 'text-white hover:text-[#D726B3]'
+                    : 'text-black hover:text-[#D726B3]'
                 }`}
               >
                 {t(key)}
@@ -141,7 +116,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right actions (Theme + Lang + Telegram) */}
+        {/* Right actions */}
         <div className="flex items-center gap-4 z-50">
           {/* Theme toggle */}
           <button
@@ -151,30 +126,22 @@ export default function Navbar() {
             <Image src={themeIcon} alt="Theme Toggle" width={70} height={60} />
           </button>
 
-          {/* Language & Telegram (Only on custom-md+) */}
+          {/* Language Switcher (desktop only) */}
           <div className="hidden custom-md:flex items-center gap-4 z-50 h-12">
-            <div className="h-12 flex items-center">
-              <LanguageSwitcher
-                locale={locale}
-                handleLanguageChange={handleLanguageChange}
-                isDark={isDark}
-              />
-            </div>
+            <LanguageSwitcher
+              locale={locale}
+              handleLanguageChange={handleLanguageChange}
+              isDark={isDark}
+            />
+          </div>
 
+          {/* Apply button (desktop) */}
+          <div className="hidden custom-md:flex">
             <a
-              href="https://t.me/procoding"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-10 px-4 rounded-full bg-[#a855f7] text-white text-sm font-medium hover:opacity-90 transition items-center gap-2 flex"
+              href="#contact"
+              className="bg-[#9333ea] text-white py-2 px-4 rounded-full text-sm font-semibold hover:opacity-90 transition whitespace-nowrap"
             >
-              <Image
-                src="/images/telegram_white.svg"
-                alt="Telegram"
-                width={20}
-                height={20}
-                className="w-5 h-5"
-              />
-              Telegram
+              {t('nav.apply') || 'Apply'}
             </a>
           </div>
 
@@ -186,15 +153,15 @@ export default function Navbar() {
               width={28}
               height={28}
               style={{
-                filter: isDark ? "invert(0)" : "invert(1)",
-                transition: "filter 0.3s ease",
+                filter: isDark ? 'invert(0)' : 'invert(1)',
+                transition: 'filter 0.3s ease',
               }}
             />
           </button>
         </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       {isVisible && (
         <>
           <div
@@ -203,8 +170,8 @@ export default function Navbar() {
           />
           <div
             className={`fixed top-0 right-0 w-full h-screen z-50 px-8 pt-10 overflow-y-auto transition-transform duration-300 ${
-              menuOpen ? "translate-x-0" : "translate-x-full"
-            } ${isDark ? "bg-black text-white" : "bg-white text-black"}`}
+              menuOpen ? 'translate-x-0' : 'translate-x-full'
+            } ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}
           >
             <button
               onClick={() => setMenuOpen(false)}
@@ -217,12 +184,13 @@ export default function Navbar() {
                 width={28}
                 height={28}
                 style={{
-                  filter: isDark ? "invert(0)" : "invert(1)",
-                  transition: "filter 0.3s ease",
+                  filter: isDark ? 'invert(0)' : 'invert(1)',
+                  transition: 'filter 0.3s ease',
                 }}
               />
             </button>
 
+            {/* Mobile nav items */}
             {mobileNavItems.map(({ key, href, icon }) => (
               <a
                 key={href}
@@ -230,10 +198,10 @@ export default function Navbar() {
                 onClick={() => setMenuOpen(false)}
                 className={`text-2xl font-semibold transition flex items-center gap-4 mt-6 ${
                   activeSection === href
-                    ? "text-[#D726B3]"
+                    ? 'text-[#D726B3]'
                     : isDark
-                    ? "text-white hover:text-[#D726B3]"
-                    : "text-black hover:text-[#D726B3]"
+                    ? 'text-white hover:text-[#D726B3]'
+                    : 'text-black hover:text-[#D726B3]'
                 }`}
               >
                 <Image
@@ -242,38 +210,24 @@ export default function Navbar() {
                   width={24}
                   height={24}
                   style={{
-                    filter: icon.includes("home_icon")
-                      ? isDark
-                        ? "invert(1)"
-                        : "invert(0)"
-                      : isDark
-                      ? "invert(0)"
-                      : "invert(1)",
-                    transition: "filter 0.3s ease",
+                    filter: isDark ? 'invert(0)' : 'invert(1)',
+                    transition: 'filter 0.3s ease',
                   }}
                 />
                 {t(key)}
               </a>
             ))}
 
-            {/* Telegram button */}
+            {/* Apply button */}
             <a
-              href="https://t.me/procoding"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="bg-[#a855f7] text-white py-2 px-6 rounded-full text-2xl font-semibold hover:opacity-90 transition flex items-center gap-4 mt-6 w-fit"
+              className="bg-[#a855f7] text-white py-2 px-6 rounded-full text-2xl font-semibold hover:opacity-90 transition mt-6 inline-block"
             >
-              <Image
-                src="/images/telegram_white.svg"
-                alt="Telegram"
-                width={24}
-                height={24}
-              />
-              Telegram
+              {t('nav.apply') || 'Apply'}
             </a>
 
-            {/* LanguageSwitcher under Telegram */}
+            {/* Language switcher */}
             <div className="mt-6">
               <LanguageSwitcher
                 locale={locale}
