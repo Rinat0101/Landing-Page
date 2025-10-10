@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import disposableDomains from "disposable-email-domains";
 import rateLimit from "@/lib/RateLimit";
 
-const limiter = rateLimit({ limit: 5, timeframe: 60 * 60 * 1000 }); // 5 requests/hour/IP
+const limiter = rateLimit({ limit: 5, timeframe: 60 * 60 * 1000 }); // 5 req/hr per IP
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const { name, email, phone, message, type, website } = await req.json();
     const MAX_MESSAGE_LENGTH = 1000;
 
-    // 🧠 Honeypot anti-spam
+    // 🚫 Honeypot field
     if (website) {
       console.warn("❌ Spam bot detected");
       return NextResponse.json({ error: "Spam detected" }, { status: 400 });
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
 
-    // 🛑 Disposable email
+    // 🛑 Disposable emails
     const domain = email?.split("@")[1]?.toLowerCase();
     if (disposableDomains.includes(domain)) {
       console.warn(`⚠️ Disposable email rejected: ${email}`);
@@ -39,27 +39,30 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // ✏️ Validation
+    // ✅ Validation
     if (!email)
       return NextResponse.json({ error: "Missing email" }, { status: 400 });
+
     if (type === "syllabus" && !name)
       return NextResponse.json(
         { error: "Name is required for syllabus requests" },
         { status: 400 }
       );
+
     if (type !== "newsletter" && type !== "syllabus" && (!name || !message))
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
+
     if (type === "contact" && message.length > MAX_MESSAGE_LENGTH)
       return NextResponse.json(
         { error: `Message too long (max ${MAX_MESSAGE_LENGTH})` },
         { status: 400 }
       );
 
-    const logoUrl = "https://procoding.com/images/logo.svg"; // ✅ Public logo
-
+    const baseUrl = "https://procoding.com";
+    const logoUrl = `${baseUrl}/images/logo.svg`;
     const syllabusPath = process.cwd() + "/public/files/procoding-syllabus.pdf";
 
     const transporter = nodemailer.createTransport({
@@ -119,7 +122,7 @@ export async function POST(req: NextRequest) {
           </div>
         </div>`;
 
-    // 📨 Send internal email
+    // 📬 Admin email
     await transporter.sendMail({
       from: `"ProCoding" <${process.env.SMTP_USER}>`,
       to: "apply@procoding.com",
@@ -128,50 +131,44 @@ export async function POST(req: NextRequest) {
       html: htmlAdmin,
     });
 
-    // 📩 Send syllabus to user (if needed)
+    // 📩 User email (syllabus only)
     if (type === "syllabus") {
+      const htmlUser = `
+      <div style="padding: 40px; font-family: Arial, sans-serif; color: #333; font-size: 17px;">
+        <div style="max-width: 600px; margin: auto; border-radius: 16px; padding: 30px;
+          border: 3px solid transparent;
+          background-clip: padding-box, border-box;
+          background-origin: border-box;
+          background-image: linear-gradient(white, white),
+            linear-gradient(135deg, #F28237, #F4EBFF, #D726B3);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+          
+          <div style="text-align: center;">
+            <img src="${logoUrl}" alt="ProCoding Logo" style="width: 120px; margin-bottom: 20px;" />
+          </div>
+
+          <h2 style="font-size: 22px;">Hello ${name},</h2>
+          <p style="line-height: 1.6;">Thank you for your interest in our program!</p>
+          <p style="line-height: 1.6;">Attached is your full syllabus PDF. Let us know if you have any questions or need help choosing the right course for you.</p>
+          <p style="margin-top: 30px;">🚀 Cheers, <br/> The ProCoding Team</p>
+
+          <div style="margin-top: 40px; text-align: center;">
+            <a href="https://www.instagram.com/procodingcom" target="_blank" style="margin: 0 10px; display: inline-block;">
+              <img src="${baseUrl}/images/instagram_colored.png" alt="Instagram" style="width: 28px; height: 28px;" />
+            </a>
+            <a href="https://www.linkedin.com/company/pro-coding" target="_blank" style="margin: 0 10px; display: inline-block;">
+              <img src="${baseUrl}/images/linkedin_colored.png" alt="LinkedIn" style="width: 28px; height: 28px;" />
+            </a>
+          </div>
+        </div>
+      </div>
+      `;
+
       await transporter.sendMail({
         from: `"ProCoding" <${process.env.SMTP_USER}>`,
         to: email,
         subject: "Here’s your ProCoding Syllabus 📘",
-        html: `
-  <div style="
-    padding: 40px;
-    font-family: Arial, sans-serif;
-    color: #333;
-    font-size: 16px;
-  ">
-    <div style="
-      max-width: 600px;
-      margin: auto;
-      border-radius: 16px;
-      padding: 30px;
-      border: 3px solid transparent;
-      background-clip: padding-box, border-box;
-      background-origin: border-box;
-      background-image: linear-gradient(white, white),
-        linear-gradient(135deg, #F28237, #F4EBFF, #D726B3);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    ">
-      <div style="text-align: center;">
-        <img src="${logoUrl}" alt="ProCoding Logo" style="width: 120px; margin-bottom: 20px;" />
-      </div>
-      <h2 style="font-size: 22px;">Hello ${name},</h2>
-      <p style="line-height: 1.6;">Thank you for your interest in our program!</p>
-      <p style="line-height: 1.6;">Attached is your full syllabus PDF. Let us know if you have any questions or need help deciding which course is right for you.</p>
-      <p style="margin-top: 30px;">🚀 Cheers, <br/> The ProCoding Team</p>
-
-      <div style="margin-top: 40px; text-align: center;">
-        <a href="https://www.instagram.com/procodingcom" target="_blank" style="margin: 0 10px; display: inline-block;">
-          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" style="width: 28px; height: 28px;" />
-        </a>
-        <a href="https://www.linkedin.com/company/pro-coding" target="_blank" style="margin: 0 10px; display: inline-block;">
-          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png" alt="LinkedIn" style="width: 28px; height: 28px;" />
-        </a>
-      </div>
-    </div>
-  </div>
-`,
+        html: htmlUser,
         attachments: [
           {
             filename: "ProCoding-Syllabus.pdf",
