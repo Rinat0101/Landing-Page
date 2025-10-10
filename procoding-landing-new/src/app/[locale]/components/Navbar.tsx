@@ -13,8 +13,8 @@ const desktopNavItems = [
   { key: 'nav.guarantees', href: '#guarantee' },
   { key: 'nav.jobs', href: '#jobs' },
   { key: 'nav.pricing', href: '#plans' },
-  { key: 'nav.faq', href: '#reviews' },
   { key: 'nav.contact', href: '#contact' },
+  { key: 'nav.faq', href: '#reviews' },
 ];
 
 const mobileNavItems = [
@@ -222,7 +222,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="bg-[#a855f7] text-white py-2 px-6 rounded-full text-2xl font-semibold hover:opacity-90 transition mt-6 inline-block"
+              className="bg-[#9333ea] text-white py-2 px-6 rounded-full text-2xl font-semibold hover:opacity-90 transition mt-6 inline-block"
             >
               {t('nav.apply') || 'Apply'}
             </a>

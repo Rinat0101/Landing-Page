@@ -1,97 +1,156 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import fs from "fs";
+import path from "path";
+import disposableDomains from "disposable-email-domains";
+import rateLimit from "@/lib/RateLimit";
+
+const limiter = rateLimit({ limit: 5, timeframe: 60 * 60 * 1000 }); // 5 requests/hour/IP
 
 export async function POST(req: NextRequest) {
-  const { name, email, phone, message } = await req.json();
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    req.headers.get("x-vercel-forwarded-for") ||
+    "unknown";
 
+  const { name, email, phone, message, type, website } = await req.json();
   const MAX_MESSAGE_LENGTH = 1000;
 
-  if (!name || !email || !message) {
+  // 🧠 Honeypot anti-spam
+  if (website) {
+    return NextResponse.json({ error: "Spam detected" }, { status: 400 });
+  }
+
+  // ❌ Rate limiting
+  const rateCheck = await limiter.check(ip);
+  if (!rateCheck.success) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
+  // 🛑 Disposable email
+  const domain = email?.split("@")[1]?.toLowerCase();
+  if (disposableDomains.includes(domain)) {
+    return NextResponse.json({ error: "Disposable email detected" }, { status: 400 });
+  }
+
+  // ✏️ Validation
+  if (!email) return NextResponse.json({ error: "Missing email" }, { status: 400 });
+  if (type === "syllabus" && !name)
+    return NextResponse.json({ error: "Name is required for syllabus requests" }, { status: 400 });
+  if (type !== "newsletter" && type !== "syllabus" && (!name || !message))
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-  }
+  if (type === "contact" && message.length > MAX_MESSAGE_LENGTH)
+    return NextResponse.json({ error: `Message too long (max ${MAX_MESSAGE_LENGTH})` }, { status: 400 });
 
-  if (message.length > MAX_MESSAGE_LENGTH) {
-    return NextResponse.json(
-      { error: `Message is too long. Max length is ${MAX_MESSAGE_LENGTH} characters.` },
-      { status: 400 }
-    );
-  }
+  // Load assets
+  const logoPath = path.join(process.cwd(), "public/images/logo.svg");
+  const logoBase64 = fs.readFileSync(logoPath, "utf-8");
 
-  try {
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+  const syllabusPath = path.join(process.cwd(), "public/files/procoding-syllabus.pdf");
 
-    const mailOptions = {
-      from: `"ProCoding" <${process.env.SMTP_USER}>`,
-      to: "apply@procoding.com",
-      subject: `New Contact Form Submission from ${name}`,
-      replyTo: email,
-      html: `
-      <div style="padding: 40px; background: #ffffff; font-family: Arial, sans-serif; color: #333;">
-        <div style="max-width: 600px; margin: auto; background: white; border-radius: 16px; padding: 30px; border: 3px solid transparent; background-clip: padding-box, border-box; background-origin: border-box; background-image: linear-gradient(white, white), linear-gradient(135deg, #F28237, #F4EBFF, #D726B3);">
-          
-          <h2 style="text-align: center; color: black; margin-bottom: 30px;">New Contact Form Submission</h2>
+  // Setup email transporter
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT),
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
 
-          <table style="width: 100%; border-collapse: collapse; font-size: 16px;">
-            <tr>
-              <td style="padding: 8px 0;"><strong>Name:</strong></td>
-              <td style="padding: 8px 0;">${name}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0;"><strong>Email:</strong></td>
-              <td style="padding: 8px 0;">${email}</td>
-            </tr>
-            ${
-              phone
-                ? `<tr>
-                     <td style="padding: 8px 0;"><strong>Phone:</strong></td>
-                     <td style="padding: 8px 0;">${phone}</td>
-                   </tr>`
-                : ""
-            }
-          </table>
+  const subject =
+    type === "newsletter"
+      ? `New Newsletter Signup: ${email}`
+      : type === "syllabus"
+      ? `Syllabus Download Request from ${name}`
+      : `New Contact Form Submission from ${name}`;
 
-          <div style="margin-top: 25px;">
-            <p style="margin: 0 0 8px 0;"><strong>Message:</strong></p>
-            <div style="background: #ffffff; padding: 15px; border-left: 5px solid #B923AE; border-radius: 8px; white-space: pre-line; display: flex; align-items: flex-start; min-height: 60px;">
+  const htmlAdmin =
+    type === "newsletter"
+      ? `
+        <div style="padding: 40px; font-family: Arial, sans-serif; color: #333;">
+          <div style="max-width: 600px; margin: auto; border: 2px solid #a855f7; padding: 30px; border-radius: 16px;">
+            <img src="cid:logo" alt="Logo" style="width: 120px; margin-bottom: 20px;" />
+            <h2 style="color: #000;">New Newsletter Signup</h2>
+            <p><strong>Email:</strong> ${email}</p>
+          </div>
+        </div>`
+      : type === "syllabus"
+      ? `
+        <div style="padding: 40px; font-family: Arial, sans-serif; color: #333;">
+          <div style="max-width: 600px; margin: auto; border: 2px solid #f59e0b; padding: 30px; border-radius: 16px;">
+            <img src="cid:logo" alt="Logo" style="width: 120px; margin-bottom: 20px;" />
+            <h2>Syllabus Download Request</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+          </div>
+        </div>`
+      : `
+        <div style="padding: 40px; font-family: Arial, sans-serif; color: #333;">
+          <div style="max-width: 600px; margin: auto; border-radius: 16px; padding: 30px;
+                      border: 3px solid transparent;
+                      background-clip: padding-box, border-box;
+                      background-origin: border-box;
+                      background-image: linear-gradient(white, white),
+                      linear-gradient(135deg, #F28237, #F4EBFF, #D726B3);">
+            <img src="cid:logo" alt="Logo" style="width: 120px; margin-bottom: 20px;" />
+            <h2>New Contact Form Submission</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
+            <p style="margin-top: 20px;"><strong>Message:</strong></p>
+            <div style="background: #fff; padding: 15px; border-left: 5px solid #D726B3; border-radius: 8px;">
               ${message}
             </div>
           </div>
+        </div>`;
 
-          <!-- Social Media -->
-          <div style="text-align: center; margin-top: 30px;">
-            <p style="font-weight: bold; margin-bottom: 12px;">Follow us on social media</p>
-            <a href="https://www.linkedin.com/company/pro-coding" target="_blank" style="margin: 0 10px;">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" width="28" height="28" style="vertical-align: middle;" />
-            </a>
-            <a href="https://www.instagram.com/procoding.us?igsh=NTdxenQ3bWttY3V4" target="_blank" style="margin: 0 10px;">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="28" height="28" style="vertical-align: middle;" />
-            </a>
-          </div>
+  // Send to apply@procoding.com
+  await transporter.sendMail({
+    from: `"ProCoding" <${process.env.SMTP_USER}>`,
+    to: "apply@procoding.com",
+    subject,
+    replyTo: email,
+    html: htmlAdmin,
+    attachments: [
+      {
+        filename: "logo.svg",
+        content: logoBase64,
+        cid: "logo",
+      },
+    ],
+  });
 
-          <!-- Footer -->
-          <p style="font-size: 12px; color: #999; text-align: center; margin-top: 40px;">
-            This email was generated from the 
-            <a href="https://procoding.com" style="color: #7C3AED; text-decoration: none;">ProCoding</a> 
-            Contact Form 
-          </p>
+  // Confirmation to user for syllabus
+  if (type === "syllabus") {
+    await transporter.sendMail({
+      from: `"ProCoding" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "Here’s your ProCoding Syllabus 📘",
+      html: `
+        <div style="padding: 30px; font-family: Arial, sans-serif; color: #333;">
+          <img src="cid:logo" alt="ProCoding Logo" style="width: 120px; margin-bottom: 20px;" />
+          <h2>Hi ${name},</h2>
+          <p>Thanks for your interest in our program!</p>
+          <p>Attached is your full syllabus PDF. Let us know if you have any questions.</p>
+          <p style="margin-top: 30px;">🚀 Cheers, <br/> The ProCoding Team</p>
         </div>
-      </div>
       `,
-    };
-
-    await transporter.sendMail(mailOptions);
-
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+      attachments: [
+        {
+          filename: "ProCoding-Syllabus.pdf",
+          path: syllabusPath,
+        },
+        {
+          filename: "logo.svg",
+          content: logoBase64,
+          cid: "logo",
+        },
+      ],
+    });
   }
+
+  return NextResponse.json({ success: true });
 }

@@ -46,10 +46,9 @@ export default function PricingSection() {
     {
       id: "basic",
       name: t("pricing.basic.name"),
-      description:
-        "Perfect for self-driven and motivated students. Includes everything you need to complete the course and start a career in tech:",
-      price: t("pricing.basic.price"), // monthly
-      oldPrice: t("pricing.basic.oldPrice"), // full
+      description: t("pricing.basic.description"),
+      price: t("pricing.basic.price"),
+      oldPrice: t("pricing.basic.oldPrice"),
       benefits: basicBenefits,
       additional: t("pricing.basic.spotsLeft"),
       button: t("pricing.getStarted"),
@@ -57,10 +56,9 @@ export default function PricingSection() {
     {
       id: "premium",
       name: t("pricing.premium.name"),
-      description:
-        "The ultimate package for those who want full support throughout the career transition. Includes everything from the Basic Plan, plus:",
-      price: t("pricing.premium.price"), // monthly
-      oldPrice: t("pricing.premium.oldPrice"), // full
+      description: t("pricing.premium.description"),
+      price: t("pricing.premium.price"),
+      oldPrice: t("pricing.premium.oldPrice"),
       benefits: premiumBenefits,
       additional: t("pricing.premium.spotsLeft"),
       button: t("pricing.getStarted"),
@@ -79,16 +77,39 @@ export default function PricingSection() {
       }`}
     >
       <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-2">
-          {t("pricing.title")}
-        </h2>
+        <h2 className="text-4xl font-bold mb-4">{t("pricing.title")}</h2>
         <p
           className={`max-w-2xl mx-auto text-sm sm:text-base ${
-            isDark ? "text-white/80" : "text-black/70"
+            isDark ? "text-white" : "text-black"
           }`}
         >
           {t("pricing.description")}
         </p>
+
+        {/* 🟣 Start Date & Schedule Card */}
+        <div
+          className={`mt-6 max-w-md mx-auto text-sm rounded-xl border px-6 py-5 shadow-md sm:text-base ${
+            isDark
+              ? "bg-[#1a1a1a] border-white/10 text-white"
+              : "bg-[#F4F1FB] border-gray-200 text-black"
+          }`}
+        >
+          <h3 className="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
+            <Image
+              src="/images/calendar_icon.svg"
+              alt="Calendar icon"
+              width={20}
+              height={20}
+              className={`inline-block`}
+            />
+            Starting December 1
+          </h3>
+          <p className="text-center mb-1 font-medium">6 months duration</p>
+          <ul className="text-center space-y-1 text-sm sm:text-base">
+            <li> Tuesday & Thursday – 6:00 PM to 9:00 PM</li>
+            <li> Saturday – 10:00 AM to 4:00 PM</li>
+          </ul>
+        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row justify-center items-stretch gap-6 max-w-5xl mx-auto">
@@ -100,30 +121,42 @@ export default function PricingSection() {
             <div
               key={plan.id}
               onClick={() => setSelectedPlan(plan.id)}
-              className={`relative w-full sm:w-[400px] md:w-[60%] cursor-pointer rounded-2xl p-6 border transition-all duration-300 flex flex-col justify-between ${
-                isActive
-                  ? "border-[#5A189A] shadow-[0_0_20px_2px_rgba(156,39,176,0.3)]"
-                  : isDark
-                  ? "border-white/10 hover:border-[#5A189A] hover:shadow-[0_0_20px_2px_rgba(156,39,176,0.2)]"
-                  : "border-black/10 hover:border-[#5A189A] hover:shadow-[0_0_20px_2px_rgba(156,39,176,0.1)]"
-              } ${isDark ? "bg-[#141414]" : "bg-[#F3F2FF]"}`}
+              className={`group relative w-full sm:w-[400px] md:w-[60%] cursor-pointer rounded-2xl p-6 border transition-all duration-300 flex flex-col justify-between
+                ${
+                  isActive
+                    ? "border-[#D726B3] shadow-[0_0_20px_2px_rgba(156,39,176,0.6)]"
+                    : "border-black/10 hover:shadow-[0_0_20px_2px_rgba(156,39,176,0.6)]"
+                }
+                ${isDark ? "bg-[#141414] border-white/10" : "bg-white"}`}
             >
               <div>
                 <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
                 <p
                   className={`text-sm mb-4 ${
-                    isDark ? "text-white/80" : "text-black/70"
+                    isDark ? "text-white" : "text-black"
                   }`}
                 >
                   {plan.description}
                 </p>
 
-                <div className="text-3xl font-bold mb-1">{plan.oldPrice}</div>
-                <div className="text-sm text-gray-400 mb-4">{plan.price}</div>
+                <div
+                  className={`text-4xl font-bold mb-1 transition-colors duration-300 ${
+                    isActive ? "text-[#D726B3]" : ""
+                  }`}
+                >
+                  {plan.oldPrice}
+                </div>
+                <div
+                  className={`text-sm mb-4 ${
+                    isDark ? "text-white" : "text-black"
+                  }`}
+                >
+                  {plan.price}
+                </div>
 
                 <ul
                   className={`flex flex-col gap-2 text-sm mb-6 ${
-                    isDark ? "text-white/90" : "text-black/90"
+                    isDark ? "text-white" : "text-black"
                   }`}
                 >
                   {plan.benefits.map((benefit, index) => (
@@ -142,20 +175,22 @@ export default function PricingSection() {
               </div>
 
               <div>
-                <p className="text-purple-500 text-xs text-left mb-3">
+                <p className="text-[#D726B3] text-xs text-left mb-3">
                   {plan.additional}
                 </p>
-                <button
-                  className={`w-full py-2 rounded-full text-sm font-bold transition border ${
+                <a
+                  href="#contact"
+                  className={`block text-center w-full py-2 rounded-full text-md font-bold border transition
+                  ${
                     isActive
-                      ? "bg-[#A259FF] hover:bg-[#8e3de9] text-white border-transparent"
+                      ? "bg-purple-600 text-white border-transparent"
                       : isDark
-                      ? "bg-white text-black hover:bg-gray-100 border-white/10"
-                      : "bg-white text-[#5A189A] hover:bg-gray-50 border-[#5A189A]"
+                      ? "bg-white text-black border-white/10"
+                      : "bg-white text-[#5A189A] border-[#5A189A]"
                   }`}
                 >
                   {plan.button}
-                </button>
+                </a>
               </div>
             </div>
           );

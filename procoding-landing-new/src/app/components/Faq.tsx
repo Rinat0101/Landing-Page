@@ -49,12 +49,12 @@ export default function FAQSection() {
       }`}
     >
       <div className="w-full max-w-3xl">
-        <h2 className="text-center text-3xl md:text-4xl font-bold mb-4">
+        <h2 className="text-center text-4xl font-bold mb-4">
           {t("faq.title")}
         </h2>
         <p
-          className={`text-center max-w-2xl mx-auto mb-10 text-sm md:text-base ${
-            isDark ? "text-white/80" : "text-black/70"
+          className={`text-center max-w-2xl mx-auto mb-12 text-sm md:text-base ${
+            isDark ? "text-white" : "text-black"
           }`}
         >
           {t("faq.subtitle")}
@@ -111,7 +111,7 @@ export default function FAQSection() {
                 >
                   <p
                     className={`text-sm md:text-base leading-relaxed ${
-                      isDark ? "text-white/80" : "text-black/80"
+                      isDark ? "text-white" : "text-black"
                     }`}
                   >
                     {t(item.answerKey)}

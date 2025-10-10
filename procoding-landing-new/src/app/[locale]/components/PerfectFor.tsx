@@ -31,13 +31,13 @@ export default function PerfectForSection() {
 
   return (
     <section
-      className={`py-20 px-4 md:px-6 transition-colors duration-300 ${
+      className={`py-20 transition-colors duration-300 ${
         isLight ? "bg-white" : "bg-black"
       }`}
     >
-      <div className="max-w-screen-xl mx-auto">
+      <div className="max-w-screen-xl mx-auto px-4 md:px-6">
         {/* Top Heading */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2
             className={`text-4xl font-bold ${
               isLight ? "text-black" : "text-white"
@@ -87,7 +87,7 @@ export default function PerfectForSection() {
                   </h3>
                   <p
                     className={`text-sm leading-relaxed ${
-                      isLight ? "text-gray-800" : "text-white/80"
+                      isLight ? "text-black" : "text-white"
                     }`}
                   >
                     {card.description}

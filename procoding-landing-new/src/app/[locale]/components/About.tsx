@@ -19,10 +19,13 @@ export default function AboutSection() {
     >
       <div className="max-w-screen-xl mx-auto text-center">
         {/* Section Title */}
-        <SectionTitle
-          title={t("about.title")}
-          className={isLight ? "text-black" : "text-white"}
-        />
+        <h2
+          className={`${
+            isLight ? "text-black" : "text-white"
+          } text-4xl font-bold mb-4`}
+        >
+          {t("about.title")}
+        </h2>
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <AboutCard

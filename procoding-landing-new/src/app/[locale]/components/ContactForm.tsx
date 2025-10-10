@@ -119,7 +119,7 @@ export default function ContactForm() {
         }`}
       >
         {/* Dragon Image */}
-        <div className="absolute -right-20 bottom-0 hidden lg:block">
+        <div className="absolute -right-20 bottom-0 hidden lg:block z-50">
           <Image
             src="/images/dragon_pointing.svg"
             alt="ProCoding Dragon"
@@ -130,10 +130,10 @@ export default function ContactForm() {
         </div>
 
         {/* Header */}
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+        <h2 className="text-4xl font-bold mb-4 leading-tight">
           {t("contact.title")}
         </h2>
-        <p className={`mb-8 ${isDark ? "text-white/80" : "text-black/70"}`}>
+        <p className={`mb-8 ${isDark ? "text-white" : "text-black"}`}>
           {t("contact.description")}
         </p>
 
@@ -200,7 +200,7 @@ export default function ContactForm() {
               aria-label="Phone Number"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="202-555-0123"
+              placeholder="2025550123"
               maxLength={10}
               inputMode="numeric"
               className={`w-full py-3 pr-4 focus:outline-none bg-transparent placeholder-opacity-60 ${
@@ -241,7 +241,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#a855f7] hover:bg-[#9333ea] text-white font-semibold py-3 rounded-full transition duration-200 disabled:opacity-50"
+            className="w-full bg-[#9333ea] hover:bg-[#9333ea] hover:opacity-90  text-white font-semibold py-3 rounded-full transition duration-200 disabled:opacity-50"
           >
             {loading ? "Sending..." : t("contact.submit")}
           </button>

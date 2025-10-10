@@ -53,7 +53,7 @@ export default function LearningSteps() {
         </h2>
         <p
           className={`text-sm sm:text-base ${
-            isLight ? 'text-black/70' : 'text-white/80'
+            isLight ? 'text-black' : 'text-white'
           } max-w-xl mx-auto`}
         >
           {t('steps.description')}
@@ -96,7 +96,7 @@ export default function LearningSteps() {
                 <h3 className="font-bold text-lg">{step.title}</h3>
                 <p
                   className={`${
-                    isLight ? 'text-black/70' : 'text-white/80'
+                    isLight ? 'text-black' : 'text-white'
                   } text-sm`}
                 >
                   {step.description}
@@ -122,7 +122,7 @@ export default function LearningSteps() {
                 </h3>
                 <p
                   className={`${
-                    isLight ? 'text-black/70' : 'text-white/80'
+                    isLight ? 'text-black' : 'text-white'
                   } text-sm sm:text-base`}
                 >
                   {step.description}

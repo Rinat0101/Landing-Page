@@ -70,19 +70,20 @@ export default function ReadyToWorkSection() {
         isDark ? 'bg-black text-white' : 'bg-white text-black'
       }`}
     >
-      <div className="max-w-4xl mx-auto px-4 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+      {/* Updated to match PricingSection width */}
+      <div className="max-w-5xl mx-auto px-4 text-center">
+        <h2 className="text-4xl sm:text-4xl font-bold mb-4">
           {t('readyWork.title')}
         </h2>
         <p
-          className={`text-sm sm:text-base max-w-2xl mx-auto ${
-            isDark ? 'text-white/70' : 'text-black/80'
+          className={`sm:text-base max-w-2xl mx-auto ${
+            isDark ? 'text-white' : 'text-black'
           }`}
         >
           {t('readyWork.description')}
         </p>
         <Image
-          src="/images/ready_to_work_main.svg"
+          src="/images/Rectangle 13.webp"
           alt="Office team"
           width={1000}
           height={400}
@@ -90,7 +91,8 @@ export default function ReadyToWorkSection() {
         />
       </div>
 
-      <div className="max-w-4xl mx-auto mt-10 px-4 flex flex-col gap-3">
+      {/* Also updated to max-w-5xl */}
+      <div className="max-w-5xl mx-auto mt-10 px-4 flex flex-col gap-3">
         {steps.map((step, index) => {
           const isActive = activeIndex === index;
 
@@ -101,18 +103,12 @@ export default function ReadyToWorkSection() {
             : 'bg-[#F4F1FB]';
 
           const textColor = isActive
-            ? isDark
-              ? 'text-black'
-              : 'text-white'
+            ? 'text-white'
             : isDark
-            ? 'text-white/80'
-            : 'text-black/70';
+            ? 'text-white'
+            : 'text-black';
 
-          const iconColor = isActive
-            ? '#ffffff'
-            : isDark
-            ? '#ffffff'
-            : '#F28237';
+          const iconColor = isActive ? '#ffffff' : '#F28237';
 
           return (
             <div

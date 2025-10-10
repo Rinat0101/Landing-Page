@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 type LocaleLayoutProps = {
   children: React.ReactNode;
   params: {
-    locale: "en" | "ru"; // ✅ Add more if you support more locales
+    locale: "en" | "ru";
   };
 };
 

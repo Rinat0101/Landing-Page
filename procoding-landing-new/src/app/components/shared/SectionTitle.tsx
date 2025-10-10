@@ -27,7 +27,7 @@ export default function SectionTitle({
       : "text-center items-center";
 
   const titleColor = isLight ? "text-[#1A1A1A]" : "text-white";
-  const subtitleColor = isLight ? "text-[#555]" : "text-white/70";
+  const subtitleColor = isLight ? "text-black" : "text-white";
 
   return (
     <div className={`flex flex-col gap-2 mb-10 ${alignmentClass} ${className}`}>

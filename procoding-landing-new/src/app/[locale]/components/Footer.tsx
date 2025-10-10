@@ -1,15 +1,53 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import Image from "next/image";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 import { useTranslation } from "@/lib/TranslationContext";
 
 export default function Footer() {
   const { theme } = useTheme();
-  const { t } = useTranslation();
   const isDark = theme === "dark";
+  const { t } = useTranslation();
 
-  const iconClass = `w-5 h-5 transition duration-300 ${isDark ? "" : "invert"}`;
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "success" | "error" | "loading">("idle");
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+
+    try {
+      const response = await fetch(`${window.location.origin}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          message: "Newsletter signup",
+          name: "Newsletter",
+          phone: "",
+          type: "newsletter",
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  useEffect(() => {
+    if (status === "success") {
+      const timer = setTimeout(() => setStatus("idle"), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [status]);
 
   return (
     <footer
@@ -17,41 +55,48 @@ export default function Footer() {
         isDark ? "bg-[#0f0f0f] text-white" : "bg-[#f3f2ff] text-black"
       }`}
     >
-      <div className="max-w-7xl mx-auto flex flex-col gap-10 md:grid md:grid-cols-3 lg:grid-cols-5">
+      <div className="max-w-7xl mx-auto flex flex-col gap-10 md:grid md:grid-cols-3 lg:grid-cols-4">
         {/* Logo & Social */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Image
-              src="/images/logo.svg"
-              alt="ProCoding logo"
-              width={24}
-              height={24}
-              priority
-            />
+            <Image src="/images/logo.svg" alt="ProCoding logo" width={24} height={24} priority />
             <span className="font-semibold text-lg">ProCoding</span>
           </div>
-          <p
-            className={`mb-4 text-sm ${
-              isDark ? "text-white/80" : "text-black/70"
-            }`}
-          >
+          <p className={`mb-4 text-sm ${isDark ? "text-white/80" : "text-black/70"}`}>
             {t("footer.social")}
           </p>
           <div className="flex gap-3">
             {[
-              { src: "/images/fb_icon.svg", alt: "Facebook" },
-              { src: "/images/twitter_icon.svg", alt: "Twitter" },
-              { src: "/images/linkedin_icon.svg", alt: "LinkedIn" },
-              { src: "/images/instagram_icon.svg", alt: "Instagram" },
-            ].map(({ src, alt }) => (
+              {
+                href: "https://www.facebook.com/procodingcom",
+                src: "/images/fb_icon.svg",
+                alt: "Facebook",
+                size: 12,
+              },
+              {
+                href: "https://www.linkedin.com/company/pro-coding",
+                src: "/images/linkedin_icon.svg",
+                alt: "LinkedIn",
+                size: 16,
+              },
+              {
+                href: "https://www.instagram.com/procodingcom",
+                src: "/images/instagram_icon.svg",
+                alt: "Instagram",
+                size: 16,
+              },
+            ].map(({ href, src, alt, size }) => (
               <a
                 key={alt}
-                href="#"
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition hover:scale-105 shadow-sm ${
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={alt}
+                className={`w-9 h-9 rounded-xl flex items-center justify-center transition hover:scale-105 shadow-sm ${
                   isDark ? "bg-[#0A0A0A]" : "bg-white"
                 }`}
               >
-                <Image src={src} alt={alt} width={16} height={16} />
+                <Image src={src} alt={alt} width={size} height={size} />
               </a>
             ))}
           </div>
@@ -59,115 +104,66 @@ export default function Footer() {
 
         {/* Documents */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">
-            {t("footer.documents.title")}
-          </h3>
-          <ul
-            className={`space-y-1 text-sm ${
-              isDark ? "text-white/70" : "text-black/70"
-            }`}
-          >
-            <li>
-              <a href="#">{t("footer.documents.userAgreement")}</a>
-            </li>
-            <li>
-              <a href="#">{t("footer.documents.privacyPolicy")}</a>
-            </li>
-            <li>
-              <a href="#">{t("footer.documents.cookiesPolicy")}</a>
-            </li>
+          <h3 className="font-semibold mb-2 text-base">{t("footer.documents.title")}</h3>
+          <ul className={`space-y-1 text-sm ${isDark ? "text-white/70" : "text-black/70"}`}>
+            <li><a href="/user-agreement">{t("footer.documents.userAgreement")}</a></li>
+            <li><a href="/privacy-policy">{t("footer.documents.privacyPolicy")}</a></li>
+            <li><a href="/cookies-policy">{t("footer.documents.cookiesPolicy")}</a></li>
           </ul>
-        </div>
-
-        {/* Address */}
-        <div>
-          <h3 className="font-semibold mb-2 text-base">
-            {t("footer.address.title")}
-          </h3>
-          <div
-            className={`flex items-start gap-2 text-sm ${
-              isDark ? "text-white/70" : "text-black/70"
-            }`}
-          >
-            <Image
-              src="/images/location_icon.svg"
-              alt="Location"
-              width={20}
-              height={20}
-              className={iconClass}
-            />
-            <p>
-              14 Pushkina St., Apt 27,
-              <br />
-              Yekaterinburg, 620014
-            </p>
-          </div>
         </div>
 
         {/* Contact */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">
-            {t("footer.contact.title")}
-          </h3>
-          <div
-            className={`flex items-center gap-2 text-sm mb-2 ${
-              isDark ? "text-white/70" : "text-black/70"
-            }`}
-          >
+          <h3 className="font-semibold mb-2 text-base">{t("footer.contact.title")}</h3>
+          <div className={`flex items-center gap-2 text-sm mb-2 ${isDark ? "text-white/70" : "text-black/70"}`}>
             <Image
               src="/images/email_icon.svg"
               alt="Email"
               width={20}
               height={20}
-              className={iconClass}
+              className={isDark ? "" : "invert"}
             />
-            <span>pochta@gmail.com</span>
-          </div>
-          <div
-            className={`flex items-center gap-2 text-sm ${
-              isDark ? "text-white/70" : "text-black/70"
-            }`}
-          >
-            <Image
-              src="/images/telegram_icon.svg"
-              alt="Telegram"
-              width={20}
-              height={20}
-              className={iconClass}
-            />
-            <span>@daurfast</span>
+            <span>apply@procoding.com</span>
           </div>
         </div>
 
         {/* Newsletter */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">
-            {t("footer.newsletter.title")}
-          </h3>
-          <input
-            type="email"
-            placeholder={t("footer.newsletter.emailPlaceholder")}
-            className={`w-full px-4 py-2 rounded-xl text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-purple-500 transition ${
-              isDark
-                ? "bg-[#0a0a0a] text-white/70 border border-white/20 placeholder-white/50"
-                : "bg-white text-black border border-black/10 placeholder-black/40"
-            }`}
-          />
-          <button
-            type="submit"
-            className="w-full bg-[#a855f7] hover:bg-[#9333ea] text-white font-semibold py-2 rounded-full transition duration-200 text-sm"
-          >
-            {t("footer.newsletter.submit")}
-          </button>
+          <h3 className="font-semibold mb-2 text-base">{t("footer.newsletter.title")}</h3>
+          <form onSubmit={handleNewsletterSubmit}>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t("footer.newsletter.emailPlaceholder")}
+              required
+              className={`w-full px-4 py-2 rounded-xl text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-purple-500 transition ${
+                isDark
+                  ? "bg-[#0a0a0a] text-white/70 border border-white/20 placeholder-white/50"
+                  : "bg-white text-black border border-black/10 placeholder-black/40"
+              }`}
+            />
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="w-full bg-[#D726B3] hover:bg-[#B71D99] text-white font-semibold py-2 rounded-full transition duration-200 text-sm"
+            >
+              {status === "loading" ? "Sending..." : t("footer.newsletter.submit")}
+            </button>
+            {status === "success" && (
+              <p className="text-green-500 text-sm mt-1">Subscribed successfully!</p>
+            )}
+            {status === "error" && (
+              <p className="text-red-500 text-sm mt-1">
+                Something went wrong. Please try again.
+              </p>
+            )}
+          </form>
         </div>
       </div>
 
       {/* Divider */}
-      <div
-        className={`mt-10 text-center text-sm px-4 sm:px-6 ${
-          isDark ? "text-white/50" : "text-black/50"
-        }`}
-      >
+      <div className={`mt-10 text-center text-sm px-4 sm:px-6 ${isDark ? "text-white/50" : "text-black/50"}`}>
         {t("footer.copyright")}
       </div>
     </footer>

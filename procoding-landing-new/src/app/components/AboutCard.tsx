@@ -20,8 +20,8 @@ export default function AboutCard({ icon, title, description, dark = false }: Ab
   ? "bg-[#1A001E]"
   : "bg-[#0C0C0C]";
 
-  const headingColor = isLight ? "text-[#1A1A1A]" : "text-white";
-  const descColor = isLight ? "text-[#555]" : "text-white/80";
+  const headingColor = isLight ? "text-black" : "text-white";
+  const descColor = isLight ? "text-black" : "text-white";
 
   return (
     <div className={`rounded-2xl p-6 ${bgClass} flex flex-col gap-4 transition-colors duration-300`}>

@@ -34,7 +34,13 @@
     "description": "Hands-on projects, expert mentorship, and full support at every step - everything you need to make your transition into IT confident and stress-free.",
     "contact": "Contact us",
     "consultation": "Free Consultation",
-    "projects": "Real-world projects • Resume-ready results"
+    "syllabus": "Download syllabus",
+    "projects": "Real-world projects • Resume-ready results",
+    "divider": {
+      "weeks": "24 weeks",
+      "practice": "288+ hours of practice",
+      "projects": "3 projects in portfolio"
+    }
   },
   "steps": {
     "title": "How the Learning Works",
@@ -87,10 +93,27 @@
   "instructors": {
     "title": "Meet Our Team",
     "description": "Throughout your learning journey, you’ll receive professional support from experienced industry experts. In every class, our instructors will guide you through the material, help you understand key concepts, and support you with your lab work if you run into any difficulties. Once your labs are submitted, our technical assistants will review them and provide valuable feedback.",
-    "kate": "6 years in IT education. She built this course to include only what truly matters — practical knowledge that delivers real results.",
-    "anastasia": "Switched from being a medical doctor to software development in just one year. Three years later, she became a team lead — now she helps others follow the same path.",
-    "konstantin": "Instructors explain not just the \"how\" but also the \"why\" to foster deeper understanding and critical thinking.",
-    "angelina": "Always there to keep you updated and supported behind the scenes — she makes sure everything runs smoothly."
+    "join": "Join",
+    "kate": {
+      "name": "Kate",
+      "role": "Methodologist",
+      "description": "6 years in IT education. She built this course to include only what truly matters — practical knowledge that delivers real results."
+    },
+    "anastasiia": {
+      "name": "Anastasiia",
+      "role": "Course Expert",
+      "description": "Switched from being a medical doctor to software development in just one year. Three years later, she became a team lead — now she helps others follow the same path."
+    },
+    "konstantin": {
+      "name": "Konstantin",
+      "role": "AQA Teacher",
+      "description": "Instructors explain not just the \"how\" but also the \"why\" to foster deeper understanding and critical thinking."
+    },
+    "angelina": {
+      "name": "Angelina",
+      "role": "Administrator",
+      "description": "Always there to keep you updated and supported behind the scenes — she makes sure everything runs smoothly."
+    }
   },
   "about": {
     "title": "About Us",
@@ -120,6 +143,14 @@
         "description": "You’re not alone. Our team of mentors, tech assistants, and fellow students will support you both technically and emotionally — to stay motivated, focused, and inspired."
       }
     ]
+  },
+  "salaries": {
+    "title": "Average Salaries for Web Developers",
+    "description": "Wondering what web developers earn in the U.S.? Here's what you can expect at different levels of experience.",
+    "junior": "Junior Web Developer",
+    "mid": "Mid-level Web Developer",
+    "senior": "Senior Web Developer",
+    "lead": "Lead / Tech Lead / Architect"
   },
   "curriculum": {
     "title": "Curriculum Overview",
@@ -160,6 +191,7 @@
     "getStarted": "Apply",
     "basic": {
       "name": "Standard Plan",
+      "description": "Perfect for self-driven and motivated students. Includes everything you need to complete the course and start a career in tech:",
       "price": "$1,390 / month",
       "oldPrice": "$8,340 / full course",
       "benefits": [
@@ -176,6 +208,7 @@
     },
     "premium": {
       "name": "Premium Plan",
+      "description": "The ultimate package for those who want full support throughout the career transition. Includes everything from the Basic Plan, plus:",
       "price": "$1,990 / month",
       "oldPrice": "$11,940 / full course",
       "badge": "Popular Choice",
@@ -249,6 +282,10 @@
       "messageTooLong": "Message exceeds the 1000 character limit."
     }
   },
+  "futureEmployers": {
+    "title": "Built for Careers at Top Tech Companies",
+    "subtitle": "You’ll be equipped with the same tools and frameworks used by the best in the industry"
+  },
 
   "footer": {
     "social": "Our social media",
@@ -271,6 +308,6 @@
       "emailPlaceholder": "Your email",
       "submit": "Submit Request"
     },
-    "copyright": "© Coost 2025 | All rights reserved"
+    "copyright": "© ProCoding 2025 | All rights reserved"
   }
 }

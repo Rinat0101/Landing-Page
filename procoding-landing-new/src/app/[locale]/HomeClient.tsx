@@ -10,10 +10,12 @@ import Curriculum from "./components/Curriculum";
 // import ProgramSteps from "./components/ProgramSteps";
 import Pricing from "./components/Pricing";
 import OurTeam from "./components/OurTeam";
+import Companies from "./components/Companies";
 import Faq from "../components/Faq";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import ReadyToWork from "./components/ReadyToWork";
+import SalariesSection from "./components/SalariesSection";
 
 export default function HomePage() {
   const { resolvedTheme } = useTheme();
@@ -33,11 +35,17 @@ export default function HomePage() {
       <section id="home" className={`${isLight ? "bg-white" : "bg-black"}`}>
         <Hero />
       </section>
-      <section id="about">
-        <PerfectForSection />
-      </section>
       <section id="about2">
         <About />
+      </section>
+      <section id="companies">
+        <Companies />
+      </section>
+      <section id="salaries">
+        <SalariesSection />
+      </section>
+      <section id="about">
+        <PerfectForSection />
       </section>
       <section id="curriculum">
         <Curriculum />
@@ -57,11 +65,11 @@ export default function HomePage() {
       <section id="plans">
         <Pricing />
       </section>
-      <section id="reviews">
-        <Faq />
-      </section>
       <section id="contact">
         <ContactForm />
+      </section>
+      <section id="reviews">
+        <Faq />
       </section>
       <div className="mx-8">
         <Footer />
