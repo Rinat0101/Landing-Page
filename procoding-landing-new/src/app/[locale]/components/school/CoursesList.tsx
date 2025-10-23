@@ -19,6 +19,7 @@ const courses = [
     ],
     ctaKey: "school.courses.items.0.cta",
     image: "/images/school/Course_cover_1.webp",
+    link: "/courses/web-development",
   },
   {
     titleKey: "school.courses.items.1.title",
@@ -76,6 +77,7 @@ export default function CoursesList() {
               features={course.featuresKeys.map(t)}
               cta={t(course.ctaKey)}
               image={course.image}
+              link={course.link}
             />
           ))}
         </div>
@@ -99,6 +101,7 @@ export default function CoursesList() {
                     features={course.featuresKeys.map(t)}
                     cta={t(course.ctaKey)}
                     image={course.image}
+                    link={course.link}
                   />
                 </div>
               </SwiperSlide>

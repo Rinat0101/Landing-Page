@@ -10,7 +10,8 @@ type CourseCardProps = {
   duration: string;
   features: string[];
   cta: string;
-  isFirst?: boolean; // NEW: used to prioritize the first visible card
+  isFirst?: boolean;
+  link?: string;
 };
 
 export default function CourseCard({
@@ -21,6 +22,7 @@ export default function CourseCard({
   features,
   cta,
   isFirst = false,
+  link,
 }: CourseCardProps) {
   const { theme } = useTheme();
   const isLight = theme === "light";
@@ -50,9 +52,6 @@ export default function CourseCard({
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               priority={isFirst}
               loading={isFirst ? "eager" : "lazy"}
-              // Optional: Add placeholder blur if desired
-              // placeholder="blur"
-              // blurDataURL="/path-to-blur-image.webp"
             />
           </div>
 
@@ -95,9 +94,11 @@ export default function CourseCard({
 
         {/* CTA Button */}
         <div className="mt-6">
-          <button className="bg-[#A943D5] hover:opacity-90 text-white w-full py-2 rounded-full transition text-sm font-semibold">
-            {cta}
-          </button>
+          <a href={link || "#contact"}>
+            <button className="bg-[#A943D5] hover:opacity-90 text-white w-full py-2 rounded-full transition text-sm font-semibold">
+              {cta}
+            </button>
+          </a>
         </div>
       </div>
     </div>

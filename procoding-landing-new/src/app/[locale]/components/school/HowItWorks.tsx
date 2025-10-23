@@ -90,9 +90,8 @@ export default function ReadyToWorkSection() {
           {t('school.programStructure.subheading')}
         </p>
 
-        {/* Replaced header image */}
         <Image
-          src="/school/HowDoesItWork.webp"
+          src="/images/school/HowDoesItWork.webp"
           alt="How ProCoding Bootcamp Works"
           width={1000}
           height={400}

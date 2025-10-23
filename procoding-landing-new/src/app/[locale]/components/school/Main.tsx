@@ -26,7 +26,7 @@ export default function SchoolHero() {
       <div className="w-full flex justify-center mb-8 lg:hidden">
         <div className="w-full max-w-[460px] md:max-w-[600px] aspect-[4/3] relative">
           <Image
-            src="/school/Main.webp"
+            src="/images/school/Main.webp"
             alt="ProCoding School Main Illustration"
             fill
             className="rounded-xl object-contain"
@@ -82,7 +82,7 @@ export default function SchoolHero() {
       <div className="hidden lg:flex w-full lg:w-1/2 justify-end">
         <div className="w-full max-w-[800px] aspect-[4/3] relative">
           <Image
-            src="/school/Main.webp"
+            src="/images/school/Main.webp"
             alt="ProCoding School Main Illustration"
             fill
             className="rounded-xl object-contain"
