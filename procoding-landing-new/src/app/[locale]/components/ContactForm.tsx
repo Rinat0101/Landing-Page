@@ -63,12 +63,12 @@ export default function ContactForm() {
       message: formData.message.trim(),
     };
 
-    if (!cleanedData.name || !cleanedData.email || !cleanedData.message) {
+    if (!cleanedData.name || !cleanedData.email) {
       setErrors(t("contact.errors.emailRequired"));
       return;
     }
 
-    if (cleanedData.message.length > 1000) {
+    if (cleanedData.message && cleanedData.message.length > 1000) {
       setErrors(t("contact.errors.messageTooLong"));
       return;
     }
@@ -80,7 +80,10 @@ export default function ContactForm() {
     }
 
     const phoneRegex = /^[2-9][0-9]{2}[2-9][0-9]{2}[0-9]{4}$/;
-    if (cleanedData.phone && !phoneRegex.test(cleanedData.phone.replace("+1", ""))) {
+    if (
+      cleanedData.phone &&
+      !phoneRegex.test(cleanedData.phone.replace("+1", ""))
+    ) {
       setErrors(t("contact.errors.phoneInvalid"));
       return;
     }
@@ -110,7 +113,10 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" className="relative py-20 px-4 flex justify-center transition-colors duration-300">
+    <section
+      id="contact"
+      className="relative py-20 px-4 flex justify-center transition-colors duration-300"
+    >
       <div
         className={`relative w-full max-w-3xl rounded-3xl px-8 py-10 border transition-colors duration-300 ${
           isDark
@@ -175,7 +181,7 @@ export default function ContactForm() {
               isDark
                 ? "bg-[#0f0f0f] border border-white/20"
                 : "bg-[#f3f2ff] border border-black/10"
-            }`}
+            } focus-within:ring-2 focus-within:ring-purple-500`}
           >
             <div className="flex items-center px-3 shrink-0">
               <Image
@@ -203,7 +209,7 @@ export default function ContactForm() {
               placeholder="2025550123"
               maxLength={10}
               inputMode="numeric"
-              className={`w-full py-3 pr-4 focus:outline-none bg-transparent placeholder-opacity-60 ${
+              className={`w-full py-3 pr-4 focus:outline-none focus:ring-0 bg-transparent placeholder-opacity-60 ${
                 isDark
                   ? "text-white placeholder-white/50"
                   : "text-black placeholder-black/40"
@@ -232,9 +238,7 @@ export default function ContactForm() {
 
           {/* Success */}
           {success && (
-            <p className="text-green-500 text-sm">
-              Message sent successfully!
-            </p>
+            <p className="text-green-500 text-sm">Message sent successfully!</p>
           )}
 
           {/* Submit */}

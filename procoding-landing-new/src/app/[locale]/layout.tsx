@@ -1,9 +1,12 @@
+// app/[locale]/layout.tsx
+
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import Script from "next/script"; // ⬅️ ADD THIS
+import Script from "next/script";
 import "../globals.css";
-
 import Providers from "./providers";
+import Navbar from "./components/Navbar";
+
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -86,7 +89,10 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
           </div>
         </noscript>
 
-        <Providers locale={params.locale}>{children}</Providers>
+        {/* 🧠 Main content */}
+        <Providers locale={params.locale}>
+          {children}
+        </Providers>
       </body>
     </html>
   );

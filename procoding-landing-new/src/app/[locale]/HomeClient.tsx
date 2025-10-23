@@ -2,20 +2,18 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import Hero from "./components/Hero";
-import PerfectForSection from "./components/PerfectFor";
-import Guarantee from "./components/Guarantee";
-import About from "./components/About";
-import Curriculum from "./components/Curriculum";
+import Main from "./components/school/Main";
+import AboutSchool from "./components/school/AboutSchool";
 // import ProgramSteps from "./components/ProgramSteps";
-import Pricing from "./components/Pricing";
-import OurTeam from "./components/OurTeam";
-import Companies from "./components/Companies";
-import Faq from "../components/Faq";
+import OurTeam from "./components/school/SchoolTeam";
+import Faq from "./components/school/Faq_school";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
-import ReadyToWork from "./components/ReadyToWork";
-import SalariesSection from "./components/SalariesSection";
+import HowItWorks from "./components/school/HowItWorks";
+import CoursesList from "./components/school/CoursesList";
+import Reviews from "./components/school/Reviews";
+import Navbar from "./components/Navbar";
+import { schoolSections } from "./components/navItems";
 
 export default function HomePage() {
   const { resolvedTheme } = useTheme();
@@ -32,43 +30,32 @@ export default function HomePage() {
         isLight ? "bg-white" : "bg-black"
       } transition-colors duration-300`}
     >
+      <Navbar navItems={schoolSections} />
       <section id="home" className={`${isLight ? "bg-white" : "bg-black"}`}>
-        <Hero />
+        <Main />
       </section>
       <section id="about2">
-        <About />
+        <AboutSchool />
       </section>
-      <section id="companies">
-        <Companies />
+      <section id="courses">
+        <CoursesList />
       </section>
-      <section id="salaries">
-        <SalariesSection />
-      </section>
-      <section id="about">
-        <PerfectForSection />
-      </section>
-      <section id="curriculum">
-        <Curriculum />
+      <section id="jobs">
+        <HowItWorks />
       </section>
       <section id="instructors">
         <OurTeam />
       </section>
-      <section id="guarantee" className="scroll-mt-32">
-        <Guarantee />
-      </section>
+      {/* <section id="reviews">
+        <Reviews />
+      </section> */}
       {/* <section id="program">
         <ProgramSteps />
       </section> */}
-      <section id="jobs">
-        <ReadyToWork />
-      </section>
-      <section id="plans">
-        <Pricing />
-      </section>
       <section id="contact">
         <ContactForm />
       </section>
-      <section id="reviews">
+      <section id="faq_school">
         <Faq />
       </section>
       <div className="mx-8">

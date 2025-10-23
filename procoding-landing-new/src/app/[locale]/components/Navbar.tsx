@@ -6,26 +6,17 @@ import Image from 'next/image';
 import { useTranslation } from '@/lib/TranslationContext';
 import LanguageSwitcher from '@/app/components/LanguageSwitcher';
 
-const desktopNavItems = [
-  { key: 'nav.about', href: '#about' },
-  { key: 'nav.curriculum', href: '#curriculum' },
-  { key: 'nav.instructors', href: '#instructors' },
-  { key: 'nav.guarantees', href: '#guarantee' },
-  { key: 'nav.jobs', href: '#jobs' },
-  { key: 'nav.pricing', href: '#plans' },
-  { key: 'nav.contact', href: '#contact' },
-  { key: 'nav.faq', href: '#reviews' },
-];
+type Section = {
+  key: string;
+  href: string;
+  icon?: string;
+};
 
-const mobileNavItems = [
-  { key: 'nav.about', href: '#about', icon: '/images/about_cup_icon.svg' },
-  { key: 'nav.curriculum', href: '#curriculum', icon: '/images/icons/curriculum.svg' },
-  { key: 'nav.instructors', href: '#instructors', icon: '/images/icons/menu_people.svg' },
-  { key: 'nav.pricing', href: '#plans', icon: '/images/icons/pricing.svg' },
-  { key: 'nav.contact', href: '#contact', icon: '/images/contact_icon.svg' },
-];
+type NavbarProps = {
+  navItems?: Section[];
+};
 
-export default function Navbar() {
+export default function Navbar({ navItems = [] }: NavbarProps) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -46,21 +37,43 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      const threshold = 200;
       let current = '';
-      [...desktopNavItems, ...mobileNavItems].forEach(({ href }) => {
+  
+      for (let i = 0; i < navItems.length; i++) {
+        const { href } = navItems[i];
         const section = document.querySelector(href);
-        if (section) {
-          const offsetTop = section.getBoundingClientRect().top + window.scrollY;
-          if (scrollY >= offsetTop - 100) current = href;
+        if (!section) continue;
+  
+        const top = section.getBoundingClientRect().top + window.scrollY;
+        const bottom = top + section.offsetHeight;
+  
+        if (scrollY + threshold >= top && scrollY + threshold < bottom) {
+          current = href;
+          break;
         }
-      });
+  
+        if (
+          i === navItems.length - 1 &&
+          window.innerHeight + scrollY >= document.body.offsetHeight - 10
+        ) {
+          current = href;
+        }
+      }
+      if (
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 10
+      ) {
+        setActiveSection(navItems[navItems.length - 1].href);
+        return;
+      }
+  
       setActiveSection(current);
     };
-
+  
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -78,6 +91,9 @@ export default function Navbar() {
     const newPath = currentPath.replace(`/${locale}`, `/${newLocale}`);
     window.location.assign(newPath);
   };
+
+  const desktopItems = navItems.filter(item => !item.icon);
+  const mobileItems = navItems.filter(item => item.icon);
 
   return (
     <header
@@ -98,7 +114,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden custom-md:flex gap-6 text-sm font-medium items-center">
-          {desktopNavItems.map(({ key, href }) => (
+          {desktopItems.map(({ key, href }) => (
             <li key={href}>
               <a
                 href={href}
@@ -120,14 +136,14 @@ export default function Navbar() {
         <div className="flex items-center gap-4 z-50">
           {/* Theme toggle */}
           <button
-            onClick={() => setTheme(isDark ? "light" : "dark")}
+            onClick={() => setTheme(isDark ? 'light' : 'dark')}
             aria-label="Toggle theme"
           >
             <Image src={themeIcon} alt="Theme Toggle" width={70} height={60} />
           </button>
 
-          {/* Language Switcher (desktop only) */}
-          <div className="hidden custom-md:flex items-center gap-4 z-50 h-12">
+          {/* Language Switcher (desktop) */}
+          <div className="hidden custom-md:flex items-center gap-4 h-12">
             <LanguageSwitcher
               locale={locale}
               handleLanguageChange={handleLanguageChange}
@@ -139,7 +155,7 @@ export default function Navbar() {
           <div className="hidden custom-md:flex">
             <a
               href="#contact"
-              className="bg-[#9333ea] text-white py-2 px-4 rounded-full text-sm font-semibold hover:opacity-90 transition whitespace-nowrap"
+              className="bg-[#A943D5] hover:opacity-90 text-white py-2 px-4 rounded-full text-sm font-semibold transition whitespace-nowrap"
             >
               {t('nav.apply') || 'Apply'}
             </a>
@@ -191,7 +207,7 @@ export default function Navbar() {
             </button>
 
             {/* Mobile nav items */}
-            {mobileNavItems.map(({ key, href, icon }) => (
+            {mobileItems.map(({ key, href, icon }) => (
               <a
                 key={href}
                 href={href}
@@ -205,7 +221,7 @@ export default function Navbar() {
                 }`}
               >
                 <Image
-                  src={icon}
+                  src={icon!}
                   alt={`${key} icon`}
                   width={24}
                   height={24}

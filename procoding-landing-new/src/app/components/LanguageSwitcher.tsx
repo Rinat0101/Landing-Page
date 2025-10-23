@@ -84,7 +84,7 @@ export default function LanguageSwitcher({
           className={`absolute top-full mt-2 w-full rounded-xl shadow-xl overflow-hidden border backdrop-blur-md ${
             isDark
               ? "bg-black/20 text-white border-[#333333]"
-              : "bg-white/20 text-black border-black"
+              : "bg-white/70 text-black border-black"
           }`}
         >
           {LANGUAGES.map((lang) => (

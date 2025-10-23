@@ -1,12 +1,203 @@
 {
+  "school": {
+    "hero": {
+      "title1": "Code your future",
+      "title2": "with ProCoding",
+      "description": "Digital learning initiative for future IT experts",
+      "join": "Join the Bootcamp",
+      "findCourse": "Find a course"
+    },
+    "about": {
+      "title": "Build your career in tech",
+      "description": "At ProCoding, we don’t stop at teaching you how to code — we guide you all the way to your very first job in tech",
+      "cards": [
+        {
+          "title": "Hands-on experience",
+          "description": "Team projects that simulate real-life tasks you'll face at your future job"
+        },
+        {
+          "title": "Career tools",
+          "description": "Polished resume, LinkedIn, and GitHub to get noticed by recruiters"
+        },
+        {
+          "title": "Self-Confidence",
+          "description": "Mock interviews and feedback from industry experts"
+        },
+        {
+          "title": "Growth path",
+          "description": "A roadmap for your next steps after landing your first job"
+        }
+      ]
+    },
+    "programStructure": {
+      "heading": "How the ProCoding Works",
+      "subheading": "We’ve designed the learning journey so you never feel lost — every step builds your skills and confidence.",
+      "steps": [
+        {
+          "title": "Start strong with guidance",
+          "text": "Before the bootcamp starts, you’ll get access to prep materials and an onboarding session. We’ll help you set up your dev environment and explain what to expect from the course."
+        },
+        {
+          "title": "Learn by doing",
+          "text": "Each week combines short theory blocks with live coding. You’ll start coding right away with your instructor and get real-time feedback."
+        },
+        {
+          "title": "Build real projects step by step",
+          "text": "From small exercises to portfolio-ready apps, everything you code connects to real-world developer tasks. By the end, you’ll have projects to showcase to employers."
+        },
+        {
+          "title": "Code Review & Personalized Feedback",
+          "text": "Senior mentors review your code, highlight strengths, and point out improvements. You’ll learn industry best practices the way real dev teams work."
+        },
+        {
+          "title": "Teamwork & Collaboration",
+          "text": "Midway through the program, you’ll join group projects using Git, task boards, and peer review — simulating real-world team workflows."
+        },
+        {
+          "title": "Career coaching built-in",
+          "text": "You’ll work  with career mentors: polishing your resume, LinkedIn, and GitHub. You’ll do mock interviews and get personalized feedback."
+        },
+        {
+          "title": "Final Project & Graduation",
+          "text": "In the last weeks, you ship a capstone project — a complete app built from scratch. Graduation isn’t the end: we continue supporting you in your job search until you land your first role."
+        }
+      ]
+    },
+    "courses": {
+      "heading": "Our Courses",
+      "description": "Practical programs in web development, Python, Data Science and more. Work on real projects and prepare for a career in tech.",
+      "items": [
+        {
+          "title": "Web Development",
+          "description": "Master the core technologies that power the web: HTML, CSS, JavaScript, React, Node.js. Build real projects, a strong portfolio, and confidently land your first job in IT.",
+          "duration": "6 months (part-time)",
+          "features": {
+            "first": "Live online classes + mentor support",
+            "second": "Job-ready portfolio"
+          },
+          "cta": "Enroll"
+        },
+        {
+          "title": "QA Automation + AI",
+          "description": "Test smarter, not harder. Learn Java, Selenium, Selenide, REST-Assured, and boost your career with AI-driven testing tools. Get hands-on with automation frameworks and real projects, making you a valuable asset for any tech team.",
+          "duration": "5–6 months (part-time)",
+          "features": {
+            "first": "Live online classes + mentor support",
+            "second": "Automated testing frameworks, applied AI skills"
+          },
+          "cta": "Coming Soon"
+        },
+        {
+          "title": "AI & Machine Learning",
+          "description": "Dive into the world of Python, data processing, neural networks, NLP, and ML models. Work on end-to-end projects from data cleaning to deploying intelligent systems, and prepare for a career in the most in-demand tech field.",
+          "duration": "6–7 months (part-time)",
+          "features": {
+            "first": "Live online classes + project mentorship",
+            "second": "ML models, AI apps, data portfolio projects"
+          },
+          "cta": "Coming Soon"
+        }
+      ]
+    },
+    "reviews": {
+      "heading": "Real student stories",
+      "subheading": "Click to read student stories",
+      "cta": "Leave a review",
+      "0": {
+        "name": "Sasha",
+        "title": "Awesome bootcamp",
+        "text": "Same review text here. You’ll replace it later."
+      },
+      "1": {
+        "name": "Sasha",
+        "title": "Awesome bootcamp",
+        "text": "Same review text here. You’ll replace it later."
+      },
+      "2": {
+        "name": "Sasha",
+        "title": "Awesome bootcamp",
+        "text": "Same review text here. You’ll replace it later."
+      },
+      "3": {
+        "name": "Sasha",
+        "title": "Awesome bootcamp",
+        "text": "Same review text here. You’ll replace it later."
+      },
+      "4": {
+        "name": "Sasha",
+        "title": "Awesome bootcamp",
+        "text": "Same review text here. You’ll replace it later."
+      }
+    },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "subtitle": "We’ve gathered answers to the most common questions our students ask before starting. Didn’t find what you need? Message us — we’re happy to help.",
+    
+        "q1": "Is the bootcamp suitable if I’ve never written code before?",
+        "a1": "Yes! The program is designed for beginners. We start from the basics and gradually move to more complex topics. All you need is the motivation to learn and dedicate time to practice.",
+    
+        "q2": "How much time do I need to study each week?",
+        "a2": "On average, 15–20 hours per week. It’s manageable alongside work or school if you plan your time well.",
+    
+        "q3": "What if I don’t understand something in class?",
+        "a3": "You’ll always have access to session recordings, plus support from mentors and coordinators who will help you figure things out.",
+    
+        "q4": "What kind of projects can I show to employers?",
+        "a4": "By the end of the course, you’ll have a portfolio — from your personal website and simple apps to a full-fledged team project and a final capstone project.",
+    
+        "q5": "Will you help me get a job?",
+        "a5": "Yes. We’ll help you prepare your resume, LinkedIn, and GitHub, run mock interviews, and connect you with partner companies. Our support continues even after graduation.",
+    
+        "q6": "How is this bootcamp different from free courses?",
+        "a6": "The key difference is a structured curriculum, mentors, teamwork, and career support. It’s not just a collection of lessons — it’s a path from zero to your first tech job.",
+    
+        "q7": "What’s the learning format like?",
+        "a7": "Live online sessions with mentors + hands-on practice. You’ll code alongside instructors, get real feedback, and work on real projects.",
+    
+        "q8": "Can I join from any country?",
+        "a8": "Yes, the program is fully online and follows EST time zone. All you need is a computer and a stable internet connection.",
+    
+        "q9": "What happens after graduation?",
+        "a9": "We’ll keep supporting you in your job search until you land your first IT job. Plus, you’ll gain access to our alumni community and career resources.",
+    
+        "q10": "How do I know which course is right for me — WebDev, QA, or AI?",
+        "a10": "We’ll schedule a consultation and help you choose a program based on your goals, background, and ideal career path."
+      },
+      "instructors": {
+        "title": "Meet Our Team",
+        "join": "Join",
+        "Roza": {
+          "name": "Roza",
+          "role": "CEO",
+          "description": "I’ve gathered top professionals from around the world to make their expertise available to you."
+        },
+        "anastasiia": {
+          "name": "Anastasia",
+          "role": "WebDev Expert",
+          "description": "As a practicing software developer, I teach not only theory but also share real-world experience from the IT industry."
+        },
+        "konstantin": {
+          "name": "Konstantin",
+          "role": "AQA Expert",
+          "description": "Always following industry trends and continually learning — ready to equip you with the most up-to-date AQA and AI skills."
+        },
+        "kate": {
+          "name": "Kate",
+          "role": "Methodologist",
+          "description": "Brought the most effective practices to ProCoding from her 6-year career in IT education."
+        }
+      }
+  },
   "nav": {
     "apply": "Apply",
+    "courses": "Courses",
     "about": "About",
     "curriculum": "Curriculum",
     "instructors": "Instructors",
     "guarantees": "Guarantees",
     "program": "Program",
     "jobs": "Jobs",
+    "reviews": "Reviews",
     "pricing": "Pricing",
     "faq": "FAQ",
     "contact": "Contact"
