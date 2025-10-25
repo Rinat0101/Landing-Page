@@ -106,9 +106,8 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-2 text-base">{t("footer.documents.title")}</h3>
           <ul className={`space-y-1 text-sm ${isDark ? "text-white/70" : "text-black/70"}`}>
-            <li><a href="/user-agreement">{t("footer.documents.userAgreement")}</a></li>
             <li><a href="/privacy-policy">{t("footer.documents.privacyPolicy")}</a></li>
-            <li><a href="/cookies-policy">{t("footer.documents.cookiesPolicy")}</a></li>
+            <li><a href="/terms-of-service">{t("footer.documents.terms")}</a></li>
           </ul>
         </div>
 

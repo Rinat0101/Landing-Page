@@ -71,7 +71,7 @@ export default function WebDevLandingPage() {
       <section id="contact">
         <ContactForm />
       </section>
-      <section id="reviews">
+      <section id="faq">
         <Faq />
       </section>
       <div className="mx-8">

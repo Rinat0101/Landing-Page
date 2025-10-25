@@ -17,7 +17,6 @@ export const courseNavItems = [
     { key: "nav.instructors", href: "#instructors" },
     { key: "nav.jobs", href: "#jobs" },
     { key: "nav.pricing", href: "#plans" },
-    { key: "nav.reviews", href: "#reviews" },
     { key: "nav.contact", href: "#contact" },
     { key: "nav.faq", href: "#faq" },
     { key: 'nav.about', href: '#about', icon: '/images/about_cup_icon.svg' },

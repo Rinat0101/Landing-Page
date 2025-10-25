@@ -129,64 +129,64 @@
         "text": "Same review text here. You’ll replace it later."
       }
     },
-      "faq": {
-        "title": "Frequently Asked Questions",
-        "subtitle": "We’ve gathered answers to the most common questions our students ask before starting. Didn’t find what you need? Message us — we’re happy to help.",
-    
-        "q1": "Is the bootcamp suitable if I’ve never written code before?",
-        "a1": "Yes! The program is designed for beginners. We start from the basics and gradually move to more complex topics. All you need is the motivation to learn and dedicate time to practice.",
-    
-        "q2": "How much time do I need to study each week?",
-        "a2": "On average, 15–20 hours per week. It’s manageable alongside work or school if you plan your time well.",
-    
-        "q3": "What if I don’t understand something in class?",
-        "a3": "You’ll always have access to session recordings, plus support from mentors and coordinators who will help you figure things out.",
-    
-        "q4": "What kind of projects can I show to employers?",
-        "a4": "By the end of the course, you’ll have a portfolio — from your personal website and simple apps to a full-fledged team project and a final capstone project.",
-    
-        "q5": "Will you help me get a job?",
-        "a5": "Yes. We’ll help you prepare your resume, LinkedIn, and GitHub, run mock interviews, and connect you with partner companies. Our support continues even after graduation.",
-    
-        "q6": "How is this bootcamp different from free courses?",
-        "a6": "The key difference is a structured curriculum, mentors, teamwork, and career support. It’s not just a collection of lessons — it’s a path from zero to your first tech job.",
-    
-        "q7": "What’s the learning format like?",
-        "a7": "Live online sessions with mentors + hands-on practice. You’ll code alongside instructors, get real feedback, and work on real projects.",
-    
-        "q8": "Can I join from any country?",
-        "a8": "Yes, the program is fully online and follows EST time zone. All you need is a computer and a stable internet connection.",
-    
-        "q9": "What happens after graduation?",
-        "a9": "We’ll keep supporting you in your job search until you land your first IT job. Plus, you’ll gain access to our alumni community and career resources.",
-    
-        "q10": "How do I know which course is right for me — WebDev, QA, or AI?",
-        "a10": "We’ll schedule a consultation and help you choose a program based on your goals, background, and ideal career path."
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "We’ve gathered answers to the most common questions our students ask before starting. Didn’t find what you need? Message us — we’re happy to help.",
+
+      "q1": "Is the bootcamp suitable if I’ve never written code before?",
+      "a1": "Yes! The program is designed for beginners. We start from the basics and gradually move to more complex topics. All you need is the motivation to learn and dedicate time to practice.",
+
+      "q2": "How much time do I need to study each week?",
+      "a2": "On average, 15–20 hours per week. It’s manageable alongside work or school if you plan your time well.",
+
+      "q3": "What if I don’t understand something in class?",
+      "a3": "You’ll always have access to session recordings, plus support from mentors and coordinators who will help you figure things out.",
+
+      "q4": "What kind of projects can I show to employers?",
+      "a4": "By the end of the course, you’ll have a portfolio — from your personal website and simple apps to a full-fledged team project and a final capstone project.",
+
+      "q5": "Will you help me get a job?",
+      "a5": "Yes. We’ll help you prepare your resume, LinkedIn, and GitHub, run mock interviews, and connect you with partner companies. Our support continues even after graduation.",
+
+      "q6": "How is this bootcamp different from free courses?",
+      "a6": "The key difference is a structured curriculum, mentors, teamwork, and career support. It’s not just a collection of lessons — it’s a path from zero to your first tech job.",
+
+      "q7": "What’s the learning format like?",
+      "a7": "Live online sessions with mentors + hands-on practice. You’ll code alongside instructors, get real feedback, and work on real projects.",
+
+      "q8": "Can I join from any country?",
+      "a8": "Yes, the program is fully online and follows EST time zone. All you need is a computer and a stable internet connection.",
+
+      "q9": "What happens after graduation?",
+      "a9": "We’ll keep supporting you in your job search until you land your first IT job. Plus, you’ll gain access to our alumni community and career resources.",
+
+      "q10": "How do I know which course is right for me — WebDev, QA, or AI?",
+      "a10": "We’ll schedule a consultation and help you choose a program based on your goals, background, and ideal career path."
+    },
+    "instructors": {
+      "title": "Meet Our Team",
+      "join": "Join",
+      "Roza": {
+        "name": "Roza",
+        "role": "CEO",
+        "description": "I’ve gathered top professionals from around the world to make their expertise available to you."
       },
-      "instructors": {
-        "title": "Meet Our Team",
-        "join": "Join",
-        "Roza": {
-          "name": "Roza",
-          "role": "CEO",
-          "description": "I’ve gathered top professionals from around the world to make their expertise available to you."
-        },
-        "anastasiia": {
-          "name": "Anastasia",
-          "role": "WebDev Expert",
-          "description": "As a practicing software developer, I teach not only theory but also share real-world experience from the IT industry."
-        },
-        "konstantin": {
-          "name": "Konstantin",
-          "role": "AQA Expert",
-          "description": "Always following industry trends and continually learning — ready to equip you with the most up-to-date AQA and AI skills."
-        },
-        "kate": {
-          "name": "Kate",
-          "role": "Methodologist",
-          "description": "Brought the most effective practices to ProCoding from her 6-year career in IT education."
-        }
+      "anastasiia": {
+        "name": "Anastasia",
+        "role": "WebDev Expert",
+        "description": "As a practicing software developer, I teach not only theory but also share real-world experience from the IT industry."
+      },
+      "konstantin": {
+        "name": "Konstantin",
+        "role": "AQA Expert",
+        "description": "Always following industry trends and continually learning — ready to equip you with the most up-to-date AQA and AI skills."
+      },
+      "kate": {
+        "name": "Kate",
+        "role": "Methodologist",
+        "description": "Brought the most effective practices to ProCoding from her 6-year career in IT education."
       }
+    }
   },
   "nav": {
     "apply": "Apply",
@@ -377,52 +377,31 @@
     "technologies": "Technologies"
   },
   "pricing": {
-    "title": "Choose the format that works best for you",
-    "description": "We offer flexible financial plans so you can choose the one that fits you best. No matter which option you choose, you’ll gain all the skills needed to become a web development specialist and be fully prepared for the job market.",
+    "title": "Start your journey into tech right now",
+    "description": "Gain all the skills you need to become a web development specialist and be ready to enter the job market.",
     "getStarted": "Apply",
-    "basic": {
-      "name": "Standard Plan",
-      "description": "Perfect for self-driven and motivated students. Includes everything you need to complete the course and start a career in tech:",
-      "price": "$1,390 / month",
-      "oldPrice": "$8,340 / full course",
-      "benefits": [
-        "Full access to all learning materials and the platform",
-        "Complete 6-month program (Frontend + Backend)",
-        "3 live classes a week with the teacher",
-        "Hands-on assignments, projects, and code reviews",
-        "Homework and labs with expert feedback",
-        "Community chat and mentor support",
-        "Final portfolio project",
-        "Resume and LinkedIn review (basic package)"
-      ],
-      "spotsLeft": "Limited spots available"
-    },
-    "premium": {
-      "name": "Premium Plan",
-      "description": "The ultimate package for those who want full support throughout the career transition. Includes everything from the Basic Plan, plus:",
-      "price": "$1,990 / month",
-      "oldPrice": "$11,940 / full course",
-      "badge": "Popular Choice",
-      "promo": "Most Value",
-      "benefits": [
-        "Full access to all learning materials and the platform",
-        "Complete 6-month program (Frontend + Backend)",
-        "3 live classes a week with the teacher",
-        "Hands-on assignments, projects, and code reviews",
-        "Homework and labs with expert feedback",
-        "Community chat and mentor support",
-        "Final portfolio project",
-        "Resume and LinkedIn review (basic package)",
-        "1:1 calls with a teacher or mentor — up to 4 times per month",
-        "Access to additional modules (extra technologies, technical interview prep, algorithms, onboarding at your first job)",
-        "Interview preparation with roleplay sessions (mock interviews)",
-        "Individual career consultations — 1 session per month",
-        "Career support for 3 months after graduation",
-        "Private Premium group chat (strong networking environment & quick expert support)",
-        "Consultation with a technical expert after receiving a job offer + help preparing for your new role"
-      ],
-      "spotsLeft": "Only a few Premium seats left!"
-    }
+    "startDate": "Starting December 1",
+    "duration": "6 months duration",
+    "schedule": [
+      "Tuesday & Thursday – 6:00 PM to 9:00 PM",
+      "Saturday – 10:00 AM to 4:00 PM"
+    ],
+    "whatYouGet": "What You’ll Get",
+    "joinNow": "Join Now",
+    "monthlyNote": "(You can pay monthly — starting from $1,340)",
+    "note": "Click below to apply and reserve your spot in the next cohort.",
+    "button": "Apply now",
+    "benefits": [
+      "Full access to all course materials and platform",
+      "3 live workshops per week with instructor",
+      "Practical projects, code reviews, and homework with feedback",
+      "1:1 mentorship calls (up to 4/month)",
+      "Interview preparation and mock interviews",
+      "Personalized career consultations",
+      "Access to extra modules (algorithms, interview prep, onboarding)",
+      "Career support for 3 months after course",
+      "Private community of alumni and experts"
+    ]
   },
   "faq": {
     "title": "Frequently Asked Questions",
@@ -482,9 +461,8 @@
     "social": "Our social media",
     "documents": {
       "title": "Documents",
-      "userAgreement": "User Agreement",
       "privacyPolicy": "Privacy Policy",
-      "cookiesPolicy": "Cookies Policy"
+      "terms": "Terms of Service"
     },
     "address": {
       "title": "Our Address"
