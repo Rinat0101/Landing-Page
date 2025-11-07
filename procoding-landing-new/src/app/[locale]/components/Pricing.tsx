@@ -69,7 +69,7 @@ export default function PricingSection() {
               <h3 className="text-xl sm:text-2xl font-bold mb-4">
                 {t("pricing.joinNow")}
               </h3>
-              <p className="text-4xl font-bold text-[#D726B3] mb-1">$5 980</p>
+              <p className="text-4xl font-bold text-[#D726B3] mb-1">$3 290</p>
               <p className="text-sm mb-6">{t("pricing.monthlyNote")}</p>
               <p className="text-sm mb-6">{t("pricing.note")}</p>
             </div>

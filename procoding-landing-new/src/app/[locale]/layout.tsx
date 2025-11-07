@@ -1,12 +1,10 @@
 // app/[locale]/layout.tsx
-
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import Script from "next/script";
 import "../globals.css";
 import Providers from "./providers";
 import Navbar from "./components/Navbar";
-
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -18,16 +16,18 @@ export const metadata: Metadata = {
   description: "The official ProCoding bootcamp landing page",
 };
 
-type LocaleLayoutProps = {
+// ✅ Fix: mark params as Promise, make layout async
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
   children: React.ReactNode;
-  params: {
-    locale: "en" | "ru";
-  };
-};
+  params: Promise<{ locale: "en" | "ru" }>;
+}) {
+  const { locale } = await params; // ✅ await params before usage
 
-export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
   return (
-    <html lang={params.locale} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         suppressHydrationWarning
         className={`${openSans.variable} font-sans bg-white text-black dark:bg-black dark:text-white`}
@@ -47,12 +47,14 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
             fbq('track', 'PageView');
           `}
         </Script>
+
         <noscript>
           <img
             height="1"
             width="1"
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=1416499497144626&ev=PageView&noscript=1"
+            alt="facebook-pixel"
           />
         </noscript>
 
@@ -79,18 +81,20 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
             });
           `}
         </Script>
+
         <noscript>
           <div>
             <img
               src="https://mc.yandex.ru/watch/104605015"
               style={{ position: "absolute", left: "-9999px" }}
-              alt=""
+              alt="yandex-metrica"
             />
           </div>
         </noscript>
 
         {/* 🧠 Main content */}
-        <Providers locale={params.locale}>
+        <Providers locale={locale}>
+          <Navbar />
           {children}
         </Providers>
       </body>

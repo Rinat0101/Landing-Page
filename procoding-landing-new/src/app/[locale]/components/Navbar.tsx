@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/lib/TranslationContext';
 import LanguageSwitcher from '@/app/components/LanguageSwitcher';
 
@@ -24,6 +25,7 @@ export default function Navbar({ navItems = [] }: NavbarProps) {
   const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, locale } = useTranslation();
+  const pathname = usePathname();
 
   useEffect(() => setMounted(true), []);
   useEffect(() => {
@@ -63,7 +65,10 @@ export default function Navbar({ navItems = [] }: NavbarProps) {
       if (
         window.innerHeight + window.scrollY >= document.body.scrollHeight - 10
       ) {
-        setActiveSection(navItems[navItems.length - 1].href);
+        const lastItem = navItems[navItems.length - 1];
+        if (lastItem?.href) {
+          setActiveSection(lastItem.href);
+        }
         return;
       }
   
@@ -81,7 +86,7 @@ export default function Navbar({ navItems = [] }: NavbarProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || pathname.includes('/quiz/')) return null;
 
   const isDark = resolvedTheme === 'dark';
   const themeIcon = isDark ? '/images/theme_btn_dark.svg' : '/images/theme_btn_light.svg';
