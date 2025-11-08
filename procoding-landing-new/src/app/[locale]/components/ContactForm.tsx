@@ -61,6 +61,7 @@ export default function ContactForm() {
       email: formData.email.trim(),
       phone: formData.phone.trim() ? `+1${formData.phone.trim()}` : "",
       message: formData.message.trim(),
+      type: "contact",
     };
 
     if (!cleanedData.name || !cleanedData.email) {

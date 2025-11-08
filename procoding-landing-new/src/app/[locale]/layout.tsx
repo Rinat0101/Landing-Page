@@ -14,9 +14,12 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: "ProCoding Landing",
   description: "The official ProCoding bootcamp landing page",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
 };
 
-// ✅ Fix: mark params as Promise, make layout async
 export default async function LocaleLayout({
   children,
   params,
@@ -24,7 +27,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: Promise<{ locale: "en" | "ru" }>;
 }) {
-  const { locale } = await params; // ✅ await params before usage
+  const { locale } = await params;
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -32,7 +35,7 @@ export default async function LocaleLayout({
         suppressHydrationWarning
         className={`${openSans.variable} font-sans bg-white text-black dark:bg-black dark:text-white`}
       >
-        {/* 🟣 Meta (Facebook) Pixel */}
+        {/* 🟣 Meta (Facebook Pixel) */}
         <Script id="facebook-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)

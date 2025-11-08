@@ -57,30 +57,6 @@ export default function PricingSection() {
 
         {/* Right: Price Card + Start Date Card stacked */}
         <div className="flex flex-col gap-6">
-          {/* Price and CTA */}
-          <div
-            className={`rounded-2xl border px-6 py-8 shadow-md flex flex-col justify-between ${
-              isDark
-                ? "bg-[#141414] border-white/10 text-white"
-                : "bg-[#F4F1FB] border-gray-200 text-black"
-            }`}
-          >
-            <div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4">
-                {t("pricing.joinNow")}
-              </h3>
-              <p className="text-4xl font-bold text-[#D726B3] mb-1">$3 290</p>
-              <p className="text-sm mb-6">{t("pricing.monthlyNote")}</p>
-              <p className="text-sm mb-6">{t("pricing.note")}</p>
-            </div>
-            <a
-              href="#contact"
-              className="block w-full text-center bg-purple-600 text-white font-bold py-3 rounded-full transition hover:bg-purple-700"
-            >
-              {t("pricing.button")}
-            </a>
-          </div>
-
           {/* Start Date & Schedule */}
           <div
             className={`rounded-2xl border px-6 py-6 text-sm sm:text-base shadow-md ${
@@ -105,6 +81,30 @@ export default function PricingSection() {
               <li>{t("pricing.schedule.0")}</li>
               <li>{t("pricing.schedule.1")}</li>
             </ul>
+          </div>
+
+          {/* Price and CTA */}
+          <div
+            className={`rounded-2xl border px-6 py-8 shadow-md flex flex-col justify-between ${
+              isDark
+                ? "bg-[#141414] border-white/10 text-white"
+                : "bg-[#F4F1FB] border-gray-200 text-black"
+            }`}
+          >
+            <div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4">
+                {t("pricing.joinNow")}
+              </h3>
+              <p className="text-4xl font-bold text-[#D726B3] mb-1">$3 290</p>
+              <p className="text-sm mb-6">{t("pricing.monthlyNote")}</p>
+              <p className="text-sm mb-6">{t("pricing.note")}</p>
+            </div>
+            <a
+              href="#contact"
+              className="block w-full text-center bg-purple-600 text-white font-bold py-3 rounded-full transition hover:bg-purple-700"
+            >
+              {t("pricing.button")}
+            </a>
           </div>
         </div>
       </div>

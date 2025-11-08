@@ -166,7 +166,46 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    console.log("✅ Email(s) sent successfully.");
+    // ➕ CRM Integration (LeadConnector)
+    try {
+      const crmTags = [
+        "Landing-Form",
+        type === "syllabus"
+          ? "syllabus"
+          : type === "newsletter"
+          ? "Newslenewsletterter"
+          : "contact-form",
+      ];
+
+      const crmResponse = await fetch("https://services.leadconnectorhq.com/contacts/", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.LEADCONNECTOR_API_TOKEN}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Version: "2021-07-28",
+        },
+        body: JSON.stringify({
+          locationId: "UucgHcnRk3nVqkK7AtbU",
+          firstName: name || "Unknown",
+          lastName: "",
+          email,
+          phone,
+          tags: crmTags,
+        }),
+      });
+
+      const crmResult = await crmResponse.json();
+      console.log("📤 CRM LeadConnector response:", crmResult);
+
+      if (!crmResponse.ok) {
+        console.error("❌ CRM Error:", crmResult);
+      }
+    } catch (err) {
+      console.error("🔥 Error sending to CRM:", err);
+    }
+
+    console.log("✅ Email(s) + CRM submission successful.");
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("❌ Error in /api/contact:", error);
