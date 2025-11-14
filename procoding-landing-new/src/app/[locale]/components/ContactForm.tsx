@@ -15,12 +15,15 @@ export default function ContactForm() {
     email: "",
     phone: "",
     message: "",
+    smsConsent: false,
+    marketingConsent: false,
   });
 
   const [errors, setErrors] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Success message timeout
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => setSuccess(false), 3000);
@@ -31,24 +34,30 @@ export default function ContactForm() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
 
-    // Reset error if user changes something
     setErrors(null);
+
+    if (type === "checkbox") {
+      setFormData((prev) => ({ ...prev, [name]: checked }));
+      return;
+    }
 
     if (name === "phone") {
       const digitsOnly = value.replace(/\D/g, "");
       setFormData((prev) => ({ ...prev, phone: digitsOnly }));
-    } else if (name === "message") {
+      return;
+    }
+
+    if (name === "message") {
       if (value.length > 1000) {
         setErrors(t("contact.errors.messageTooLong"));
       } else {
         setErrors(null);
       }
-      setFormData((prev) => ({ ...prev, message: value }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
     }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,23 +65,20 @@ export default function ContactForm() {
     setErrors(null);
     setSuccess(false);
 
+    if (!formData.name.trim() || !formData.email.trim()) {
+      setErrors(t("contact.errors.emailRequired"));
+      return;
+    }
+
     const cleanedData = {
       name: formData.name.trim(),
       email: formData.email.trim(),
       phone: formData.phone.trim() ? `+1${formData.phone.trim()}` : "",
       message: formData.message.trim(),
       type: "contact",
+      smsConsent: formData.smsConsent,
+      marketingConsent: formData.marketingConsent,
     };
-
-    if (!cleanedData.name || !cleanedData.email) {
-      setErrors(t("contact.errors.emailRequired"));
-      return;
-    }
-
-    if (cleanedData.message && cleanedData.message.length > 1000) {
-      setErrors(t("contact.errors.messageTooLong"));
-      return;
-    }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(cleanedData.email)) {
@@ -89,6 +95,11 @@ export default function ContactForm() {
       return;
     }
 
+    if (cleanedData.message && cleanedData.message.length > 1000) {
+      setErrors(t("contact.errors.messageTooLong"));
+      return;
+    }
+
     try {
       setLoading(true);
       const response = await fetch(`${window.location.origin}/api/contact`, {
@@ -101,7 +112,14 @@ export default function ContactForm() {
 
       if (data.success) {
         setSuccess(true);
-        setFormData({ name: "", email: "", phone: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          smsConsent: false,
+          marketingConsent: false,
+        });
       } else {
         setErrors(data.error || "Something went wrong. Please try again.");
       }
@@ -125,7 +143,6 @@ export default function ContactForm() {
             : "bg-[#F3F2FF] border-black/10 text-black"
         }`}
       >
-        {/* Dragon Image */}
         <div className="absolute -right-20 bottom-0 hidden lg:block z-50">
           <Image
             src="/images/dragon_pointing.svg"
@@ -136,7 +153,6 @@ export default function ContactForm() {
           />
         </div>
 
-        {/* Header */}
         <h2 className="text-4xl font-bold mb-4 leading-tight">
           {t("contact.title")}
         </h2>
@@ -144,13 +160,10 @@ export default function ContactForm() {
           {t("contact.description")}
         </p>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Name */}
           <input
             type="text"
             name="name"
-            aria-label="Your Name"
             value={formData.name}
             onChange={handleChange}
             placeholder={t("contact.namePlaceholder")}
@@ -161,11 +174,9 @@ export default function ContactForm() {
             }`}
           />
 
-          {/* Email */}
           <input
             type="email"
             name="email"
-            aria-label="Email"
             value={formData.email}
             onChange={handleChange}
             placeholder={t("contact.emailPlaceholder")}
@@ -176,7 +187,6 @@ export default function ContactForm() {
             }`}
           />
 
-          {/* Phone */}
           <div
             className={`flex items-center rounded-xl overflow-hidden transition-colors duration-300 ${
               isDark
@@ -192,11 +202,7 @@ export default function ContactForm() {
                 height={20}
                 className="rounded-sm"
               />
-              <span
-                className={`ml-2 font-medium ${
-                  isDark ? "text-white" : "text-black"
-                }`}
-              >
+              <span className={`ml-2 font-medium ${isDark ? "text-white" : "text-black"}`}>
                 +1
               </span>
             </div>
@@ -204,49 +210,91 @@ export default function ContactForm() {
             <input
               type="tel"
               name="phone"
-              aria-label="Phone Number"
               value={formData.phone}
               onChange={handleChange}
               placeholder="2025550123"
               maxLength={10}
               inputMode="numeric"
-              className={`w-full py-3 pr-4 focus:outline-none focus:ring-0 bg-transparent placeholder-opacity-60 ${
-                isDark
-                  ? "text-white placeholder-white/50"
-                  : "text-black placeholder-black/40"
+              className={`w-full py-3 pr-4 bg-transparent focus:outline-none ${
+                isDark ? "text-white placeholder-white/50" : "text-black placeholder-black/40"
               }`}
             />
           </div>
 
-          {/* Message */}
           <textarea
             name="message"
-            aria-label="Your Message"
             value={formData.message}
             onChange={handleChange}
             placeholder={t("contact.questionPlaceholder")}
             rows={4}
             maxLength={1000}
-            className={`w-full px-4 py-3 rounded-xl placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-colors duration-300 ${
+            className={`w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 ${
               isDark
                 ? "bg-[#0f0f0f] border border-white/20 text-white placeholder-white/50"
                 : "bg-[#f3f2ff] border border-black/10 text-black placeholder-black/40"
             }`}
           />
 
-          {/* Error */}
+          <label className="flex items-start space-x-3 text-sm">
+            <input
+              type="checkbox"
+              name="smsConsent"
+              checked={formData.smsConsent}
+              onChange={handleChange}
+              className="mt-1 accent-purple-600"
+            />
+            <span>
+              I consent to receive SMS communication from Pro Coding Services LLC. Message
+              frequency varies. Message & data charges may apply. Text HELP for assistance.
+              You can reply STOP to unsubscribe anytime.
+            </span>
+          </label>
+
+          <label className="flex items-start space-x-3 text-sm">
+            <input
+              type="checkbox"
+              name="marketingConsent"
+              checked={formData.marketingConsent}
+              onChange={handleChange}
+              className="mt-1 accent-purple-600"
+            />
+            <span>
+              I agree to receive marketing SMS messages, including promotions and special
+              offers, from Pro Coding Services LLC. Message frequency varies. Message &
+              data rates may apply. Text STOP to unsubscribe at any time.
+            </span>
+          </label>
+
+          <p className="text-sm mt-4">
+            By submitting this form, you agree to our{" "}
+            <a
+              href="/terms-of-service"
+              className="underline text-purple-600 hover:text-purple-800"
+              target="_blank"
+            >
+              Terms of Service
+            </a>{" "}
+            and{" "}
+            <a
+              href="/privacy-policy"
+              className="underline text-purple-600 hover:text-purple-800"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>
+            .
+          </p>
+
           {errors && <p className="text-red-500 text-sm">{errors}</p>}
 
-          {/* Success */}
           {success && (
             <p className="text-green-500 text-sm">Message sent successfully!</p>
           )}
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#9333ea] hover:bg-[#9333ea] hover:opacity-90  text-white font-semibold py-3 rounded-full transition duration-200 disabled:opacity-50"
+            className="w-full bg-[#9333ea] text-white font-semibold py-3 rounded-full disabled:opacity-50 hover:opacity-90 transition"
           >
             {loading ? "Sending..." : t("contact.submit")}
           </button>

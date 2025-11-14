@@ -570,7 +570,158 @@ export default function TermsOfServicePage() {
           the Services will automatically terminate.
         </p>
         <h2 className="text-2xl font-semibold mt-10 mb-4 text-white">
-          17. Miscellaneous
+          17. SMS/Text Messaging Program Terms
+        </h2>
+        <p>
+          These SMS/Text Messaging Terms (“SMS Terms”) govern your use of the
+          SMS communication services provided by Pro Coding Services LLC (“Pro
+          Coding,” “we,” “us,” or “our”). By opting in to receive SMS messages
+          from us, you agree to these SMS Terms as well as our general Terms of
+          Service and Privacy Policy.
+        </p>
+        <section>
+          <h3>1. Program Description</h3>
+          <p>By opting in, you may receive SMS text messages related to:</p>
+          <ul>
+            <li>Account notifications</li>
+            <li>Course reminders and updates</li>
+            <li>Scheduling or support messages</li>
+            <li>Security alerts</li>
+            <li>
+              Promotional or marketing content (only if you separately opt in to
+              marketing SMS)
+            </li>
+          </ul>
+          <p>
+            Message types vary depending on your enrollment, activities, and
+            preferences. Message frequency varies.
+          </p>
+        </section>
+
+        <section>
+          <h3>2. Opt-In Requirements</h3>
+          <p>You must explicitly opt in to receive SMS messages by:</p>
+          <ul>
+            <li>Checking the SMS consent checkbox on our website form,</li>
+            <li>
+              Submitting your phone number where SMS consent language is
+              present, or
+            </li>
+            <li>Otherwise providing written consent in a permitted format.</li>
+          </ul>
+          <p>
+            <strong>Marketing SMS</strong> require a separate opt-in checkbox.
+          </p>
+          <p>
+            You are not required to provide a mobile phone number or consent to
+            SMS messaging as a condition of using our services.
+          </p>
+        </section>
+
+        <section>
+          <h3>3. Opt-Out Instructions (STOP)</h3>
+          <p>You may cancel SMS messages at any time. To opt out:</p>
+          <ul>
+            <li>Text “STOP” to any message you receive from us.</li>
+            <li>
+              After sending “STOP,” you will receive one final confirmation
+              message.
+            </li>
+            <li>
+              After confirmation, you will no longer receive SMS messages from
+              us unless you opt in again.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>4. Help Instructions (HELP)</h3>
+          <p>If you experience issues with the messaging program, reply:</p>
+          <p>
+            <strong>“HELP”</strong> or contact us directly at:
+          </p>
+          <p>
+            <a href="mailto:support@procoding.com">support@procoding.com</a>
+          </p>
+          <p>We will provide additional assistance.</p>
+        </section>
+
+        <section>
+          <h3>5. Message Frequency</h3>
+          <p>
+            Message frequency varies based on your activity, program enrollment,
+            and whether you opt in to marketing messages.
+          </p>
+          <p>
+            Standard frequency ranges from occasional alerts to weekly updates,
+            depending on the service.
+          </p>
+        </section>
+
+        <section>
+          <h3>6. Fees and Charges</h3>
+          <p>
+            Message and data rates may apply for SMS messages sent to you and
+            from you.
+          </p>
+          <p>Charges depend on your mobile carrier plan.</p>
+          <p>
+            For questions regarding your text or data plan, please contact your
+            wireless provider.
+          </p>
+        </section>
+
+        <section>
+          <h3>7. Carriers’ Liability Disclaimer</h3>
+          <p>Mobile carriers do not guarantee message delivery.</p>
+          <p>Carriers are not liable for delayed or undelivered messages.</p>
+        </section>
+
+        <section>
+          <h3>8. Privacy & Data Use</h3>
+          <p>
+            Your mobile information is processed according to our{" "}
+            <a href="[Insert your Privacy Policy link]">Privacy Policy</a>.
+          </p>
+          <p>
+            Pro Coding Services LLC does not share mobile phone numbers, SMS
+            opt-in data, or text messaging consent information with third
+            parties for marketing, promotional, advertising, or cross-context
+            behavioral advertising purposes.
+          </p>
+          <p>
+            Mobile information may be shared only with subcontractors that
+            support essential service operations (e.g., customer support
+            providers), and never for marketing.
+          </p>
+        </section>
+
+        <section>
+          <h3>9. Eligibility</h3>
+          <p>
+            You must be at least 13 years old (or older if required by
+            applicable law) to participate in the SMS program.
+          </p>
+          <p>
+            If we determine that your phone number is invalid, unauthorized, or
+            used fraudulently, we may discontinue SMS communications.
+          </p>
+        </section>
+
+        <section>
+          <h3>10. Changes to SMS Terms</h3>
+          <p>We may update these SMS Terms at any time.</p>
+          <p>
+            Changes will be effective upon posting the revised version to our
+            website.
+          </p>
+          <p>
+            Your continued opt-in or use of SMS services after changes
+            constitutes acceptance of the new terms.
+          </p>
+        </section>
+        <h2 className="text-2xl font-semibold mt-10 mb-4 text-white">
+          18. Miscellaneous
         </h2>
         <ul className="list-[lower-alpha] pl-6 space-y-6 text-white">
           <li>
@@ -700,7 +851,7 @@ export default function TermsOfServicePage() {
           <p>165 Ascalon Ct</p>
           <p>Alpharetta, GA 30005, USA</p>
           <p>
-            <strong>e.</strong> e. support@procoding.com
+            <strong>e.</strong> support@procoding.com
           </p>
         </address>
       </div>

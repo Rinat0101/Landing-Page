@@ -136,6 +136,16 @@ export default function PrivacyPolicyPage() {
         <h2 className="text-2xl font-semibold mt-10 mb-4">
           4. How We Share Information
         </h2>
+        <h3 className="text-2xl font-semibold mt-10 mb-4">
+          SMS Privacy Compliance
+        </h3>
+        <p>
+          No mobile information will be shared with third parties/affiliates for
+          marketing/promotional purposes. Information sharing to subcontractors
+          in support services, such as customer service, is permitted. All other
+          use case categories exclude text messaging originator opt-in data and
+          consent; this information will not be shared with any third parties.
+        </p>
         <p>
           We do not sell your personal information. We may share information
           with:
@@ -158,11 +168,7 @@ export default function PrivacyPolicyPage() {
             groups;
           </li>
           <li>
-            e. Advertising partners: to deliver interest-based ads, with opt out
-            rights; and,
-          </li>
-          <li>
-            f. With your consent: for example, connecting you to employers or
+            e. With your consent: for example, connecting you to employers or
             partners.
           </li>
         </ul>
@@ -298,48 +304,69 @@ export default function PrivacyPolicyPage() {
           13. Third-Party Sites and Social Media Practices
         </h2>
         <p className="mb-6">
-          Our services may contain links to third-party websites not controlled
-          by us. Additionally, we are active on social media and may share
-          information, images, or videos with the public through external media
-          sites. We are not responsible for the privacy policies of third
-          parties. We encourage you to review the privacy policies of any
-          third-party service or social media platform you use. We reserve the
-          right to moderate our social media pages as we see fit.
+          Our services may contain links to third-party websites that are not
+          owned or controlled by us. We are not responsible for the privacy
+          practices or content of these external websites, and we encourage you
+          to review their privacy policies before providing any personal
+          information. We may maintain official pages on social media platforms
+          to communicate with our community. Any information, images, or content
+          you voluntarily submit on public social media pages may be visible to
+          others, depending on your privacy settings. We do not share, post, or
+          disclose mobile phone numbers, SMS opt-in data, or text messaging
+          consent information on social media platforms or third-party websites.
+          Such mobile information is never shared with any third parties except
+          subcontractors that support essential business services (e.g.,
+          customer service providers), and never for advertising, marketing, or
+          promotional purposes.
         </p>
 
         <h2 className="text-2xl font-semibold mt-10 mb-4">
           14. State-Specific Rights (U.S.)
         </h2>
         <p className="mb-6">
-          Residents of California, Virginia, Colorado, Connecticut, and Utah may
-          have additional rights under state law, including:
+          Residents of certain U.S. states, including California, Virginia,
+          Colorado, Connecticut, and Utah, may have additional rights regarding
+          their personal information. These rights may include:
         </p>
         <ul className="list-disc pl-6 space-y-2 mb-6">
           <li>
-            Right to know what categories of personal information we collect and
-            disclose;
-          </li>
-          <li>Right to request access to specific pieces of information;</li>
-          <li>Right to correct inaccurate data;</li>
-          <li>Right to request deletion (subject to exceptions);</li>
-          <li>
-            Right to opt out of the sale or sharing of personal information,
-            including for cross-context behavioral advertising;
+            The right to know what categories of personal information we collect
+            and disclose;
           </li>
           <li>
-            Right to limit the use and disclosure of sensitive personal
-            information;
+            The right to access specific pieces of personal information we hold;
           </li>
-          <li>Right to request removal of content you have posted;</li>
+          <li>The right to correct inaccurate information;</li>
+          <li>
+            The right to request deletion of personal information (subject to
+            applicable exceptions);
+          </li>
+          <li>
+            The right to opt out of the sale or sharing of personal information
+            for cross-context behavioral advertising;
+          </li>
+          <li>
+            The right to limit the use and disclosure of sensitive information;
+          </li>
+          <li>The right to request removal of content posted by you;</li>
+          <li>
+            The right to non-discrimination for exercising any privacy rights.
+          </li>
           <li>Right to non-discrimination for exercising these rights.</li>
         </ul>
+        <p className="mb-6 font-semibold">
+          However, mobile phone numbers, SMS opt-in data, and text messaging
+          consent information are never sold, shared, or disclosed to third
+          parties for marketing, promotional, or advertising purposes.
+        </p>
         <p className="mb-6">
-          To exercise state-specific rights, contact us using the details below
-          or through our website. We may require verification of identity. You
-          may also designate an authorized agent to act on your behalf. We may
-          require appropriate verification of your identity and written
-          authorization before processing requests submitted by an authorized
-          agent.
+          Such mobile information is excluded from cross-context behavioral
+          advertising and is processed only to support essential service
+          operations (e.g., delivering messages you have consented to receive).
+          To exercise state-specific rights, you may contact us using the
+          details provided below. We may require verification of your identity.
+          You may also designate an authorized agent to act on your behalf,
+          subject to applicable verification requirements.
         </p>
         <h2 className="text-2xl font-semibold mt-10 mb-4">
           15. Changes to this Policy
@@ -358,9 +385,9 @@ export default function PrivacyPolicyPage() {
         <address className="not-italic">
           <p>Pro Coding Services LLC</p>
           <p>c/o Legal Department</p>
-          <p>1234 Example Street</p>
+          <p>165 Ascalon Ct,</p>
           <p>Atlanta, GA 30301, USA</p>
-          <p>e. privacy@procoding.com</p>
+          <p>e. support@procoding.com</p>
         </address>
       </div>
     </main>

@@ -8,7 +8,10 @@ import { useTranslation } from "@/lib/TranslationContext";
 interface Tab {
   title: string;
   subtitle: string;
-  content: string[];
+  learnTitle: string;
+  learnPoints: string[];
+  getTitle: string;
+  getPoints: string[];
   icons: string[];
 }
 
@@ -32,19 +35,28 @@ export default function CurriculumOverview() {
     {
       title: t("curriculum.tabs.intro.label"),
       subtitle: t("curriculum.tabs.intro.title"),
-      content: t("curriculum.tabs.intro.content").split("."),
+      learnTitle: t("curriculum.tabs.intro.learn"),
+      learnPoints: t("curriculum.tabs.intro.learn_content").split("\n"),
+      getTitle: t("curriculum.tabs.intro.get"),
+      getPoints: t("curriculum.tabs.intro.get_content").split("\n"),
       icons: ["vscode.svg", "github.svg", "git.svg", "html.svg", "css.svg"],
     },
     {
       title: t("curriculum.tabs.module1.label"),
       subtitle: t("curriculum.tabs.module1.title"),
-      content: t("curriculum.tabs.module1.content").split("."),
+      learnTitle: t("curriculum.tabs.module1.learn"),
+      learnPoints: t("curriculum.tabs.module1.learn_content").split("\n"),
+      getTitle: t("curriculum.tabs.module1.get"),
+      getPoints: t("curriculum.tabs.module1.get_content").split("\n"),
       icons: ["html.svg", "css.svg", "bootstrap.svg", "tailwind.svg", "js.svg"],
     },
     {
       title: t("curriculum.tabs.module2.label"),
       subtitle: t("curriculum.tabs.module2.title"),
-      content: t("curriculum.tabs.module2.content").split("."),
+      learnTitle: t("curriculum.tabs.module2.learn"),
+      learnPoints: t("curriculum.tabs.module2.learn_content").split("\n"),
+      getTitle: t("curriculum.tabs.module2.get"),
+      getPoints: t("curriculum.tabs.module2.get_content").split("\n"),
       icons: [
         "nodejs.svg",
         "fetch.svg",
@@ -56,14 +68,29 @@ export default function CurriculumOverview() {
     {
       title: t("curriculum.tabs.module3.label"),
       subtitle: t("curriculum.tabs.module3.title"),
-      content: t("curriculum.tabs.module3.content").split("."),
+      learnTitle: t("curriculum.tabs.module3.learn"),
+      learnPoints: t("curriculum.tabs.module3.learn_content").split("\n"),
+      getTitle: t("curriculum.tabs.module3.get"),
+      getPoints: t("curriculum.tabs.module3.get_content").split("\n"),
       icons: ["react.svg", "js.svg"],
     },
     {
       title: t("curriculum.tabs.module4.label"),
       subtitle: t("curriculum.tabs.module4.title"),
-      content: t("curriculum.tabs.module4.content").split("."),
-      icons: ["php.svg", "ts.svg", "vue.svg", "angular.svg", "figma.svg"],
+      learnTitle: t("curriculum.tabs.module4.learn"),
+      learnPoints: t("curriculum.tabs.module4.learn_content").split("\n"),
+      getTitle: t("curriculum.tabs.module4.get"),
+      getPoints: t("curriculum.tabs.module4.get_content").split("\n"),
+      icons: ["php.svg", "ts.svg", "vue.svg", "angular.svg", "copilot.svg"],
+    },
+    {
+      title: t("curriculum.tabs.module5.label"),
+      subtitle: t("curriculum.tabs.module5.title"),
+      learnTitle: t("curriculum.tabs.module5.learn"),
+      learnPoints: t("curriculum.tabs.module5.learn_content").split("\n"),
+      getTitle: t("curriculum.tabs.module5.get"),
+      getPoints: t("curriculum.tabs.module5.get_content").split("\n"),
+      icons: [],
     },
   ];
 
@@ -124,7 +151,7 @@ export default function CurriculumOverview() {
 
           {/* Tab Content & Technologies */}
           <div className="flex flex-col justify-between flex-1 overflow-hidden">
-            <div className="mt-4 mx-2 md:mx-4 flex-1">
+            <div className="mt-4 mx-2 md:mx-4 flex-1 space-y-8">
               <h4
                 className={`text-xl md:text-2xl font-semibold mb-5 ${
                   isLight ? "text-black" : "text-white"
@@ -132,48 +159,84 @@ export default function CurriculumOverview() {
               >
                 {active.subtitle}
               </h4>
-              <ul className="list-disc pl-6 space-y-4">
-                {active.content.map(
-                  (sentence, i) =>
-                    sentence.trim() && (
+              {/* What you’ll learn */}
+              <div>
+                <h4
+                  className={`text-xl md:text-xl font-semibold mb-3 ${
+                    isLight ? "text-black" : "text-white"
+                  }`}
+                >
+                  {active.learnTitle}
+                </h4>
+                <ul className="list-disc pl-6 space-y-1">
+                  {active.learnPoints.map((point, i) =>
+                    point.trim() ? (
                       <li
-                        key={i}
+                        key={`learn-${i}`}
                         className={`text-base leading-relaxed ${
                           isLight ? "text-black" : "text-white"
                         }`}
                       >
-                        {sentence.trim()}
+                        {point.trim()}
                       </li>
-                    )
-                )}
-              </ul>
-            </div>
+                    ) : null
+                  )}
+                </ul>
+              </div>
 
-            {/* Tech icons */}
-            <div className="mt-8 mx-2 md:mx-4">
-              <h5
-                className={`text-lg font-semibold mb-4 ${
-                  isLight ? "text-black" : "text-white"
-                }`}
-              >
-                {t("curriculum.technologies")}
-              </h5>
-              <div className="flex flex-wrap gap-3">
-                {active.icons.map((icon, i) => (
-                  <Image
-                  key={i}
-                  src={`/images/icons/${icon}`}
-                  alt={icon.replace('.svg', '')}
-                  width={32}
-                  height={32}
-                  loading="lazy"
-                  className={`w-8 h-8 ${
-                    icon === "github.svg" && !isLight ? "invert" : ""
+              {/* What you’ll get */}
+              <div>
+                <h4
+                  className={`text-xl md:text-xl font-semibold mb-3 ${
+                    isLight ? "text-black" : "text-white"
                   }`}
-                />
-                ))}
+                >
+                  {active.getTitle}
+                </h4>
+                <ul className="list-disc pl-6 space-y-1">
+                  {active.getPoints.map((point, i) =>
+                    point.trim() ? (
+                      <li
+                        key={`get-${i}`}
+                        className={`text-base leading-relaxed ${
+                          isLight ? "text-black" : "text-white"
+                        }`}
+                      >
+                        {point.trim()}
+                      </li>
+                    ) : null
+                  )}
+                </ul>
               </div>
             </div>
+
+            {/* Tech icons – only if icons exist */}
+            {active.icons.length > 0 && (
+              <div className="mt-8 mx-2 md:mx-4">
+                <h5
+                  className={`text-lg font-semibold mb-4 ${
+                    isLight ? "text-black" : "text-white"
+                  }`}
+                >
+                  {t("curriculum.technologies")}
+                </h5>
+                <div className="flex flex-wrap gap-3">
+                  {active.icons.map((icon, i) => (
+                    <Image
+                      key={i}
+                      src={`/images/icons/${icon}`}
+                      alt={icon.replace(".svg", "")}
+                      width={32}
+                      height={32}
+                      loading="lazy"
+                      className={`w-8 h-8 ${
+                        icon === "github.svg" && !isLight ? "invert" : ""
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

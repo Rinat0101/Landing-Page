@@ -161,7 +161,13 @@
       "a9": "We’ll keep supporting you in your job search until you land your first IT job. Plus, you’ll gain access to our alumni community and career resources.",
 
       "q10": "How do I know which course is right for me — WebDev, QA, or AI?",
-      "a10": "We’ll schedule a consultation and help you choose a program based on your goals, background, and ideal career path."
+      "a10": "We’ll schedule a consultation and help you choose a program based on your goals, background, and ideal career path.",
+
+      "q11": "Who are your instructors?",
+      "a11": "Our instructors are working professionals employed at international companies.\nThey solve real production-level problems every day and share up-to-date knowledge, modern approaches, and industry best practices with students.",
+
+      "q12": "Can I retake the course?",
+      "a12": "Yes! All class recordings and materials are saved for you forever, so you can rewatch the entire course anytime.\nThe only limitation is that mentor support is not provided again. Code reviews, homework help, and individual mentoring are only available while studying with the current group."
     },
     "instructors": {
       "title": "Meet Our Team",
@@ -351,27 +357,50 @@
       "intro": {
         "label": "Intro",
         "title": "Introductory Module",
-        "content": "Set up your work environment and install necessary programs for a smooth start to learning. Familiarize yourself with basics of key technologies and core concepts to make understanding the main material easier and more effective."
+        "learn": "What you’ll learn and why it matters",
+        "learn_content": "HTML & CSS – to build the structure and design of web pages.\nJavaScript (basics) – to add interactivity and logic.\nGit & GitHub – to track versions of your code and collaborate with a team.\nTerminal – to manage projects and run code without a graphical interface.\nVisual Studio Code – to write code in a convenient editor with syntax highlighting, plugins, and debugging.\nHow the Internet works – to understand how browsers and servers exchange data.\nBackend (intro to Node.js) – to see how the server side works and how the frontend connects to a database.",
+        "get": "What you’ll get",
+        "get_content": "A clear understanding of the basics of web development.\nA fully set up environment for the rest of the program.\nThe essential skills you need to get started in the main bootcamp."
       },
       "module1": {
         "label": "Module 1",
-        "title": "Module 1: HTML, CSS, JS",
-        "content": "Get familiar with the fundamental building blocks of websites. Begin your programming journey by learning key concepts and principles. Create your first web pages with proper styling and interactive user experiences."
+        "title": "HTML, CSS, JavaScript",
+        "learn": "What you’ll learn and why it matters",
+        "learn_content": "HTML – to define the structure of a page, work with tags, attributes, and forms.\nCSS – to style your pages: colors, fonts, spacing, and responsive layouts (Flexbox, Bootstrap, Tailwind).\nJavaScript (basic & advanced) – to bring pages to life: variables, data types, conditions, loops, arrays, objects, functions.\nDOM – to manipulate page elements, add interactivity, and respond to user actions.\nOOP in JavaScript – to organize code and build scalable solutions.",
+        "get": "What you’ll get",
+        "get_content": "The ability to create complete web pages with styling and dynamic elements.\nHands-on experience with modern tools for responsive design and clean code organization.\nA strong foundation to move on to backend development and start building full web applications."
       },
       "module2": {
         "label": "Module 2",
-        "title": "Module 2: Backend",
-        "content": "Learn how to build fully functional web applications that can work with and store data. Create apps that save user information, deliver personalized features, and efficiently handle requests — essential skills for working with any data-driven system."
+        "title": "Backend",
+        "learn": "What you’ll learn and why it matters",
+        "learn_content": "Node.js – to build the server side using the same language (JavaScript) as the frontend, making full‑stack development simpler.\nHTTP servers & Express – to handle requests, create APIs, and connect the frontend to a database.\nPromises, async/await – to work with asynchronous code without blocking the server.\nAPIs and Fetch/Axios – to send requests (GET, POST, PUT, DELETE) and integrate external services into your apps.\nMongoDB + Mongoose – to store, structure, and manage data. You’ll learn CRUD operations and relationships between documents.\nMiddleware – to add features like authentication, validation, logging, and route protection.\nPostman – to test APIs and debug the server side more efficiently.",
+        "get": "What you’ll get",
+        "get_content": "The ability to build servers and APIs that work with real data.\nSkills to store and process user information (registration, login, forms).\nExperience integrating external services and databases.\nThe foundation to develop full‑stack applications with a working backend."
       },
       "module3": {
         "label": "Module 3",
-        "title": "Module 3: React",
-        "content": "Begin working with cutting-edge technologies and best practices in React development, mastering tools and approaches in demand in the industry. Learn to write clean, elegant code that follows principles of clarity and efficiency. You’ll be writing code that not only works but is also readable, maintainable, and meets quality standards."
+        "title": "React",
+        "learn": "What you’ll learn and why it matters",
+        "learn_content": "JSX and components – to build interfaces out of reusable elements.\nProps and state – to pass data and manage application state.\nHooks (useState, useEffect, useContext, useForm) – to write modern, concise code without classes.\nComponent lifecycle – to control data updates and side effects.\nForms in React – to handle user input without reloading the page.\nConditional rendering, lists, and keys – to dynamically control how elements are displayed.\nReact Router – to create multi‑page applications with smooth navigation.\nIntegration with backend and REST APIs – to connect your app to a server, send requests, and handle errors.",
+        "get": "What you’ll get",
+        "get_content": "The ability to create dynamic interfaces and manage their state.\nSkills to build modern multi‑page applications.\nA solid grasp of writing clean, maintainable, and reusable code.\nThe experience to integrate React with a backend and build full web applications."
       },
       "module4": {
         "label": "Module 4",
-        "title": "Additional technologies and Technical interview preparation",
-        "content": "Familiarize yourself with technologies often required in the industry, making it easier to adapt during onboarding at a new job. Learn how to handle technical interviews and discover the most common questions asked."
+        "title": "Additional Technologies & Technical Interview Preparation",
+        "learn": "What you’ll learn and why it matters",
+        "learn_content": "PHP & MySQL – to understand the fundamentals of server‑side development and relational databases.\nVue.js & Angular – to explore alternative frontend frameworks and stay flexible when applying for jobs.\nWordPress – to quickly build websites and manage content without deep coding.\nLibraries & APIs (Axios, Lodash, etc.) – to speed up development and work efficiently with external services.\nTypeScript – to write more reliable, scalable, and maintainable code, especially for React projects.\nAI Coding Assistants (Claude, ChatGPT, GitHub Copilot) – to use modern AI tools to accelerate development, debug code, generate tests, refactor large components, analyze errors, and prepare for interviews.\nTechnical interview prep – to practice strategies, common questions, and real coding tasks.\nInterview Question Library – to review and drill the most frequent JavaScript and React interview questions.",
+        "get": "What you’ll get",
+        "get_content": "Adaptability to different technologies and tools that employers expect.\nPractical skills that make your development process faster, easier, and more professional.\nConfidence going into technical interviews — from theory to live coding.\nHands‑on experience with AI that boosts your productivity 2–3x and helps you write cleaner, higher‑quality code.\nStronger chances of landing a job quickly and onboarding smoothly into a real engineering team."
+      },
+      "module5": {
+        "label": "Module 5",
+        "title": "Methodologies: Agile, Scrum, Kanban",
+        "learn": "What you’ll learn and why it matters",
+        "learn_content": "Agile – the philosophy of flexible development: how to adapt to change and respond quickly to new requirements.\nScrum – roles, sprints, and rituals (daily stand-ups, retrospectives, reviews) to collaborate effectively in a team.\nKanban – visualizing tasks and tracking progress to stay productive and transparent.",
+        "get": "What you’ll get",
+        "get_content": "Experience working with real development processes used in modern companies.\nThe ability to integrate smoothly into teams that use agile methodologies.\nImproved quality and speed when working on projects."
       }
     },
     "technologies": "Technologies"
@@ -395,7 +424,6 @@
       "Full access to all course materials and platform",
       "3 live workshops per week with instructor",
       "Practical projects, code reviews, and homework with feedback",
-      "1:1 mentorship calls (up to 4/month)",
       "Interview preparation and mock interviews",
       "Personalized career consultations",
       "Access to extra modules (algorithms, interview prep, onboarding)",
@@ -414,7 +442,7 @@
     "a2": "It’s designed for beginners, career changers, self-taught learners who need structure, and recent graduates looking to get job-ready skills.",
 
     "q3": "What technologies will I learn?",
-    "a3": "You’ll master HTML, CSS, JavaScript, React, Node.js, and more — along with modern tools and workflows. You'll also learn agile methodologies like Agile, Scrum, and Kanban.",
+    "a3": "You will learn HTML, CSS, JavaScript, React, and Node.js — plus the most popular tools and frameworks used by modern developers:\n\n• Git and GitHub — for version control and teamwork\n• Node.js + Express — for building backend logic\n• REST API — for connecting frontend and backend\n• MongoDB / PostgreSQL — the basics of working with databases\n• TypeScript (basics) — to write safer, more reliable code\n• Vite / Webpack — build tools for modern projects\n• Axios / Fetch API — working with HTTP requests\n• Tailwind or Styled Components — styling your applications\n• Postman — testing and debugging APIs\n• VS Code + extensions — a full professional development environment\n\nYou’ll also learn modern workflow methodologies: Agile, Scrum, Kanban — so you can work like a real software engineering team.",
 
     "q4": "Is it all theory, or will there be hands-on practice?",
     "a4": "There’s a lot of practice! After every module, you’ll complete lab assignments and mini-projects. At the end of the course, you’ll build a team project for your portfolio.",
@@ -422,9 +450,8 @@
     "q5": "What will I have by the end of the course?",
     "a5": "A professional portfolio with 2–3 projects, Junior+ level web development skills, a polished resume, LinkedIn profile and interview readiness.",
 
-    "q6": "Do you help with job search?",
-    "a6": "Yes! Our career team helps you every step of the way — from writing your resume and preparing for interviews to connecting you with partner employers.",
-
+    "q6": "Do you help with finding a job?",
+    "a6": "Yes! We support you at every stage — from writing your resume to preparing for interviews and landing your first job.\n\nWhat’s included in the career support block:\n\n• Group career sessions — vacancy reviews, portfolio feedback, and application guidance.\n• Several one‑on‑one career consultations — personal strategy, resume review, LinkedIn optimization, and individual interview preparation.\n• Technical interview preparation with a coach or mentor.\n• Help with job applications and progress tracking.\n\nWe also connect our top students with partner companies where they can get internship or interview opportunities after successfully completing the program. This is not a guaranteed job placement, but we provide access to internships and recommendations that significantly increase your chances of getting an offer. All of this is included in the course — no hidden fees.",
     "q7": "Is there support during the course?",
     "a7": "Absolutely. You’ll be guided by mentors, instructors, and technical assistants. You can always ask questions and get help with any topic or technical issue.",
 

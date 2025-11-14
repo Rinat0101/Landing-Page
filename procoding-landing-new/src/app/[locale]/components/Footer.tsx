@@ -124,6 +124,16 @@ export default function Footer() {
             />
             <span>apply@procoding.com</span>
           </div>
+          <div className={`flex items-center gap-2 text-sm mb-2 ${isDark ? "text-white/70" : "text-black/70"}`}>
+            <Image
+              src="/images/phone.svg"
+              alt="Email"
+              width={20}
+              height={20}
+              className={isDark ? "" : "invert"}
+            />
+            <span>+1 404-620-2426</span>
+          </div>
         </div>
 
         {/* Newsletter */}

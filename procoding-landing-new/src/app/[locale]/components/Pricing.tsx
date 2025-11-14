@@ -92,13 +92,36 @@ export default function PricingSection() {
             }`}
           >
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4">
+              {/* 🎉 Black Friday label */}
+              <p className="uppercase text-sm font-bold text-center text-red-600 mb-3 tracking-wider">
+                🔥 Black Friday Special
+              </p>
+
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-center">
                 {t("pricing.joinNow")}
               </h3>
-              <p className="text-4xl font-bold text-[#D726B3] mb-1">$3 290</p>
-              <p className="text-sm mb-6">{t("pricing.monthlyNote")}</p>
-              <p className="text-sm mb-6">{t("pricing.note")}</p>
+
+              {/* Price block */}
+              <div className="flex flex-col items-center gap-2 mb-4">
+                <div className="flex items-center gap-2">
+                  <p className="text-2xl sm:text-3xl line-through opacity-60">
+                    $6,580
+                  </p>
+                  <span className="text-xs sm:text-sm font-semibold bg-red-500 text-white px-2 py-1 rounded-md">
+                    -50%
+                  </span>
+                </div>
+                <p className="text-4xl sm:text-5xl font-bold text-[#D726B3]">
+                  $3,290
+                </p>
+              </div>
+
+              <p className="text-sm text-center mb-2">
+                {t("pricing.monthlyNote")}
+              </p>
+              <p className="text-sm text-center mb-6">{t("pricing.note")}</p>
             </div>
+
             <a
               href="#contact"
               className="block w-full text-center bg-purple-600 text-white font-bold py-3 rounded-full transition hover:bg-purple-700"
