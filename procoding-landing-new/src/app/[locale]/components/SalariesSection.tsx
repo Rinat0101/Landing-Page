@@ -3,35 +3,58 @@
 import { useTheme } from 'next-themes';
 
 type Props = {
+  locale: 'en' | 'ru';
   data: {
-    salaries_title: string;
-    salaries_description: string;
-    salaries_junior: string;
-    salaries_mid: string;
-    salaries_senior: string;
-    salaries_lead: string;
+    salaries_title_en: string;
+    salaries_title_ru: string;
+    salaries_description_en: string;
+    salaries_description_ru: string;
+    salaries_junior_en: string;
+    salaries_junior_ru: string;
+    salaries_mid_en: string;
+    salaries_mid_ru: string;
+    salaries_senior_en: string;
+    salaries_senior_ru: string;
+    salaries_lead_en: string;
+    salaries_lead_ru: string;
   };
 };
 
-export default function SalariesSection({ data }: Props) {
+export default function SalariesSection({ data, locale }: Props) {
   const { theme } = useTheme();
   const isLight = theme === 'light';
 
+  const title =
+    locale === 'ru' ? data.salaries_title_ru : data.salaries_title_en;
+
+  const description =
+    locale === 'ru'
+      ? data.salaries_description_ru
+      : data.salaries_description_en;
+
   const salaries = [
     {
-      title: data.salaries_junior,
+      title:
+        locale === 'ru'
+          ? data.salaries_junior_ru
+          : data.salaries_junior_en,
       range: '$60 000 – 90 000',
     },
     {
-      title: data.salaries_mid,
+      title:
+        locale === 'ru' ? data.salaries_mid_ru : data.salaries_mid_en,
       range: '$90 000 – 130 000',
     },
     {
-      title: data.salaries_senior,
+      title:
+        locale === 'ru'
+          ? data.salaries_senior_ru
+          : data.salaries_senior_en,
       range: '$120 000 – 180 000',
     },
     {
-      title: data.salaries_lead,
+      title:
+        locale === 'ru' ? data.salaries_lead_ru : data.salaries_lead_en,
       range: '$160 000 – 250 000+',
     },
   ];
@@ -48,14 +71,14 @@ export default function SalariesSection({ data }: Props) {
             isLight ? 'text-black' : 'text-white'
           }`}
         >
-          {data.salaries_title}
+          {title}
         </h3>
         <p
           className={`max-w-3xl mx-auto mb-12 ${
             isLight ? 'text-black' : 'text-white'
           }`}
         >
-          {data.salaries_description}
+          {description}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

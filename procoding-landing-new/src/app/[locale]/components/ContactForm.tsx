@@ -9,170 +9,295 @@ type Props = {
   locale: "en" | "ru";
 };
 
-export default function Footer({ data, locale }: Props) {
+export default function ContactForm({ data, locale }: Props) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "success" | "error" | "loading">("idle");
+  console.log(data)
 
-  // Translation helper
+  // Locale helper
   const t = (key: string) => data[`${key}_${locale}`] || data[key] || "";
 
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    smsConsent: false,
+    marketingConsent: false,
+  });
+
+  const [errors, setErrors] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Auto-hide success message
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => setSuccess(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
+
+  // HANDLE INPUT CHANGES
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type, checked } = e.target;
+    setErrors(null);
+
+    if (type === "checkbox") {
+      setFormData((prev) => ({ ...prev, [name]: checked }));
+      return;
+    }
+
+    if (name === "phone") {
+      const digits = value.replace(/\D/g, "");
+      setFormData((prev) => ({ ...prev, phone: digits }));
+      return;
+    }
+
+    if (name === "message" && value.length > 1000) {
+      setErrors(t("contact_error_message_too_long"));
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // HANDLE SUBMIT
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("loading");
+    setErrors(null);
+    setSuccess(false);
+
+    if (!formData.name.trim() || !formData.email.trim()) {
+      setErrors(t("contact_error_required"));
+      return;
+    }
+
+    const cleanedData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone ? `+1${formData.phone}` : "",
+      message: formData.message.trim(),
+      type: "contact",
+      smsConsent: formData.smsConsent,
+      marketingConsent: formData.marketingConsent,
+    };
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanedData.email)) {
+      setErrors(t("contact_error_invalid_email"));
+      return;
+    }
+
+    // US Phone validation
+    const phoneRegex = /^[2-9][0-9]{2}[2-9][0-9]{2}[0-9]{4}$/;
+    if (cleanedData.phone && !phoneRegex.test(cleanedData.phone.replace("+1", ""))) {
+      setErrors(t("contact_error_invalid_phone"));
+      return;
+    }
+
+    if (cleanedData.message.length > 1000) {
+      setErrors(t("contact_error_message_too_long"));
+      return;
+    }
 
     try {
-      const response = await fetch(`/api/contact`, {
+      setLoading(true);
+
+      const response = await fetch(`${window.location.origin}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          message: "Newsletter signup",
-          name: "Newsletter",
-          phone: "",
-          type: "newsletter",
-        }),
+        body: JSON.stringify(cleanedData),
       });
 
       const result = await response.json();
+
       if (result.success) {
-        setStatus("success");
-        setEmail("");
+        setSuccess(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+          smsConsent: false,
+          marketingConsent: false,
+        });
       } else {
-        setStatus("error");
+        setErrors(result.error || t("contact_error_generic"));
       }
-    } catch {
-      setStatus("error");
+    } catch (err) {
+      console.error(err);
+      setErrors(t("contact_error_failed"));
+    } finally {
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (status === "success") {
-      const timeout = setTimeout(() => setStatus("idle"), 5000);
-      return () => clearTimeout(timeout);
-    }
-  }, [status]);
-
   return (
-    <footer
-      className={`w-full px-4 sm:px-6 md:px-12 py-10 rounded-t-4xl transition-colors duration-300 ${
-        isDark ? "bg-[#0f0f0f] text-white" : "bg-[#f3f2ff] text-black"
-      }`}
+    <section
+      id="contact"
+      className="relative py-20 px-4 flex justify-center transition-colors duration-300"
     >
-      <div className="max-w-7xl mx-auto flex flex-col gap-10 md:grid md:grid-cols-3 lg:grid-cols-4">
-        {/* Logo + Social */}
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <Image src="/images/logo.svg" alt="ProCoding logo" width={24} height={24} priority />
-            <span className="font-semibold text-lg">ProCoding</span>
-          </div>
-          <p className={`mb-4 text-sm ${isDark ? "text-white/80" : "text-black/70"}`}>
-            {t("footer_social")}
-          </p>
-          <div className="flex gap-3">
-            {[
-              {
-                href: "https://www.facebook.com/procodingcom",
-                src: "/images/fb_icon.svg",
-                alt: "Facebook",
-                size: 12,
-              },
-              {
-                href: "https://www.linkedin.com/company/pro-coding",
-                src: "/images/linkedin_icon.svg",
-                alt: "LinkedIn",
-                size: 16,
-              },
-              {
-                href: "https://www.instagram.com/procodingcom",
-                src: "/images/instagram_icon.svg",
-                alt: "Instagram",
-                size: 16,
-              },
-            ].map(({ href, src, alt, size }) => (
-              <a
-                key={alt}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={alt}
-                className={`w-9 h-9 rounded-xl flex items-center justify-center transition hover:scale-105 shadow-sm ${
-                  isDark ? "bg-[#0A0A0A]" : "bg-white"
-                }`}
-              >
-                <Image src={src} alt={alt} width={size} height={size} />
-              </a>
-            ))}
-          </div>
+      <div
+        className={`relative w-full max-w-3xl rounded-3xl px-8 py-10 border ${
+          isDark
+            ? "bg-[#141414] border-white/10 text-white"
+            : "bg-[#F3F2FF] border-black/10 text-black"
+        }`}
+      >
+        {/* DRAGON */}
+        <div className="absolute -right-20 bottom-0 hidden lg:block z-50">
+          <Image
+            src="/images/dragon_pointing.svg"
+            alt="ProCoding Dragon"
+            width={200}
+            height={200}
+          />
         </div>
 
-        {/* Documents */}
-        <div>
-          <h3 className="font-semibold mb-2 text-base">{t("footer_documents_title")}</h3>
-          <ul className={`space-y-1 text-sm ${isDark ? "text-white/70" : "text-black/70"}`}>
-            <li><a href="/privacy-policy">{t("footer_privacypolicy")}</a></li>
-            <li><a href="/terms-of-service">{t("footer_terms")}</a></li>
-          </ul>
-        </div>
+        {/* TITLE & DESCRIPTION */}
+        <h2 className="text-4xl font-bold mb-4">{t("contact_title")}</h2>
+        <p className="mb-8">{t("contact_description")}</p>
 
-        {/* Contact */}
-        <div>
-          <h3 className="font-semibold mb-2 text-base">{t("footer_contact_title")}</h3>
-          <div className={`flex items-center gap-2 text-sm mb-2 ${isDark ? "text-white/70" : "text-black/70"}`}>
-            <Image src="/images/email_icon.svg" alt="Email" width={20} height={20} className={isDark ? "" : "invert"} />
-            <span>{t("footer_contact_email") || "apply@procoding.com"}</span>
-          </div>
-          <div className={`flex items-center gap-2 text-sm mb-2 ${isDark ? "text-white/70" : "text-black/70"}`}>
-            <Image src="/images/phone.svg" alt="Phone" width={20} height={20} className={isDark ? "" : "invert"} />
-            <span>{t("footer_contact_telegram") || "+1 404-620-2426"}</span>
-          </div>
-        </div>
+        {/* FORM */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* NAME */}
+          <input
+            type="text"
+            name="name"
+            placeholder={t("contact_nameplaceholder")}
+            value={formData.name}
+            onChange={handleChange}
+            className={`w-full px-4 py-3 rounded-xl focus:ring-2 focus:ring-purple-500 ${
+              isDark
+                ? "bg-[#0f0f0f] border border-white/20 text-white"
+                : "bg-[#f3f2ff] border border-black/10 text-black"
+            }`}
+          />
 
-        {/* Newsletter */}
-        <div>
-          <h3 className="font-semibold mb-2 text-base">{t("footer_newsletter_title")}</h3>
-          <form onSubmit={handleNewsletterSubmit}>
+          {/* EMAIL */}
+          <input
+            type="email"
+            name="email"
+            placeholder={t("contact_emailplaceholder")}
+            value={formData.email}
+            onChange={handleChange}
+            className={`w-full px-4 py-3 rounded-xl focus:ring-2 focus:ring-purple-500 ${
+              isDark
+                ? "bg-[#0f0f0f] border border-white/20 text-white"
+                : "bg-[#f3f2ff] border border-black/10 text-black"
+            }`}
+          />
+
+          {/* PHONE + FLAG */}
+          <div
+            className={`flex items-center rounded-xl overflow-hidden ${
+              isDark
+                ? "bg-[#0f0f0f] border border-white/20"
+                : "bg-[#f3f2ff] border border-black/10"
+            }`}
+          >
+            <div className="flex items-center px-3 shrink-0">
+              <Image src="/images/flag_en.svg" alt="US Flag" width={20} height={20} />
+              <span className={`ml-2 font-medium ${isDark ? "text-white" : "text-black"}`}>
+                +1
+              </span>
+            </div>
+
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={t("footer_newsletter_emailplaceholder")}
-              required
-              className={`w-full px-4 py-2 rounded-xl text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-purple-500 transition ${
-                isDark
-                  ? "bg-[#0a0a0a] text-white/70 border border-white/20 placeholder-white/50"
-                  : "bg-white text-black border border-black/10 placeholder-black/40"
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              maxLength={10}
+              inputMode="numeric"
+              placeholder={t("phoneplaceholder")}
+              className={`w-full py-3 pr-4 bg-transparent focus:outline-none ${
+                isDark ? "text-white placeholder-white/50" : "text-black placeholder-black/40"
               }`}
             />
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="w-full bg-[#D726B3] hover:bg-[#B71D99] text-white font-semibold py-2 rounded-full transition duration-200 text-sm"
-            >
-              {status === "loading" ? (locale === "ru" ? "Отправка..." : "Sending...") : t("footer_newsletter_submit")}
-            </button>
-            {status === "success" && (
-              <p className="text-green-500 text-sm mt-1">
-                {locale === "ru" ? "Вы успешно подписались!" : "Subscribed successfully!"}
-              </p>
-            )}
-            {status === "error" && (
-              <p className="text-red-500 text-sm mt-1">
-                {locale === "ru"
-                  ? "Что-то пошло не так. Пожалуйста, попробуйте снова."
-                  : "Something went wrong. Please try again."}
-              </p>
-            )}
-          </form>
-        </div>
-      </div>
+          </div>
 
-      {/* Copyright */}
-      <div className={`mt-10 text-center text-sm px-4 sm:px-6 ${isDark ? "text-white/50" : "text-black/50"}`}>
-        {t("footer_copyright")}
+          {/* MESSAGE */}
+          <textarea
+            name="message"
+            rows={4}
+            placeholder={t("questionplaceholder")}
+            value={formData.message}
+            onChange={handleChange}
+            className={`w-full px-4 py-3 rounded-xl focus:ring-2 focus:ring-purple-500 ${
+              isDark
+                ? "bg-[#0f0f0f] border border-white/20 text-white"
+                : "bg-[#f3f2ff] border border-black/10 text-black"
+            }`}
+          />
+
+          {/* CONSENTS */}
+          <label className="flex items-start space-x-3 text-sm">
+            <input
+              type="checkbox"
+              name="smsConsent"
+              checked={formData.smsConsent}
+              onChange={handleChange}
+              className="mt-1 accent-purple-600"
+            />
+            <span> I agree to receive marketing SMS messages, including promotions and special
+  offers, from Pro Coding Services LLC. Message frequency varies. Message &
+  data rates may apply. Text STOP to unsubscribe at any time.</span>
+          </label>
+
+          <label className="flex items-start space-x-3 text-sm">
+            <input
+              type="checkbox"
+              name="marketingConsent"
+              checked={formData.marketingConsent}
+              onChange={handleChange}
+              className="mt-1 accent-purple-600"
+            />
+            <span>  I agree to receive marketing SMS messages, including promotions and special
+  offers, from Pro Coding Services LLC. Message frequency varies. Message &
+  data rates may apply. Text STOP to unsubscribe at any time.</span>
+          </label>
+
+          {/* DISCLAIMER */}
+          <p className="text-sm mt-4">
+By submitting this form, you agree to our{" "}
+<a
+  href="/terms-of-service"
+  className="underline text-purple-600 hover:text-purple-800"
+  target="_blank"
+>
+  Terms of Service
+</a>{" "}
+and{" "}
+<a
+  href="/privacy-policy"
+  className="underline text-purple-600 hover:text-purple-800"
+  target="_blank"
+>
+  Privacy Policy
+</a>
+.
+</p>
+
+          {/* ERRORS */}
+          {errors && <p className="text-red-500 text-sm">{errors}</p>}
+          {success && <p className="text-green-500 text-sm">Message sent successfully!</p>}
+
+          {/* SUBMIT BUTTON */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-[#9333ea] text-white font-semibold py-3 rounded-full disabled:opacity-50"
+          >
+            {loading ? "Sending..." : t("submit")}
+          </button>
+        </form>
       </div>
-    </footer>
+    </section>
   );
 }
+

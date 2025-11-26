@@ -3,67 +3,96 @@
 import Image from "next/image";
 import { useTheme } from "next-themes";
 
-type GuaranteeData = {
-  guarantee_title_en: string;
-  guarantee_title_ru: string;
-  guarantee_description_en: string;
-  guarantee_description_ru: string;
+type CompaniesData = {
+  futureemployers_title_en: string;
+  futureemployers_title_ru: string;
+  futureemployers_subtitle_en: string;
+  futureemployers_subtitle_ru: string;
 };
 
 type Props = {
-  data: GuaranteeData;
+  data: CompaniesData;
   locale: "en" | "ru";
 };
 
-export default function GuaranteeSection({ data, locale }: Props) {
-  const { theme } = useTheme();
-  const isLight = theme === "light";
+const baseLogos = [
+  { name: "google", alt: "Google" },
+  { name: "meta", alt: "Meta" },
+  { name: "amazon", alt: "Amazon" },
+  { name: "microsoft", alt: "Microsoft" },
+  { name: "samsung", alt: "Samsung" },
+  { name: "fedex", alt: "FedEx" },
+  { name: "ebay", alt: "eBay" },
+];
 
-  if (!data) return null;
+export default function CompaniesMarqueeSection({ data, locale }: Props) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const title =
-    locale === "ru" ? data.guarantee_title_ru : data.guarantee_title_en;
+    locale === "ru" ? data.futureemployers_title_ru : data.futureemployers_title_en;
 
-  const description =
-    locale === "ru"
-      ? data.guarantee_description_ru
-      : data.guarantee_description_en;
+  const subtitle =
+    locale === "ru" ? data.futureemployers_subtitle_ru : data.futureemployers_subtitle_en;
+
+  const logos = baseLogos.map((logo) => {
+    const lightVersions = ["meta", "amazon", "microsoft", "samsung"];
+    const logoSrc = `/logos/${logo.name}${isDark && lightVersions.includes(logo.name) ? "-light" : ""}.svg`;
+    return { ...logo, src: logoSrc };
+  });
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 transition-colors duration-300">
-      <div
-        className={`relative border border-[#F28237] rounded-[1.625rem] py-16 md:py-20 mt-20 max-w-screen-xl mx-auto ${
-          isLight ? "bg-[#FFF6EC]" : "bg-[#221C0E]"
-        }`}
-      >
-        {/* Icon circle */}
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="bg-[#F28237] rounded-full w-28 h-28 flex items-center justify-center shadow-md">
-            <Image
-              src="/images/money.svg"
-              alt="Guarantee Icon"
-              width={52}
-              height={42}
-            />
-          </div>
-        </div>
+    <section
+      className={`py-20 px-4 sm:px-6 md:px-8 transition-colors duration-300 ${
+        isDark ? "bg-black" : "bg-white"
+      }`}
+    >
+      <style>
+        {`
+          @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .scrolling-logos {
+            animation: scroll 30s linear infinite;
+          }
+        `}
+      </style>
 
-        {/* Content */}
-        <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto px-4 sm:px-6">
-          <h2
-            className={`text-4xl md:text-4xl font-extrabold mb-8 ${
-              isLight ? "text-black" : "text-white"
-            }`}
-          >
-            {title}
-          </h2>
-          <p
-            className={`text-base md:text-lg ${
-              isLight ? "text-black" : "text-white"
-            }`}
-          >
-            {description}
-          </p>
+      <div className="max-w-6xl mx-auto">
+        <h2
+          className={`text-4xl font-bold text-center leading-tight mb-4 ${
+            isDark ? "text-white" : "text-black"
+          }`}
+        >
+          {title}
+        </h2>
+
+        <p
+          className={`text-center mb-12 text-base max-w-xl mx-auto ${
+            isDark ? "text-white" : "text-black"
+          }`}
+        >
+          {subtitle}
+        </p>
+
+        <div className="relative overflow-hidden">
+          <div className="flex scrolling-logos w-max gap-16">
+            {[...logos, ...logos].map((logo, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-center h-16 min-w-[150px]"
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={120}
+                  height={40}
+                  className="object-contain"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

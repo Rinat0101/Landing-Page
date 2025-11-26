@@ -51,10 +51,10 @@ export default function WebDevLandingPage({ course, locale }: Props) {
         <About data={heroData} locale={locale} />
       </section>
       <section id="companies">
-        <Companies data={heroData} />
+        <Companies data={heroData} locale={locale}/>
       </section>
       <section id="salaries">
-        <SalariesSection data={heroData} />
+        <SalariesSection data={heroData} locale={locale} />
       </section>
       <section id="about">
         <PerfectForSection data={heroData} locale={locale} />

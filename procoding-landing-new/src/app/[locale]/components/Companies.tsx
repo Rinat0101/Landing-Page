@@ -4,10 +4,8 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 
 type Props = {
-  data: {
-    futureemployers_title: string;
-    futureemployers_subtitle: string;
-  };
+  locale: "en" | "ru";
+  data: Record<string, string>; // passed from WP or local JSON
 };
 
 const baseLogos = [
@@ -20,13 +18,17 @@ const baseLogos = [
   { name: "ebay", alt: "eBay" },
 ];
 
-export default function CompaniesMarqueeSection({ data }: Props) {
+export default function CompaniesMarqueeSection({ data, locale }: Props) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
+  const t = (key: string) => data[`${key}_${locale}`] || data[key] || "";
+
   const logos = baseLogos.map((logo) => {
     const lightVersions = ["meta", "amazon", "microsoft", "samsung"];
-    const logoSrc = `/logos/${logo.name}${isDark && lightVersions.includes(logo.name) ? "-light" : ""}.svg`;
+    const logoSrc = `/logos/${logo.name}${
+      isDark && lightVersions.includes(logo.name) ? "-light" : ""
+    }.svg`;
     return { ...logo, src: logoSrc };
   });
 
@@ -54,7 +56,7 @@ export default function CompaniesMarqueeSection({ data }: Props) {
             isDark ? "text-white" : "text-black"
           }`}
         >
-          {data.futureemployers_title}
+          {t("futureemployers_title")}
         </h2>
 
         <p
@@ -62,7 +64,7 @@ export default function CompaniesMarqueeSection({ data }: Props) {
             isDark ? "text-white" : "text-black"
           }`}
         >
-          {data.futureemployers_subtitle}
+          {t("futureemployers_subtitle")}
         </p>
 
         <div className="relative overflow-hidden">
