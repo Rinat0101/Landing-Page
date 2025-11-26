@@ -2,30 +2,32 @@
 
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { useTranslation } from "@/lib/TranslationContext";
 
-type CardData = {
-  title: string;
-  description: string;
+type Props = {
+  data: {
+    [key: string]: string;
+  };
+  locale: "en" | "ru";
 };
 
-export default function PerfectForSection() {
+export default function PerfectForSection({ data, locale }: Props) {
   const { resolvedTheme } = useTheme();
   const isLight = resolvedTheme === "light";
-  const { t } = useTranslation();
 
-  const cards: CardData[] = [
+  const get = (key: string) => data[`${key}_${locale}`] || "";
+
+  const cards = [
     {
-      title: t("perfectFor.beginners.title"),
-      description: t("perfectFor.beginners.description"),
+      title: get("perfectfor_beginners_title"),
+      description: get("perfectfor_beginners_description"),
     },
     {
-      title: t("perfectFor.careerChangers.title"),
-      description: t("perfectFor.careerChangers.description"),
+      title: get("perfectfor_careerchangers_title"),
+      description: get("perfectfor_careerchangers_description"),
     },
     {
-      title: t("perfectFor.graduates.title"),
-      description: t("perfectFor.graduates.description"),
+      title: get("perfectfor_graduates_title"),
+      description: get("perfectfor_graduates_description"),
     },
   ];
 
@@ -43,13 +45,13 @@ export default function PerfectForSection() {
               isLight ? "text-black" : "text-white"
             }`}
           >
-            {t("perfectFor.heading")}
+            {get("perfectfor_heading")}
           </h2>
         </div>
 
         {/* Responsive layout: column on md and below, row on lg */}
         <div className="flex flex-col-reverse lg:flex-row gap-12 items-start">
-          {/* LEFT on desktop / BELOW on mobile: Image */}
+          {/* LEFT: Image */}
           <div className="w-full lg:w-2/5 flex justify-center">
             <div className="relative w-full aspect-[6/5] max-w-[500px] md:max-w-[600px] lg:max-w-[700px]">
               <Image
@@ -62,7 +64,7 @@ export default function PerfectForSection() {
             </div>
           </div>
 
-          {/* RIGHT on desktop / ABOVE on mobile: Cards */}
+          {/* RIGHT: Cards */}
           <div className="w-full lg:w-3/5 grid grid-cols-1 gap-6">
             {cards.map((card, index) => (
               <div
@@ -78,20 +80,8 @@ export default function PerfectForSection() {
                     isLight ? "bg-white text-black" : "bg-[#111111] text-white"
                   }`}
                 >
-                  <h3
-                    className={`text-xl font-semibold mb-2 ${
-                      isLight ? "text-black" : "text-white"
-                    }`}
-                  >
-                    {card.title}
-                  </h3>
-                  <p
-                    className={`text-sm leading-relaxed ${
-                      isLight ? "text-black" : "text-white"
-                    }`}
-                  >
-                    {card.description}
-                  </p>
+                  <h3 className="text-xl font-semibold mb-2">{card.title}</h3>
+                  <p className="text-sm leading-relaxed">{card.description}</p>
                 </div>
               </div>
             ))}

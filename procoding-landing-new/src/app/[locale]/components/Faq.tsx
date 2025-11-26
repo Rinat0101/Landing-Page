@@ -3,40 +3,32 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { useTranslation } from "@/lib/TranslationContext";
 
-const faqData = [
-  {
-    questionKey: "faq.q1",
-    answerKey: "faq.a1",
-  },
-  {
-    questionKey: "faq.q2",
-    answerKey: "faq.a2",
-  },
-  {
-    questionKey: "faq.q3",
-    answerKey: "faq.a3",
-  },
-  {
-    questionKey: "faq.q4",
-    answerKey: "faq.a4",
-  },
-  {
-    questionKey: "faq.q5",
-    answerKey: "faq.a5",
-  },
-  {
-    questionKey: "faq.q6",
-    answerKey: "faq.a6",
-  },
-];
+type FAQSectionProps = {
+  data: Record<string, string>;
+  locale: "en" | "ru";
+};
 
-export default function FAQSection() {
+export default function FAQSection({ data, locale }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { theme } = useTheme();
   const isDark = theme === "dark";
-  const { t } = useTranslation();
+
+  // Get localized title and subtitle
+  const title = data[`faq_title_${locale}`];
+  const subtitle = data[`faq_subtitle_${locale}`];
+
+  // Build FAQ items dynamically based on locale
+  const faqData = Array.from({ length: 20 }) // Increase this if you expect more
+    .map((_, i) => {
+      const index = i + 1;
+      const question = data[`faq_question${index}_${locale}`];
+      const answer = data[`faq_answer${index}_${locale}`];
+
+      if (!question || !answer) return null;
+      return { question, answer };
+    })
+    .filter(Boolean) as { question: string; answer: string }[];
 
   const toggleIndex = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -49,15 +41,13 @@ export default function FAQSection() {
       }`}
     >
       <div className="w-full max-w-3xl">
-        <h2 className="text-center text-4xl font-bold mb-4">
-          {t("faq.title")}
-        </h2>
+        <h2 className="text-center text-4xl font-bold mb-4">{title}</h2>
         <p
           className={`text-center max-w-2xl mx-auto mb-12 text-sm md:text-base ${
             isDark ? "text-white" : "text-black"
           }`}
         >
-          {t("faq.subtitle")}
+          {subtitle}
         </p>
 
         <div className="space-y-4">
@@ -90,7 +80,7 @@ export default function FAQSection() {
                       }}
                     />
                     <h3 className="font-semibold text-base md:text-lg">
-                      {t(item.questionKey)}
+                      {item.question}
                     </h3>
                   </div>
                   <span
@@ -114,7 +104,7 @@ export default function FAQSection() {
                       isDark ? "text-white" : "text-black"
                     }`}
                   >
-                    {t(item.answerKey)}
+                    {item.answer}
                   </p>
                 </div>
               </div>

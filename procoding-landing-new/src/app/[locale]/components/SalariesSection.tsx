@@ -1,28 +1,37 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { useTranslation } from '@/lib/TranslationContext';
 
-export default function SalariesSection() {
+type Props = {
+  data: {
+    salaries_title: string;
+    salaries_description: string;
+    salaries_junior: string;
+    salaries_mid: string;
+    salaries_senior: string;
+    salaries_lead: string;
+  };
+};
+
+export default function SalariesSection({ data }: Props) {
   const { theme } = useTheme();
   const isLight = theme === 'light';
-  const { t } = useTranslation();
 
   const salaries = [
     {
-      title: t('salaries.junior'),
+      title: data.salaries_junior,
       range: '$60 000 – 90 000',
     },
     {
-      title: t('salaries.mid'),
+      title: data.salaries_mid,
       range: '$90 000 – 130 000',
     },
     {
-      title: t('salaries.senior'),
+      title: data.salaries_senior,
       range: '$120 000 – 180 000',
     },
     {
-      title: t('salaries.lead'),
+      title: data.salaries_lead,
       range: '$160 000 – 250 000+',
     },
   ];
@@ -39,14 +48,14 @@ export default function SalariesSection() {
             isLight ? 'text-black' : 'text-white'
           }`}
         >
-          {t('salaries.title')}
+          {data.salaries_title}
         </h3>
         <p
           className={`max-w-3xl mx-auto mb-12 ${
             isLight ? 'text-black' : 'text-white'
           }`}
         >
-          {t('salaries.description')}
+          {data.salaries_description}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

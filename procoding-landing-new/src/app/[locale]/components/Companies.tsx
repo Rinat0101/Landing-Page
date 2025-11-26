@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { useTranslation } from "@/lib/TranslationContext";
+
+type Props = {
+  data: {
+    futureemployers_title: string;
+    futureemployers_subtitle: string;
+  };
+};
 
 const baseLogos = [
   { name: "google", alt: "Google" },
@@ -14,10 +20,9 @@ const baseLogos = [
   { name: "ebay", alt: "eBay" },
 ];
 
-export default function CompaniesMarqueeSection() {
+export default function CompaniesMarqueeSection({ data }: Props) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
-  const { t } = useTranslation();
 
   const logos = baseLogos.map((logo) => {
     const lightVersions = ["meta", "amazon", "microsoft", "samsung"];
@@ -31,7 +36,6 @@ export default function CompaniesMarqueeSection() {
         isDark ? "bg-black" : "bg-white"
       }`}
     >
-      {/* Marquee animation */}
       <style>
         {`
           @keyframes scroll {
@@ -45,27 +49,22 @@ export default function CompaniesMarqueeSection() {
       </style>
 
       <div className="max-w-6xl mx-auto">
-        {/* Title */}
         <h2
           className={`text-4xl font-bold text-center leading-tight mb-4 ${
             isDark ? "text-white" : "text-black"
           }`}
         >
-          {t("futureEmployers.title") ||
-            "Построен для карьеры в ведущих IT-компаниях"}
+          {data.futureemployers_title}
         </h2>
 
-        {/* Subtitle */}
         <p
           className={`text-center mb-12 text-base max-w-xl mx-auto ${
             isDark ? "text-white" : "text-black"
           }`}
         >
-          {t("futureEmployers.subtitle") ||
-            "Вы освоите те же инструменты и фреймворки, что используют специалисты из топовых компаний"}
+          {data.futureemployers_subtitle}
         </p>
 
-        {/* Logos */}
         <div className="relative overflow-hidden">
           <div className="flex scrolling-logos w-max gap-16">
             {[...logos, ...logos].map((logo, i) => (

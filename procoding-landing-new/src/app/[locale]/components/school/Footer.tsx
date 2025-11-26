@@ -1,30 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
+import { useTranslation } from "@/lib/TranslationContext";
 
-type Props = {
-  data: { [key: string]: string | undefined };
-  locale: "en" | "ru";
-};
-
-export default function Footer({ data, locale }: Props) {
+export default function Footer() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success" | "error" | "loading">("idle");
-
-  // Translation helper
-  const t = (key: string) => data[`${key}_${locale}`] || data[key] || "";
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
 
     try {
-      const response = await fetch(`/api/contact`, {
+      const response = await fetch(`${window.location.origin}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -36,8 +30,8 @@ export default function Footer({ data, locale }: Props) {
         }),
       });
 
-      const result = await response.json();
-      if (result.success) {
+      const data = await response.json();
+      if (data.success) {
         setStatus("success");
         setEmail("");
       } else {
@@ -50,8 +44,8 @@ export default function Footer({ data, locale }: Props) {
 
   useEffect(() => {
     if (status === "success") {
-      const timeout = setTimeout(() => setStatus("idle"), 5000);
-      return () => clearTimeout(timeout);
+      const timer = setTimeout(() => setStatus("idle"), 5000);
+      return () => clearTimeout(timer);
     }
   }, [status]);
 
@@ -62,14 +56,14 @@ export default function Footer({ data, locale }: Props) {
       }`}
     >
       <div className="max-w-7xl mx-auto flex flex-col gap-10 md:grid md:grid-cols-3 lg:grid-cols-4">
-        {/* Logo + Social */}
+        {/* Logo & Social */}
         <div>
           <div className="flex items-center gap-2 mb-4">
             <Image src="/images/logo.svg" alt="ProCoding logo" width={24} height={24} priority />
             <span className="font-semibold text-lg">ProCoding</span>
           </div>
           <p className={`mb-4 text-sm ${isDark ? "text-white/80" : "text-black/70"}`}>
-            {t("footer_social")}
+            {t("footer.social")}
           </p>
           <div className="flex gap-3">
             {[
@@ -110,35 +104,47 @@ export default function Footer({ data, locale }: Props) {
 
         {/* Documents */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">{t("footer_documents_title")}</h3>
+          <h3 className="font-semibold mb-2 text-base">{t("footer.documents.title")}</h3>
           <ul className={`space-y-1 text-sm ${isDark ? "text-white/70" : "text-black/70"}`}>
-            <li><a href="/privacy-policy">{t("footer_privacypolicy")}</a></li>
-            <li><a href="/terms-of-service">{t("footer_terms")}</a></li>
+            <li><a href="/privacy-policy">{t("footer.documents.privacyPolicy")}</a></li>
+            <li><a href="/terms-of-service">{t("footer.documents.terms")}</a></li>
           </ul>
         </div>
 
         {/* Contact */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">{t("footer_contact_title")}</h3>
+          <h3 className="font-semibold mb-2 text-base">{t("footer.contact.title")}</h3>
           <div className={`flex items-center gap-2 text-sm mb-2 ${isDark ? "text-white/70" : "text-black/70"}`}>
-            <Image src="/images/email_icon.svg" alt="Email" width={20} height={20} className={isDark ? "" : "invert"} />
-            <span>{t("footer_contact_email") || "apply@procoding.com"}</span>
+            <Image
+              src="/images/email_icon.svg"
+              alt="Email"
+              width={20}
+              height={20}
+              className={isDark ? "" : "invert"}
+            />
+            <span>apply@procoding.com</span>
           </div>
           <div className={`flex items-center gap-2 text-sm mb-2 ${isDark ? "text-white/70" : "text-black/70"}`}>
-            <Image src="/images/phone.svg" alt="Phone" width={20} height={20} className={isDark ? "" : "invert"} />
-            <span>{t("footer_contact_telegram") || "+1 404-620-2426"}</span>
+            <Image
+              src="/images/phone.svg"
+              alt="Email"
+              width={20}
+              height={20}
+              className={isDark ? "" : "invert"}
+            />
+            <span>+1 404-620-2426</span>
           </div>
         </div>
 
         {/* Newsletter */}
         <div>
-          <h3 className="font-semibold mb-2 text-base">{t("footer_newsletter_title")}</h3>
+          <h3 className="font-semibold mb-2 text-base">{t("footer.newsletter.title")}</h3>
           <form onSubmit={handleNewsletterSubmit}>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder={t("footer_newsletter_emailplaceholder")}
+              placeholder={t("footer.newsletter.emailPlaceholder")}
               required
               className={`w-full px-4 py-2 rounded-xl text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-purple-500 transition ${
                 isDark
@@ -151,27 +157,23 @@ export default function Footer({ data, locale }: Props) {
               disabled={status === "loading"}
               className="w-full bg-[#D726B3] hover:bg-[#B71D99] text-white font-semibold py-2 rounded-full transition duration-200 text-sm"
             >
-              {status === "loading" ? (locale === "ru" ? "Отправка..." : "Sending...") : t("footer_newsletter_submit")}
+              {status === "loading" ? "Sending..." : t("footer.newsletter.submit")}
             </button>
             {status === "success" && (
-              <p className="text-green-500 text-sm mt-1">
-                {locale === "ru" ? "Вы успешно подписались!" : "Subscribed successfully!"}
-              </p>
+              <p className="text-green-500 text-sm mt-1">Subscribed successfully!</p>
             )}
             {status === "error" && (
               <p className="text-red-500 text-sm mt-1">
-                {locale === "ru"
-                  ? "Что-то пошло не так. Пожалуйста, попробуйте снова."
-                  : "Something went wrong. Please try again."}
+                Something went wrong. Please try again.
               </p>
             )}
           </form>
         </div>
       </div>
 
-      {/* Copyright */}
+      {/* Divider */}
       <div className={`mt-10 text-center text-sm px-4 sm:px-6 ${isDark ? "text-white/50" : "text-black/50"}`}>
-        {t("footer_copyright")}
+        {t("footer.copyright")}
       </div>
     </footer>
   );

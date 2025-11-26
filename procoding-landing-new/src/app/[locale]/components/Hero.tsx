@@ -4,22 +4,25 @@ import Image from "next/image";
 import Button from "../../components/shared/Button";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { useTranslation } from "@/lib/TranslationContext";
 import SyllabusModal from "../../components/shared/SyllabusModal";
 
-export default function Hero() {
+type HeroProps = {
+  data: {
+    [key: string]: string;
+  };
+  locale: "en" | "ru";
+};
+
+export default function Hero({ data, locale }: HeroProps) {
   const { resolvedTheme } = useTheme();
-  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   const isLight = resolvedTheme === "light";
+  const get = (key: string) => data[`${key}_${locale}`] || "";
 
   return (
     <>
@@ -28,24 +31,20 @@ export default function Hero() {
           isLight ? "bg-white" : "bg-black"
         }`}
       >
-        {/* LEFT SIDE: Text + Buttons */}
+        {/* LEFT SIDE */}
         <div className="w-full lg:w-1/2 order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left z-10">
           <h1
             className={`text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-6xl font-bold leading-tight ${
               isLight ? "text-black" : "text-white"
             }`}
           >
-            {t("hero.title1")} <br />
-            {t("hero.title2")} <br />
-            {t("hero.title3")}
+            {get("hero_title1")} <br />
+            {get("hero_title2")} <br />
+            {get("hero_title3")}
           </h1>
 
-          <p
-            className={`text-lg mt-6 max-w-lg ${
-              isLight ? "text-black" : "text-white"
-            }`}
-          >
-            {t("hero.description")}
+          <p className={`text-lg mt-6 max-w-lg ${isLight ? "text-black" : "text-white"}`}>
+            {get("hero_description")}
           </p>
 
           {/* CTA BUTTONS */}
@@ -54,15 +53,13 @@ export default function Hero() {
               variant="outline"
               size="lg"
               href="#contact"
-              className={`w-4/5 sm:w-4/5 lg:w-auto mx-auto sm:mx-0 border 
-                ${
-                  isLight
-                    ? "border-black text-black hover:text-white"
-                    : "border-white text-white"
-                } 
-                hover:border-transparent hover:bg-[#9333ea]`}
+              className={`w-4/5 sm:w-4/5 lg:w-auto mx-auto sm:mx-0 border ${
+                isLight
+                  ? "border-black text-black hover:text-white"
+                  : "border-white text-white"
+              } hover:border-transparent hover:bg-[#9333ea]`}
             >
-              {t("hero.consultation")}
+              {get("hero_consultation")}
             </Button>
 
             <Button
@@ -71,7 +68,7 @@ export default function Hero() {
               onClick={() => setShowModal(true)}
               className="w-4/5 sm:w-4/5 lg:w-auto mx-auto sm:mx-0 bg-[#9333ea] hover:opacity-90 text-white"
             >
-              {t("hero.syllabus")}
+              {get("hero_syllabus")}
             </Button>
           </div>
 
@@ -101,15 +98,15 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* DIVIDER WITH CENTERED TEXT */}
+      {/* DIVIDER */}
       <div className="relative w-full max-w-screen-xl mx-auto px-6 mt-[-0.5rem] z-20">
         <div className="w-full rounded-full bg-gradient-to-r from-[#009FD9] via-[#380E8C] to-[#B923AE] py-3 px-6">
           <div className="flex justify-center items-center text-white text-sm sm:text-base font-medium text-center gap-4 sm:gap-6">
-            <span>{t("hero.divider.weeks")}</span>
+            <span>{get("hero_divider_weeks")}</span>
             <span className="text-white">|</span>
-            <span>{t("hero.divider.practice")}</span>
+            <span>{get("hero_divider_practice")}</span>
             <span className="text-white">|</span>
-            <span>{t("hero.divider.projects")}</span>
+            <span>{get("hero_divider_projects")}</span>
           </div>
         </div>
       </div>

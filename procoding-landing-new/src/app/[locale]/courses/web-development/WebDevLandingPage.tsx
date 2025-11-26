@@ -21,7 +21,12 @@ import SalariesSection from "@/app/[locale]/components/SalariesSection";
 import Navbar from "@/app/[locale]/components/Navbar";
 import { courseNavItems } from "@/app/[locale]/components/navItems";
 
-export default function WebDevLandingPage() {
+type Props = {
+  course: any;
+  locale: string;
+};
+
+export default function WebDevLandingPage({ course, locale }: Props) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -29,53 +34,57 @@ export default function WebDevLandingPage() {
   if (!mounted) return null;
 
   const isLight = resolvedTheme === "light";
+  const heroData = course?.acf;
 
   return (
-    <main className={`${isLight ? "bg-white" : "bg-black"} transition-colors duration-300`}>
-      {/* ✅ Navbar */}
+    <main
+      className={`${
+        isLight ? "bg-white" : "bg-black"
+      } transition-colors duration-300`}
+    >
       <Navbar navItems={courseNavItems} />
 
       <section id="home" className={`${isLight ? "bg-white" : "bg-black"}`}>
-        <Hero />
+        <Hero data={heroData} locale={locale} />
       </section>
       <section id="about2">
-        <About />
+        <About data={heroData} locale={locale} />
       </section>
       <section id="companies">
-        <Companies />
+        <Companies data={heroData} />
       </section>
       <section id="salaries">
-        <SalariesSection />
+        <SalariesSection data={heroData} />
       </section>
       <section id="about">
-        <PerfectForSection />
+        <PerfectForSection data={heroData} locale={locale} />
       </section>
       <section id="curriculum">
-        <Curriculum />
+        <Curriculum data={heroData} locale={locale} />
       </section>
       <section id="instructors">
-        <OurTeam />
+        <OurTeam data={heroData} locale={locale}/>
       </section>
       <section id="guarantee" className="scroll-mt-32">
-        <Guarantee />
+        <Guarantee data={heroData} locale={locale} />
       </section>
       {/* <section id="program">
         <ProgramSteps />
       </section> */}
       <section id="jobs">
-        <ReadyToWork />
+        <ReadyToWork data={heroData} locale={locale} />
       </section>
       <section id="plans">
-        <Pricing />
+        <Pricing data={heroData} locale={locale} />
       </section>
       <section id="contact">
-        <ContactForm />
+        <ContactForm data={heroData} locale={locale} />
       </section>
       <section id="faq">
-        <Faq />
+        <Faq data={heroData} locale={locale} />
       </section>
       <div className="mx-8">
-        <Footer />
+        <Footer data={heroData} locale={locale} />
       </div>
     </main>
   );

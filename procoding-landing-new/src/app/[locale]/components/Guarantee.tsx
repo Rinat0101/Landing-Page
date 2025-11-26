@@ -2,17 +2,35 @@
 
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { useTranslation } from "@/lib/TranslationContext";
 
-export default function GuaranteeSection() {
+type GuaranteeData = {
+  guarantee_title_en: string;
+  guarantee_title_ru: string;
+  guarantee_description_en: string;
+  guarantee_description_ru: string;
+};
+
+type Props = {
+  data: GuaranteeData;
+  locale: "en" | "ru";
+};
+
+export default function GuaranteeSection({ data, locale }: Props) {
   const { theme } = useTheme();
   const isLight = theme === "light";
-  const { t } = useTranslation();
+
+  if (!data) return null;
+
+  const title =
+    locale === "ru" ? data.guarantee_title_ru : data.guarantee_title_en;
+
+  const description =
+    locale === "ru"
+      ? data.guarantee_description_ru
+      : data.guarantee_description_en;
 
   return (
-    <section
-      className={`w-full px-4 sm:px-6 lg:px-8 transition-colors duration-300`}
-    >
+    <section className="w-full px-4 sm:px-6 lg:px-8 transition-colors duration-300">
       <div
         className={`relative border border-[#F28237] rounded-[1.625rem] py-16 md:py-20 mt-20 max-w-screen-xl mx-auto ${
           isLight ? "bg-[#FFF6EC]" : "bg-[#221C0E]"
@@ -37,14 +55,14 @@ export default function GuaranteeSection() {
               isLight ? "text-black" : "text-white"
             }`}
           >
-            {t("guarantee.title")}
+            {title}
           </h2>
           <p
             className={`text-base md:text-lg ${
               isLight ? "text-black" : "text-white"
             }`}
           >
-            {t("guarantee.description")}
+            {description}
           </p>
         </div>
       </div>

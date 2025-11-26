@@ -1,13 +1,7 @@
-import { getDictionary } from "@/lib/i118n";
-import { TranslationProvider } from "@/lib/TranslationContext";
+import { getCourseBySlug } from "@/lib/api";
 import WebDevLandingPage from "./WebDevLandingPage";
 
-export default async function Page({ params }: { params: { locale: "en" | "ru" } }) {
-  const dictionary = await getDictionary(params.locale);
-
-  return (
-    <TranslationProvider dictionary={dictionary} locale={params.locale}>
-      <WebDevLandingPage />
-    </TranslationProvider>
-  );
+export default async function Page({ params }: { params: { courseSlug: string; locale: string } }) {
+  const course = await getCourseBySlug(params.courseSlug);
+  return <WebDevLandingPage course={course} locale={params.locale} />;
 }

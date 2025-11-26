@@ -3,42 +3,54 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { useTranslation } from '@/lib/TranslationContext';
 
-export default function ReadyToWorkSection() {
+type Step = {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+};
+
+type ReadyToWorkProps = {
+  data: Record<string, string | undefined>;
+  locale: 'en' | 'ru';
+};
+
+export default function ReadyToWorkSection({ data, locale }: ReadyToWorkProps) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
-  const { t } = useTranslation();
-
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
-  const steps = [
-    {
-      id: '01',
-      title: t('readyWork.steps.0.title'),
-      description: t('readyWork.steps.0.description'),
-      icon: '/images/ready_to_work_icon_3.svg',
-    },
-    {
-      id: '02',
-      title: t('readyWork.steps.1.title'),
-      description: t('readyWork.steps.1.description'),
-      icon: '/images/icons/portfolio.svg',
-    },
-    {
-      id: '03',
-      title: t('readyWork.steps.2.title'),
-      description: t('readyWork.steps.2.description'),
-      icon: '/images/icons/cv.svg',
-    },
-    {
-      id: '04',
-      title: t('readyWork.steps.3.title'),
-      description: t('readyWork.steps.3.description'),
-      icon: '/images/ready_to_work_icon_1.svg',
-    },
+  const stepIcons = [
+    '/images/ready_to_work_icon_3.svg',
+    '/images/icons/portfolio.svg',
+    '/images/icons/cv.svg',
+    '/images/ready_to_work_icon_1.svg',
+    '/images/ready_to_work_icon_2.svg',
+    '/images/ready_to_work_icon_3.svg',
+    '/images/ready_to_work_icon_1.svg',
+    '/images/ready_to_work_icon_2.svg',
   ];
+
+  const steps: Step[] = Array.from({ length: 8 }).map((_, i) => {
+    const stepNum = i + 1;
+    const titleKey = `readywork_step${stepNum}_title_${locale}`;
+    const descriptionKey = `readywork_step${stepNum}_description_${locale}`;
+
+    const fallbackTitleKey = `readywork_step${stepNum}_title`;
+    const fallbackDescriptionKey = `readywork_step${stepNum}_description`;
+
+    const title = data[titleKey] || data[fallbackTitleKey] || '';
+    const description = data[descriptionKey] || data[fallbackDescriptionKey] || '';
+
+    return {
+      id: stepNum.toString().padStart(2, '0'),
+      title,
+      description,
+      icon: stepIcons[i],
+    };
+  }).filter((step) => step.title && step.description);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,24 +76,19 @@ export default function ReadyToWorkSection() {
     };
   }, []);
 
+  const localizedTitle = data[`readywork_title_${locale}`] || data.readywork_title || '';
+  const localizedDescription = data[`readywork_description_${locale}`] || data.readywork_description || '';
+
   return (
     <section
       className={`py-20 transition-colors duration-300 ${
         isDark ? 'bg-black text-white' : 'bg-white text-black'
       }`}
     >
-      {/* Updated to match PricingSection width */}
       <div className="max-w-5xl mx-auto px-4 text-center">
-        <h2 className="text-4xl sm:text-4xl font-bold mb-4">
-          {t('readyWork.title')}
-        </h2>
-        <p
-          className={`sm:text-base max-w-2xl mx-auto ${
-            isDark ? 'text-white' : 'text-black'
-          }`}
-        >
-          {t('readyWork.description')}
-        </p>
+        <h2 className="text-4xl font-bold mb-4">{localizedTitle}</h2>
+        <p className="text-base max-w-2xl mx-auto">{localizedDescription}</p>
+
         <Image
           src="/images/Rectangle 13.webp"
           alt="Office team"
@@ -91,7 +98,6 @@ export default function ReadyToWorkSection() {
         />
       </div>
 
-      {/* Also updated to max-w-5xl */}
       <div className="max-w-5xl mx-auto mt-10 px-4 flex flex-col gap-3">
         {steps.map((step, index) => {
           const isActive = activeIndex === index;
@@ -118,9 +124,7 @@ export default function ReadyToWorkSection() {
               className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 p-6 sm:p-8 rounded-xl transition-all duration-300 ${cardBg}`}
             >
               <div className="flex-shrink-0">
-                <span
-                  className={`text-3xl font-bold w-[40px] block text-left ${textColor}`}
-                >
+                <span className={`text-3xl font-bold w-[40px] block ${textColor}`}>
                   {step.id}
                 </span>
               </div>
