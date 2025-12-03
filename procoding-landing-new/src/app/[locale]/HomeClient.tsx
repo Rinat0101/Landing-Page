@@ -46,9 +46,9 @@ export default function HomePage() {
       <section id="instructors">
         <OurTeam />
       </section>
-      {/* <section id="reviews">
+      <section id="reviews">
         <Reviews />
-      </section> */}
+      </section>
       {/* <section id="program">
         <ProgramSteps />
       </section> */}

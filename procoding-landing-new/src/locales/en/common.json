@@ -99,35 +99,29 @@
         }
       ]
     },
-    "reviews": {
-      "heading": "Real student stories",
-      "subheading": "Click to read student stories",
-      "cta": "Leave a review",
-      "0": {
-        "name": "Sasha",
-        "title": "Awesome bootcamp",
-        "text": "Same review text here. You’ll replace it later."
-      },
-      "1": {
-        "name": "Sasha",
-        "title": "Awesome bootcamp",
-        "text": "Same review text here. You’ll replace it later."
-      },
-      "2": {
-        "name": "Sasha",
-        "title": "Awesome bootcamp",
-        "text": "Same review text here. You’ll replace it later."
-      },
-      "3": {
-        "name": "Sasha",
-        "title": "Awesome bootcamp",
-        "text": "Same review text here. You’ll replace it later."
-      },
-      "4": {
-        "name": "Sasha",
-        "title": "Awesome bootcamp",
-        "text": "Same review text here. You’ll replace it later."
-      }
+      "reviews": {
+        "heading": "Student Success Stories",
+        "subheading": "Click any story to read how our students changed their lives",
+        "0": {
+          "name": "Sasha",
+          "text": "Web‑Dev focus group. I really enjoyed studying — the lessons were fun, clear, and the materials were super convenient to follow at any time. I haven’t found a job yet, but I already had several interviews. I believe everything is ahead of me."
+        },
+        "1": {
+          "name": "Arina",
+          "text": "Web‑Dev focus group. As a complete beginner, this course was perfect for me. The difficulty grows gradually, and the explanations are simple and relatable. I really loved it!"
+        },
+        "2": {
+          "name": "David",
+          "text": "Vibe‑Coding course. Fast results and a very understandable program. I built an online store for my company and got a promotion at work. Thank you!"
+        },
+        "3": {
+          "name": "Mia",
+          "text": "Vibe‑Coding course. I recently completed my first Upwork project — still can’t believe it happened so quickly. Honestly, at first I doubted I could do it at all. ProCoding are true magicians! So many useful tools I never knew existed."
+        },
+        "4": {
+          "name": "Alexander",
+          "text": "Web‑Dev focus group. I used to work as an appliance repair technician, and I was lucky to get into the focus group. The course is very detailed — you immediately see your progress. Most things are clear in class, and at home you just practice. Now I do freelance projects in the evenings and bought myself a new car from freelancing alone. I haven’t landed a full‑time developer job yet — interviews are tough for me…"
+        }
     },
     "faq": {
       "title": "Frequently Asked Questions",
