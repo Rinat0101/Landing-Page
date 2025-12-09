@@ -18,21 +18,21 @@ export default function PricingSection({
   const isDark = theme === "dark";
 
   const t = (key: string) => {
-    // example: pricing_title → pricing_title_en
     const localized = data[`${key}_${locale}`];
     return localized || data[key] || "";
   };
 
-  // ---------- BENEFITS ----------
+  // ---------- BENEFITS (Locale-specific only) ----------
   const benefits = Object.keys(data)
     .filter(
       (key) =>
         key.startsWith("pricing_benefit") &&
-        (data[`${key}_${locale}`] || data[key])?.trim()
+        key.endsWith(`_${locale}`) &&
+        data[key]?.trim()
     )
-    .map((key) => t(key));
+    .map((key) => data[key]!.trim());
 
-  // ---------- SCHEDULE (MULTILINE) ----------
+  // ---------- SCHEDULE (Multiline) ----------
   const scheduleLines = (t("pricing_schedule") || "")
     .split("\n")
     .map((line) => line.trim())
@@ -53,9 +53,7 @@ export default function PricingSection({
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-        {/* -------------------------------------- */}
         {/* LEFT CARD — WHAT YOU GET */}
-        {/* -------------------------------------- */}
         <div
           className={`rounded-2xl border px-6 py-8 shadow-md flex flex-col justify-between ${
             isDark
@@ -83,9 +81,7 @@ export default function PricingSection({
           </ul>
         </div>
 
-        {/* -------------------------------------- */}
         {/* RIGHT SIDE — START DATE + PRICE */}
-        {/* -------------------------------------- */}
         <div className="flex flex-col gap-6">
           {/* START DATE */}
           <div
@@ -125,7 +121,6 @@ export default function PricingSection({
             }`}
           >
             <div>
-              {/* LABEL */}
               <p className="uppercase text-sm font-bold text-center text-red-600 mb-3 tracking-wider">
                 🔥 Black Friday Special
               </p>

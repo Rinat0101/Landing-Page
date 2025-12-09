@@ -13,8 +13,6 @@ export default function ContactForm({ data, locale }: Props) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  console.log(data)
-
   // Locale helper
   const t = (key: string) => data[`${key}_${locale}`] || data[key] || "";
 
