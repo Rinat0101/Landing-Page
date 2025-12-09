@@ -15,7 +15,12 @@ import Reviews from "./components/school/Reviews";
 import Navbar from "./components/Navbar";
 import { schoolSections } from "./components/navItems";
 
-export default function HomePage() {
+type Props = {
+  courses: any[]; // you can replace `any[]` with a Course[] type later
+  locale: string;
+};
+
+export default function HomePage({ courses, locale }: Props) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -31,33 +36,44 @@ export default function HomePage() {
       } transition-colors duration-300`}
     >
       <Navbar navItems={schoolSections} />
+
       <section id="home" className={`${isLight ? "bg-white" : "bg-black"}`}>
         <Main />
       </section>
+
       <section id="about2">
         <AboutSchool />
       </section>
+
       <section id="courses">
-        <CoursesList />
+        {/* ✅ Pass dynamic data to CoursesList */}
+        <CoursesList courses={courses} locale={locale} />
       </section>
+
       <section id="jobs">
         <HowItWorks />
       </section>
+
       <section id="instructors">
         <OurTeam />
       </section>
+
       <section id="reviews">
         <Reviews />
       </section>
+
       {/* <section id="program">
         <ProgramSteps />
       </section> */}
+
       <section id="contact">
         <ContactForm />
       </section>
+
       <section id="faq_school">
         <Faq />
       </section>
+
       <div className="mx-8">
         <Footer />
       </div>

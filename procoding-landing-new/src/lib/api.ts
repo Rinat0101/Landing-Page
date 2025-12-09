@@ -14,3 +14,19 @@ export async function getCourseBySlug(slug: string) {
   const data = await res.json();
   return data[0];
 }
+
+export async function getAllCourses() {
+  const res = await fetch(
+    `https://docker-image-production-b2d9.up.railway.app/wp-json/wp/v2/course?_embed`,
+    {
+      next: { revalidate: 60 },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch courses: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  return data;
+}
