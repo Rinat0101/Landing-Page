@@ -23,6 +23,7 @@ export default function Hero({ data, locale }: HeroProps) {
 
   const isLight = resolvedTheme === "light";
   const get = (key: string) => data[`${key}_${locale}`] || "";
+  const heroImage = data["hero_image"] || "/images/Group 19  (1).webp";
 
   return (
     <>
@@ -75,7 +76,7 @@ export default function Hero({ data, locale }: HeroProps) {
           {/* MOBILE IMAGE */}
           <div className="block lg:hidden w-full max-w-[440px] mx-auto mt-8 mb-[-2.5rem]">
             <Image
-              src="/images/Group 19 (1).webp"
+              src={heroImage}
               alt="Hero Image"
               width={600}
               height={600}
@@ -88,7 +89,7 @@ export default function Hero({ data, locale }: HeroProps) {
         {/* DESKTOP IMAGE */}
         <div className="hidden lg:block w-full h-full absolute bottom-0 right-0 z-0">
           <Image
-            src="/images/Group 19 (1).webp"
+            src={heroImage}
             alt="Hero Image"
             width={800}
             height={900}

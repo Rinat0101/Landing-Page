@@ -79,6 +79,8 @@ export default function ReadyToWorkSection({ data, locale }: ReadyToWorkProps) {
   const localizedTitle = data[`readywork_title_${locale}`] || data.readywork_title || '';
   const localizedDescription = data[`readywork_description_${locale}`] || data.readywork_description || '';
 
+  const imageUrl = data.readywork_image || '/images/Rectangle 13.webp';
+
   return (
     <section
       className={`py-20 transition-colors duration-300 ${
@@ -89,13 +91,15 @@ export default function ReadyToWorkSection({ data, locale }: ReadyToWorkProps) {
         <h2 className="text-4xl font-bold mb-4">{localizedTitle}</h2>
         <p className="text-base max-w-2xl mx-auto">{localizedDescription}</p>
 
-        <Image
-          src="/images/Rectangle 13.webp"
-          alt="Office team"
-          width={1000}
-          height={400}
-          className="rounded-xl mt-10 w-full"
-        />
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt="Office team"
+            width={1000}
+            height={400}
+            className="rounded-xl mt-10 w-full object-cover"
+          />
+        )}
       </div>
 
       <div className="max-w-5xl mx-auto mt-10 px-4 flex flex-col gap-3">
