@@ -6,7 +6,7 @@ import Image from "next/image";
 
 type CurriculumProps = {
   data: { [key: string]: string };
-  locale: "en" | "ru"; // add supported locales here
+  locale: "en" | "ru";
 };
 
 interface Tab {
@@ -47,7 +47,7 @@ export default function CurriculumOverview({ data, locale }: CurriculumProps) {
 
   const key = (base: string) => `${base}_${locale}`;
 
-  const tabs: Tab[] = Array.from({ length: 8 })
+  const tabs: Tab[] = Array.from({ length: 12 })
     .map((_, i) => {
       const num = i + 1;
       const label = data[key(`curriculum_tab${num}_label`)] || "";
