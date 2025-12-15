@@ -16,6 +16,17 @@ export default function PerfectForSection({ data, locale }: Props) {
 
   const get = (key: string) => data[`${key}_${locale}`] || "";
 
+  // ✅ Process the image URL safely
+  const rawImageUrl = data.perfectfor_image;
+  const isValidImageUrl =
+    typeof rawImageUrl === "string" &&
+    rawImageUrl.trim() !== "" &&
+    (rawImageUrl.trim().startsWith("http") || rawImageUrl.trim().startsWith("/"));
+
+  const imageUrl = isValidImageUrl
+    ? rawImageUrl.trim()
+    : "/images/dragon/Mask group (1).png";
+
   const cards = [
     {
       title: get("perfectfor_beginners_title"),
@@ -49,14 +60,14 @@ export default function PerfectForSection({ data, locale }: Props) {
           </h2>
         </div>
 
-        {/* Responsive layout: column on md and below, row on lg */}
+        {/* Content Grid */}
         <div className="flex flex-col-reverse lg:flex-row gap-12 items-start">
           {/* LEFT: Image */}
           <div className="w-full lg:w-2/5 flex justify-center">
             <div className="relative w-full aspect-[6/5] max-w-[500px] md:max-w-[600px] lg:max-w-[700px]">
               <Image
-                src="/images/dragon/Mask group (1).png"
-                alt="Dragon with laptop"
+                src={imageUrl}
+                alt="Perfect For Illustration"
                 fill
                 className="object-contain"
                 priority
