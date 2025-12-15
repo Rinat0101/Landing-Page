@@ -13,24 +13,9 @@ type InstructorData = {
   instructors_title_ru: string;
   instructors_description_en: string;
   instructors_description_ru: string;
-  instructor1_name_en: string;
-  instructor1_name_ru: string;
-  instructor1_role_en: string;
-  instructor1_role_ru: string;
-  instructor1_description_en: string;
-  instructor1_description_ru: string;
-  instructor2_name_en: string;
-  instructor2_name_ru: string;
-  instructor2_role_en: string;
-  instructor2_role_ru: string;
-  instructor2_description_en: string;
-  instructor2_description_ru: string;
-  instructor3_name_en: string;
-  instructor3_name_ru: string;
-  instructor3_role_en: string;
-  instructor3_role_ru: string;
-  instructor3_description_en: string;
-  instructor3_description_ru: string;
+
+  // Dynamically handled instructor fields from 1 to 6
+  [key: string]: string | undefined;
 };
 
 type Props = {
@@ -40,31 +25,35 @@ type Props = {
 
 export default function OurTeam({ data, locale }: Props) {
   if (!data) return null;
+
   const { theme } = useTheme();
   const isLight = theme === "light";
 
-  const t = (key: string) => data[`${key}_${locale}` as keyof InstructorData];
+  const t = (key: string) =>
+    data[`${key}_${locale}` as keyof InstructorData] || "";
 
-  const instructors = [
-    {
-      name: t("instructor1_name"),
-      role: t("instructor1_role"),
-      description: t("instructor1_description"),
-      image: "/images/Mask group (5).webp",
-    },
-    {
-      name: t("instructor2_name"),
-      role: t("instructor2_role"),
-      description: t("instructor2_description"),
-      image: "/images/Mask group (6).webp",
-    },
-    {
-      name: t("instructor3_name"),
-      role: t("instructor3_role"),
-      description: t("instructor3_description"),
-      image: "/images/Mask group (4).webp",
-    },
-  ].filter((instructor) => instructor.name?.trim());
+  const instructors = Array.from({ length: 6 }, (_, i) => {
+    const index = i + 1;
+    const name = t(`instructor${index}_name`);
+    const role = t(`instructor${index}_role`);
+    const description = t(`instructor${index}_description`);
+    const imageKey = `instructor${index}_image`;
+
+    // Skip if there's no name or no image
+    if (!name || !data[imageKey]) return null;
+
+    return {
+      name,
+      role: role || "",
+      description: description || "",
+      imageKey,
+    };
+  }).filter(Boolean) as {
+    name: string;
+    role: string;
+    description: string;
+    imageKey: string;
+  }[];
 
   return (
     <section
@@ -84,7 +73,9 @@ export default function OurTeam({ data, locale }: Props) {
               name={instructor.name}
               role={instructor.role}
               description={instructor.description}
-              image={instructor.image}
+              imageKey={instructor.imageKey}
+              data={data}
+              locale={locale}
             />
           ))}
         </div>
@@ -105,7 +96,9 @@ export default function OurTeam({ data, locale }: Props) {
                     name={instructor.name}
                     role={instructor.role}
                     description={instructor.description}
-                    image={instructor.image}
+                    imageKey={instructor.imageKey}
+                    data={data}
+                    locale={locale}
                   />
                 </div>
               </SwiperSlide>

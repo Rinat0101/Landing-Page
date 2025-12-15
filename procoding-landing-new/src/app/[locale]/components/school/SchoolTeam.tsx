@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { useTheme } from "next-themes";
-import InstructorCard from "../../../components/InstructorCard";
+import InstructorCard from "./InstructorCard";
 import { useTranslation } from "@/lib/TranslationContext";
 
 const instructors = [

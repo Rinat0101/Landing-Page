@@ -8,29 +8,18 @@ type InstructorCardProps = {
   name: string;
   role: string;
   description: string;
-  imageKey?: string; // ✅ optional for safety
-  data?: { [key: string]: string | undefined }; // ✅ optional
-  locale: "en" | "ru";
+  image: string;
 };
 
 export default function InstructorCard({
   name,
   role,
   description,
-  imageKey,
-  data,
-  locale,
+  image,
 }: InstructorCardProps) {
   const { theme } = useTheme();
-  const { t } = useTranslation();
-
   const isLight = theme === "light";
-
-  // ✅ SAFE image resolution
-  const imageUrl =
-    imageKey && data && data[imageKey]
-      ? data[imageKey]
-      : "/images/default-avatar.png";
+  const { t } = useTranslation();
 
   return (
     <div
@@ -46,25 +35,23 @@ export default function InstructorCard({
         }`}
       >
         <Image
-          src={imageUrl}
-          alt={`Photo of ${name}${role ? `, ${role}` : ""}`}
+          src={image}
+          alt={`Photo of ${name}, ${role}`}
           width={180}
           height={180}
           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 180px"
-          className="mb-4 rounded-full object-cover"
+          className="mb-4 rounded-full"
         />
 
-        {role && (
-          <span className="bg-[#F28237] text-xs font-semibold text-white px-3 py-1 rounded-full mb-3">
-            {role}
-          </span>
-        )}
+        <span className="bg-[#F28237] text-xs font-semibold text-white px-3 py-1 rounded-full mb-3">
+          {role}
+        </span>
 
         <h3 className="text-lg font-bold mb-2">{name}</h3>
 
-        {description && (
-          <p className="text-sm mb-4">{description}</p>
-        )}
+        <p className="text-sm mb-4">
+          {description}
+        </p>
 
         <div className="mt-auto">
           <a href="#contact">
