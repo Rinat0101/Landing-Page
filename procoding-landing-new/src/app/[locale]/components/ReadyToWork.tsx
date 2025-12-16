@@ -22,35 +22,34 @@ export default function ReadyToWorkSection({ data, locale }: ReadyToWorkProps) {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
-  const stepIcons = [
-    '/images/ready_to_work_icon_3.svg',
-    '/images/icons/portfolio.svg',
-    '/images/icons/cv.svg',
-    '/images/ready_to_work_icon_1.svg',
-    '/images/ready_to_work_icon_2.svg',
-    '/images/ready_to_work_icon_3.svg',
-    '/images/ready_to_work_icon_1.svg',
-    '/images/ready_to_work_icon_2.svg',
-  ];
-
+  // Build steps with dynamic icons from WordPress
   const steps: Step[] = Array.from({ length: 8 }).map((_, i) => {
     const stepNum = i + 1;
-    const titleKey = `readywork_step${stepNum}_title_${locale}`;
-    const descriptionKey = `readywork_step${stepNum}_description_${locale}`;
 
-    const fallbackTitleKey = `readywork_step${stepNum}_title`;
-    const fallbackDescriptionKey = `readywork_step${stepNum}_description`;
+    const title =
+      data[`readywork_step${stepNum}_title_${locale}`] ||
+      data[`readywork_step${stepNum}_title`] ||
+      '';
 
-    const title = data[titleKey] || data[fallbackTitleKey] || '';
-    const description = data[descriptionKey] || data[fallbackDescriptionKey] || '';
+    const description =
+      data[`readywork_step${stepNum}_description_${locale}`] ||
+      data[`readywork_step${stepNum}_description`] ||
+      '';
+
+    const icon =
+      typeof data[`readywork_step${stepNum}_icon`] === 'string'
+        ? data[`readywork_step${stepNum}_icon`]!
+        : '/images/icons/default.svg';
+
+    if (!title || !description) return null;
 
     return {
       id: stepNum.toString().padStart(2, '0'),
       title,
       description,
-      icon: stepIcons[i],
+      icon,
     };
-  }).filter((step) => step.title && step.description);
+  }).filter(Boolean) as Step[];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -79,7 +78,10 @@ export default function ReadyToWorkSection({ data, locale }: ReadyToWorkProps) {
   const localizedTitle = data[`readywork_title_${locale}`] || data.readywork_title || '';
   const localizedDescription = data[`readywork_description_${locale}`] || data.readywork_description || '';
 
-  const imageUrl = data.readywork_image || '/images/Rectangle 13.webp';
+  const imageUrl =
+    typeof data.readywork_image === 'string'
+      ? data.readywork_image
+      : '/images/Rectangle 13.webp';
 
   return (
     <section

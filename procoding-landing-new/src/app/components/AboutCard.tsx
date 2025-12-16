@@ -35,7 +35,7 @@ export default function AboutCard({
       {/* Top Part: Icon and Title */}
       <div className="flex flex-col gap-4">
         <Image
-          src={`/images/${icon}`}
+          src={icon || "/images/star.svg"}
           alt={title}
           width={40}
           height={40}
