@@ -21,23 +21,38 @@ export default function CoursesList({ courses, locale }: Props) {
   const textColor = isLight ? "text-black" : "text-white";
   const bgColor = isLight ? "bg-white" : "bg-black";
 
-  // 🧠 Transform ALL WP courses into CourseCard data dynamically
-  const wpCourses = courses.map((course) => ({
-    title: course.title?.rendered ?? t("school.courses.items.0.title"),
-    description: course.excerpt?.rendered ?? t("school.courses.items.0.description"),
-    duration: course.acf?.duration ?? t("school.courses.items.0.duration"),
-    features: course.acf?.features ?? [
-      t("school.courses.items.0.features.first"),
-      t("school.courses.items.0.features.second"),
-    ],
-    cta: t("school.courses.items.0.cta"),
-    image:
-      course._embedded?.["wp:featuredmedia"]?.[0]?.source_url ??
-      "/images/school/Course_cover_1.webp",
-    link: `/${locale}/courses/${course.slug}`,
-  }));
+  // 🧠 Transform WP courses into CourseCard data
+  const wpCourses = courses.map((course) => {
+    const acf = course.acf ?? {};
 
-  // 🧱 Static placeholders (keep them unchanged for now)
+    // Collect up to 6 advantages
+    const features = [
+      acf.advantage1,
+      acf.advantage2,
+      acf.advantage3,
+      acf.advantage4,
+      acf.advantage5,
+      acf.advantage6,
+    ].filter(Boolean);
+
+    return {
+      title: course.title?.rendered ?? t("school.courses.items.0.title"),
+      description: acf.course_description ?? t("school.courses.items.0.description"),
+      duration: acf.duration ?? t("school.courses.items.0.duration"),
+      features:
+        features.length > 0
+          ? features
+          : [
+              t("school.courses.items.0.features.first"),
+              t("school.courses.items.0.features.second"),
+            ],
+      cta: t("school.courses.items.0.cta"),
+      image: acf.course_card_image || "/images/school/Course_cover_1.webp",
+      link: `/${locale}/courses/${course.slug}`,
+    };
+  });
+
+  // 🧱 Static placeholders
   const staticCourses = [
     {
       title: t("school.courses.items.1.title"),

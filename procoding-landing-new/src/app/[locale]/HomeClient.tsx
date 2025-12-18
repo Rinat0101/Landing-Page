@@ -16,13 +16,14 @@ import Navbar from "./components/Navbar";
 import { schoolSections } from "./components/navItems";
 
 type Props = {
-  courses: any[]; // you can replace `any[]` with a Course[] type later
+  courses: any[]; 
   locale: string;
 };
 
 export default function HomePage({ courses, locale }: Props) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  console.log(courses)
 
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;

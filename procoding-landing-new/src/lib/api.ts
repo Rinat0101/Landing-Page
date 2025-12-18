@@ -22,7 +22,7 @@ export async function getAllCourses() {
       next: { revalidate: 60 },
     }
   );
-
+console.log(res.json)
   if (!res.ok) {
     throw new Error(`Failed to fetch courses: ${res.statusText}`);
   }
