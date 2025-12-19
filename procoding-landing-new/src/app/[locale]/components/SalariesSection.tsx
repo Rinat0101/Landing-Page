@@ -5,18 +5,7 @@ import { useTheme } from 'next-themes';
 type Props = {
   locale: 'en' | 'ru';
   data: {
-    salaries_title_en: string;
-    salaries_title_ru: string;
-    salaries_description_en: string;
-    salaries_description_ru: string;
-    salaries_junior_en: string;
-    salaries_junior_ru: string;
-    salaries_mid_en: string;
-    salaries_mid_ru: string;
-    salaries_senior_en: string;
-    salaries_senior_ru: string;
-    salaries_lead_en: string;
-    salaries_lead_ru: string;
+    [key: string]: string;
   };
 };
 
@@ -24,40 +13,41 @@ export default function SalariesSection({ data, locale }: Props) {
   const { theme } = useTheme();
   const isLight = theme === 'light';
 
-  const title =
-    locale === 'ru' ? data.salaries_title_ru : data.salaries_title_en;
-
+  const title = locale === 'ru' ? data.salaries_title_ru : data.salaries_title_en;
   const description =
-    locale === 'ru'
-      ? data.salaries_description_ru
-      : data.salaries_description_en;
+    locale === 'ru' ? data.salaries_description_ru : data.salaries_description_en;
 
-  const salaries = [
-    {
-      title:
-        locale === 'ru'
-          ? data.salaries_junior_ru
-          : data.salaries_junior_en,
-      range: '$60 000 – 90 000',
-    },
-    {
-      title:
-        locale === 'ru' ? data.salaries_mid_ru : data.salaries_mid_en,
-      range: '$90 000 – 130 000',
-    },
-    {
-      title:
-        locale === 'ru'
-          ? data.salaries_senior_ru
-          : data.salaries_senior_en,
-      range: '$120 000 – 180 000',
-    },
-    {
-      title:
-        locale === 'ru' ? data.salaries_lead_ru : data.salaries_lead_en,
-      range: '$160 000 – 250 000+',
-    },
-  ];
+  const salaryItems: { title: string; range: string }[] = [];
+
+  const regex = /^salaries(\d+)_/;
+
+  const grouped: Record<string, { [key: string]: string }> = {};
+
+  // Group salaries by index (1, 2, 3, etc.)
+  Object.entries(data).forEach(([key, value]) => {
+    const match = key.match(regex);
+    if (match) {
+      const index = match[1];
+      if (!grouped[index]) grouped[index] = {};
+      grouped[index][key] = value;
+    }
+  });
+
+  // Build the salary items and skip empty ones
+  Object.values(grouped).forEach((group) => {
+    const titleKey = Object.keys(group).find((k) =>
+      locale === 'ru' ? k.endsWith('_ru') : k.endsWith('_en')
+    );
+    const valueKey = Object.keys(group).find((k) => k.endsWith('_value'));
+
+    const title = titleKey ? group[titleKey]?.trim() : '';
+    const range = valueKey ? group[valueKey]?.trim() : '';
+
+    // Only add item if both title and value are non-empty
+    if (title && range) {
+      salaryItems.push({ title, range });
+    }
+  });
 
   return (
     <section
@@ -82,7 +72,7 @@ export default function SalariesSection({ data, locale }: Props) {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {salaries.map((item, i) => (
+          {salaryItems.map((item, i) => (
             <div
               key={i}
               className={`rounded-xl p-6 shadow-xl h-full flex flex-col justify-between text-left ${
