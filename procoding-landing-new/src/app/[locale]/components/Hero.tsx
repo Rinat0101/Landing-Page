@@ -27,11 +27,11 @@ export default function Hero({ data, locale }: HeroProps) {
 
   return (
     <>
-      <section
-        className={`relative overflow-hidden flex flex-col lg:flex-row items-center justify-between px-6 pt-16 pb-10 max-w-screen-xl mx-auto lg:gap-10 transition-colors duration-300 ${
-          isLight ? "bg-white" : "bg-black"
-        }`}
-      >
+     <section
+  className={`relative overflow-hidden flex flex-col lg:flex-row items-center lg:items-stretch justify-between px-6 pt-16 pb-10 max-w-screen-xl mx-auto lg:gap-10 transition-colors duration-300 min-h-[600px] ${
+    isLight ? "bg-white" : "bg-black"
+  }`}
+>
         {/* LEFT SIDE */}
         <div className="w-full lg:w-1/2 order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left z-10">
           <h1
@@ -44,7 +44,11 @@ export default function Hero({ data, locale }: HeroProps) {
             {get("hero_title3")}
           </h1>
 
-          <p className={`text-lg mt-6 max-w-lg ${isLight ? "text-black" : "text-white"}`}>
+          <p
+            className={`text-lg mt-6 max-w-lg ${
+              isLight ? "text-black" : "text-white"
+            }`}
+          >
             {get("hero_description")}
           </p>
 
@@ -87,13 +91,13 @@ export default function Hero({ data, locale }: HeroProps) {
         </div>
 
         {/* DESKTOP IMAGE */}
-        <div className="hidden lg:block w-full h-full absolute bottom-0 right-0 z-0">
+        <div className="hidden lg:block w-full h-full absolute bottom-0 right-0 z-0 pointer-events-none select-none">
           <Image
             src={heroImage}
             alt="Hero Image"
             width={800}
             height={900}
-            className="absolute bottom-[-4rem] xl:bottom-0 right-[-6rem] object-contain scale-[1.25] xl:scale-[1.1] 2xl:scale-[1.2] lg:scale-[0.8] pointer-events-none select-none"
+            className="absolute right-[-6rem] object-contain scale-[1.25] xl:scale-[1.1] 2xl:scale-[1.2] lg:scale-[0.8] mt-[6rem] xl:mt-0 bottom-auto xl:bottom-0"
             priority
           />
         </div>

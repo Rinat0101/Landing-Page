@@ -35,22 +35,22 @@ export default function AboutSection() {
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <AboutCard
-            icon="icons_school/hammer.svg"
+            icon="/images/icons_school/hammer.svg"
             title={t("school.about.cards.0.title")}
             description={t("school.about.cards.0.description")}
           />
           <AboutCard
-            icon="icons_school/certificate.svg"
+            icon="/images/icons_school/certificate.svg"
             title={t("school.about.cards.1.title")}
             description={t("school.about.cards.1.description")}
           />
           <AboutCard
-            icon="icons_school/confidence.svg"
+            icon="/images/icons_school/confidence.svg"
             title={t("school.about.cards.2.title")}
             description={t("school.about.cards.2.description")}
           />
           <AboutCard
-            icon="icons_school/ways.svg"
+            icon="/images/icons_school/ways.svg"
             title={t("school.about.cards.3.title")}
             description={t("school.about.cards.3.description")}
           />

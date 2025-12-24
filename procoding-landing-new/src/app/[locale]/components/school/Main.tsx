@@ -80,12 +80,12 @@ export default function SchoolHero() {
 
       {/* IMAGE on right side for lg+ screens */}
       <div className="hidden lg:flex w-full lg:w-1/2 justify-end">
-        <div className="w-full max-w-[800px] aspect-[4/3] relative">
+        <div className="w-full max-w-[800px] aspect-[4/3] relative overflow-hidden rounded-xl">
           <Image
-            src="/images/school/Main.webp"
+            src="/images/school/Main.jpg"
             alt="ProCoding School Main Illustration"
             fill
-            className="rounded-xl object-contain"
+            className="object-cover"
             priority
             sizes="(max-width: 1200px) 50vw, 800px"
           />
