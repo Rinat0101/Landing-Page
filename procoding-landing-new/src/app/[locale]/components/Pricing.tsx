@@ -121,9 +121,6 @@ export default function PricingSection({
             }`}
           >
             <div>
-              <p className="uppercase text-sm font-bold text-center text-red-600 mb-3 tracking-wider">
-                🔥 Black Friday Special
-              </p>
 
               <h3 className="text-xl sm:text-2xl font-bold mb-4 text-center">
                 {t("pricing_joinnow")}

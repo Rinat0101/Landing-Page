@@ -6,29 +6,38 @@ type Props = {
 };
 
 export default function SyllabusModal({ onClose }: Props) {
-  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // 🟢 New flag
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSubmitting) return; // 🔒 Prevent double-click spam
+    if (isSubmitting) return;
 
-    setIsSubmitting(true); // ⏳ Start submitting
+    setIsSubmitting(true);
+
     try {
       await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...formData,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone, // ✅ added
           type: "syllabus",
         }),
       });
+
       setSubmitted(true);
     } catch (error) {
       console.error("Failed to send syllabus form", error);
     } finally {
-      setIsSubmitting(false); // ✅ Reset
+      setIsSubmitting(false);
     }
   };
 
@@ -53,6 +62,7 @@ export default function SyllabusModal({ onClose }: Props) {
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Name */}
               <input
                 type="text"
                 required
@@ -63,6 +73,8 @@ export default function SyllabusModal({ onClose }: Props) {
                 }
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent"
               />
+
+              {/* Email */}
               <input
                 type="email"
                 required
@@ -73,6 +85,18 @@ export default function SyllabusModal({ onClose }: Props) {
                 }
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent"
               />
+
+              {/* Phone */}
+              <input
+                type="tel"
+                placeholder="Your phone"
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-transparent"
+              />
+
               <button
                 type="submit"
                 disabled={isSubmitting}

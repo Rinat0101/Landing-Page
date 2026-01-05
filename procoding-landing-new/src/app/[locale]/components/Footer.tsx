@@ -124,10 +124,10 @@ export default function Footer({ data, locale }: Props) {
             <Image src="/images/email_icon.svg" alt="Email" width={20} height={20} className={isDark ? "" : "invert"} />
             <span>{t("footer_contact_email") || "apply@procoding.com"}</span>
           </div>
-          {/* <div className={`flex items-center gap-2 text-sm mb-2 ${isDark ? "text-white/70" : "text-black/70"}`}>
+          <div className={`flex items-center gap-2 text-sm mb-2 ${isDark ? "text-white/70" : "text-black/70"}`}>
             <Image src="/images/phone.svg" alt="Phone" width={20} height={20} className={isDark ? "" : "invert"} />
-            <span>{t("footer_contact_telegram") || "+1 404-620-2426"}</span>
-          </div> */}
+            <span>+1 404-620-2426</span>
+          </div>
         </div>
 
         {/* Newsletter */}

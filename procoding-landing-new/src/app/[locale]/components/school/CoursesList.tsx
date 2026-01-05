@@ -17,70 +17,34 @@ export default function CoursesList({ courses, locale }: Props) {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const isLight = theme === "light";
+  const isEn = locale === "en";
 
   const textColor = isLight ? "text-black" : "text-white";
   const bgColor = isLight ? "bg-white" : "bg-black";
 
-  // 🧠 Transform WP courses into CourseCard data
   const wpCourses = courses.map((course) => {
     const acf = course.acf ?? {};
 
-    // Collect up to 6 advantages
+    // Get localized advantages
     const features = [
-      acf.advantage1,
-      acf.advantage2,
-      acf.advantage3,
-      acf.advantage4,
-      acf.advantage5,
-      acf.advantage6,
+      isEn ? acf.advantage1_en : acf.advantage1_ru,
+      isEn ? acf.advantage2_en : acf.advantage2_ru,
+      isEn ? acf.advantage3_en : acf.advantage3_ru,
+      isEn ? acf.advantage4_en : acf.advantage4_ru,
+      isEn ? acf.advantage5_en : acf.advantage5_ru,
     ].filter(Boolean);
 
     return {
-      title: course.title?.rendered ?? t("school.courses.items.0.title"),
-      description: acf.course_description ?? t("school.courses.items.0.description"),
-      duration: acf.duration ?? t("school.courses.items.0.duration"),
-      features:
-        features.length > 0
-          ? features
-          : [
-              t("school.courses.items.0.features.first"),
-              t("school.courses.items.0.features.second"),
-            ],
-      cta: t("school.courses.items.0.cta"),
+      title: course.title?.rendered ?? "",
+      description:
+        (isEn ? acf.course_description_en : acf.course_description_ru) ?? "",
+      duration: (isEn ? acf.duration_en : acf.duration_ru) ?? "",
+      features,
+      cta: t("school.courses.items.0.cta"), // Or make this dynamic if needed
       image: acf.course_card_image || "/images/school/Course_cover_1.webp",
       link: `/${locale}/courses/${course.slug}`,
     };
   });
-
-  // 🧱 Static placeholders
-  const staticCourses = [
-    {
-      title: t("school.courses.items.1.title"),
-      description: t("school.courses.items.1.description"),
-      duration: t("school.courses.items.1.duration"),
-      features: [
-        t("school.courses.items.1.features.first"),
-        t("school.courses.items.1.features.second"),
-      ],
-      cta: t("school.courses.items.1.cta"),
-      image: "/images/school/Course_cover_2.webp",
-      link: "#",
-    },
-    {
-      title: t("school.courses.items.2.title"),
-      description: t("school.courses.items.2.description"),
-      duration: t("school.courses.items.2.duration"),
-      features: [
-        t("school.courses.items.2.features.first"),
-        t("school.courses.items.2.features.second"),
-      ],
-      cta: t("school.courses.items.2.cta"),
-      image: "/images/school/Course_cover_3.webp",
-      link: "#",
-    },
-  ];
-
-  const mixedCourses = [...wpCourses, ...staticCourses];
 
   return (
     <section className={`py-16 px-6 ${bgColor}`} aria-label="Courses Section">
@@ -97,7 +61,7 @@ export default function CoursesList({ courses, locale }: Props) {
 
         {/* Grid view for desktop */}
         <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {mixedCourses.map((course, index) => (
+          {wpCourses.map((course, index) => (
             <CourseCard
               key={index}
               title={course.title}
@@ -120,7 +84,7 @@ export default function CoursesList({ courses, locale }: Props) {
             pagination={{ clickable: true }}
             className="!pb-12"
           >
-            {mixedCourses.map((course, index) => (
+            {wpCourses.map((course, index) => (
               <SwiperSlide key={index}>
                 <div className="w-[90%] sm:w-[80%] md:w-[70%] mx-auto">
                   <CourseCard
