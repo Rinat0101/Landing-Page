@@ -28,7 +28,7 @@ export default function SyllabusModal({ onClose }: Props) {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: formData.phone, // ✅ added
+          phone: formData.phone,
           type: "syllabus",
         }),
       });

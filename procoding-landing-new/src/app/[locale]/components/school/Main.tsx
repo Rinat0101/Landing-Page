@@ -22,19 +22,19 @@ export default function SchoolHero() {
         isLight ? "bg-white" : "bg-black"
       }`}
     >
-      {/* IMAGE on top for mobile and md screens */}
-      <div className="w-full flex justify-center mb-8 lg:hidden">
-        <div className="w-full max-w-[460px] md:max-w-[600px] aspect-[4/3] relative">
-          <Image
-            src="/images/school/Main.webp"
-            alt="ProCoding School Main Illustration"
-            fill
-            className="rounded-xl object-contain"
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 800px"
-          />
-        </div>
-      </div>
+     {/* IMAGE on top for mobile and md screens */}
+<div className="w-full flex justify-center mb-8 lg:hidden">
+  <div className="w-full max-w-[460px] md:max-w-[600px] aspect-[4/3] relative overflow-hidden rounded-xl">
+    <Image
+      src="/images/school/Main.jpg"
+      alt="ProCoding School Main Illustration"
+      fill
+      className="object-cover" // ✅ this line changed
+      priority
+      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 800px"
+    />
+  </div>
+</div>
 
       {/* LEFT SIDE (Text + Buttons) */}
       <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-10">

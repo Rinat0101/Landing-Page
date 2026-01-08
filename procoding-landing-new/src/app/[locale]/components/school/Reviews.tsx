@@ -47,26 +47,25 @@ export default function StudentReviews() {
   const { theme } = useTheme();
   const isLight = theme === "light";
   const [active, setActive] = useState(0);
-
   const student = students[active];
 
   return (
     <section
-      className={`py-20 px-6 transition-all duration-300 ${
+      className={`py-16 px-4 sm:px-6 md:px-10 transition-all duration-300 ${
         isLight ? "bg-white text-black" : "bg-black text-white"
       }`}
     >
-      <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-16">
+      <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
 
         {/* LEFT SIDE — Title + Avatars */}
-        <div className="flex-1 max-w-[480px] text-center lg:text-left">
+        <div className="flex-1 max-w-[480px] text-center lg:text-left w-full">
           <h2 className="text-3xl sm:text-4xl font-bold mb-2">
             {t("school.reviews.heading")}
           </h2>
-          <p className="mb-6">{t("school.reviews.subheading")}</p>
+          <p className="mb-6 text-sm sm:text-base">{t("school.reviews.subheading")}</p>
 
           {/* Desktop avatars */}
-          <div className="hidden lg:flex justify-start items-end gap-4 mt-[10px]">
+          <div className="hidden lg:flex justify-start items-end gap-4 mt-4 flex-wrap">
             {students.map((s, index) => {
               const isActive = index === active;
               return (
@@ -96,11 +95,11 @@ export default function StudentReviews() {
           </div>
 
           {/* Mobile Swiper */}
-          <div className="block lg:hidden mt-6 relative">
+          <div className="block lg:hidden mt-6 relative w-full">
             <Swiper
               modules={[Pagination]}
               slidesPerView={3}
-              spaceBetween={8}
+              spaceBetween={12}
               pagination={{ clickable: true }}
               className="!pb-10"
             >
@@ -137,9 +136,9 @@ export default function StudentReviews() {
 
         {/* RIGHT SIDE — Review Content */}
         <div className="flex-1 max-w-[480px] w-full">
-          <div className="flex flex-col sm:flex-row items-center gap-10 text-left">
+          <div className="flex flex-col sm:flex-row items-center gap-8 sm:gap-10 text-left">
 
-            {/* MAIN IMAGE with pill shape */}
+            {/* MAIN IMAGE — Pill shape */}
             <div className="shrink-0 w-[210px] aspect-[3/5] overflow-hidden rounded-[120px]">
               <Image
                 src={student.image}
@@ -150,19 +149,14 @@ export default function StudentReviews() {
               />
             </div>
 
-            {/* Text */}
-            <div className="self-center text-center sm:text-left">
+            {/* TEXT */}
+            <div className="self-center text-center sm:text-left max-w-full">
               <h3 className="text-xl font-bold mb-3">{t(student.nameKey)}</h3>
-
-              {/* Removed titleKey */}
-              {/* Removed CTA button */}
-
               <p className="text-sm leading-relaxed">{t(student.textKey)}</p>
             </div>
 
           </div>
         </div>
-
       </div>
     </section>
   );
