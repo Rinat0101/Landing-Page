@@ -130,14 +130,14 @@ export default function PricingSection({
               <div className="flex flex-col items-center gap-2 mb-4">
                 <div className="flex items-center gap-2">
                   <p className="text-2xl sm:text-3xl line-through opacity-60">
-                    $6,580
+                  {t("pricing_before")}
                   </p>
                   <span className="text-xs sm:text-sm font-semibold bg-red-500 text-white px-2 py-1 rounded-md">
-                    -50%
+                  {t("pricing_discount")}
                   </span>
                 </div>
                 <p className="text-4xl sm:text-5xl font-bold text-[#D726B3]">
-                  $3,290
+                {t("pricing_after")}
                 </p>
               </div>
 
